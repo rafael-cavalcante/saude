@@ -10,8 +10,9 @@ import br.com.projeto.saude.repository.RepositoryTelefone;
 import java.util.List;
 
 /**
- *
- * @author tecin
+ * Classe responsável por solicita as operações com o objeto telefone.
+ * 
+ * @author Rafael Cavalcante
  */
 public class ControllerTelefone {
     

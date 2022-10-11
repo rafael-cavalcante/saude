@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author tecin
+ * Classe responsável por realizar as operações com a tabela telefone.
+ * 
+ * @author Rafael Cavalcante
  */
 public class RepositoryTelefone {
     

@@ -2,36 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.projeto.saude.tela.paciente;
+package br.com.projeto.saude.tela.telefone;
 
-import br.com.projeto.saude.model.Paciente;
-import br.com.projeto.saude.tela.consulta.SolicitarConsulta;
-import br.com.projeto.saude.tela.telefone.CadastrarTelefone;
+import br.com.projeto.saude.configuracao.estilo.Cor;
+import br.com.projeto.saude.controller.ControllerTelefone;
+import br.com.projeto.saude.model.Pessoa;
+import br.com.projeto.saude.model.Telefone;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author tecin
  */
-public class MainPaciente extends javax.swing.JFrame {
+public class CadastrarTelefone extends javax.swing.JFrame {
 
-    private SolicitarConsulta solicitarConsulta;
-    private AtualizarPaciente atualizarPaciente;
-    private CadastrarTelefone cadastrarTelefone;
-    private Paciente paciente;
-    
+    private ControllerTelefone controllerTelefone;
+    private Pessoa pessoa;
+
     /**
-     * Creates new form MainPaciente
+     * Creates new form CadastrarTelefone
      */
-    public MainPaciente() {
+    public CadastrarTelefone() {
         initComponents();
     }
-    
-    public MainPaciente(Paciente paciente){
+
+    public CadastrarTelefone(Pessoa pessoa) {
         initComponents();
-        this.solicitarConsulta = new SolicitarConsulta(paciente);
-        this.atualizarPaciente = new AtualizarPaciente(paciente);
-        this.cadastrarTelefone = new CadastrarTelefone(paciente);
-        this.paciente = paciente;
+        initControllers();
+        this.pessoa = pessoa;
+        carregarPessoa();
     }
 
     /**
@@ -45,17 +44,19 @@ public class MainPaciente extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        bt_atualizarPaciente = new javax.swing.JButton();
-        bt_solicitarConsulta = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        tf_cpf = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        ftf_telefone = new javax.swing.JFormattedTextField();
         bt_cadastrarTelefone = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("ÁREA DO PACIENTE");
+        jLabel7.setText("CADASTRAR TELEFONE");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,7 +65,7 @@ public class MainPaciente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,21 +75,19 @@ public class MainPaciente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        bt_atualizarPaciente.setText("ATUALIZAR PACIENTE");
-        bt_atualizarPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_atualizarPacienteActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("CPF");
 
-        bt_solicitarConsulta.setText("SOLICITAR CONSULTA");
-        bt_solicitarConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_solicitarConsultaActionPerformed(evt);
-            }
-        });
+        tf_cpf.setEditable(false);
 
-        bt_cadastrarTelefone.setText("CADASTRAR TELEFONE");
+        jLabel2.setText("TELEFONE");
+
+        try {
+            ftf_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        bt_cadastrarTelefone.setText("CADASTRAR");
         bt_cadastrarTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_cadastrarTelefoneActionPerformed(evt);
@@ -101,50 +100,65 @@ public class MainPaciente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(ftf_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ftf_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 149, Short.MAX_VALUE))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_solicitarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_solicitarConsultaActionPerformed
-        if(!this.solicitarConsulta.isActive()){
-            this.solicitarConsulta.setVisible(true);
-        }   
-    }//GEN-LAST:event_bt_solicitarConsultaActionPerformed
-
-    private void bt_atualizarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarPacienteActionPerformed
-        if(!this.atualizarPaciente.isActive()){
-            this.atualizarPaciente.setVisible(true);
-        }
-    }//GEN-LAST:event_bt_atualizarPacienteActionPerformed
-
     private void bt_cadastrarTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarTelefoneActionPerformed
-        if(!this.cadastrarTelefone.isActive()){
-            this.cadastrarTelefone.setVisible(true);
-        }
+        cadastrarTelefone();
     }//GEN-LAST:event_bt_cadastrarTelefoneActionPerformed
 
+    private void cadastrarTelefone() {
+        try {
+            Telefone telefone = new Telefone(
+                    ftf_telefone.getText()
+            );
+            
+            this.controllerTelefone.cadastrar(telefone, this.pessoa);
+            
+            JOptionPane.showMessageDialog(null, "TELEFONE CADASTRADO COM SUCESSO");
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(Cor.AMARELO + numberFormatException.getMessage());
+        }
+    }
+    
+    private void initControllers(){
+        this.controllerTelefone = new ControllerTelefone();
+    }
+
+    private void carregarPessoa(){
+        tf_cpf.setText(this.pessoa.getCpf());
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -162,29 +176,31 @@ public class MainPaciente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarTelefone.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarTelefone.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarTelefone.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarTelefone.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainPaciente().setVisible(true);
+                new CadastrarTelefone().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_atualizarPaciente;
     private javax.swing.JButton bt_cadastrarTelefone;
-    private javax.swing.JButton bt_solicitarConsulta;
+    private javax.swing.JFormattedTextField ftf_telefone;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField tf_cpf;
     // End of variables declaration//GEN-END:variables
 }

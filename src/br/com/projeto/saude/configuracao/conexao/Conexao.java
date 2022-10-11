@@ -4,13 +4,15 @@
  */
 package br.com.projeto.saude.configuracao.conexao;
 
+import br.com.projeto.saude.configuracao.estilo.Cor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
+ * Classe responsável por realizar e finalizar a conexão com o banco de dados.
  *
- * @author tecin
+ * @author Rafael Cavalcante
  */
 public class Conexao {
 
@@ -27,8 +29,10 @@ public class Conexao {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
             return connection;
-        } catch (ClassNotFoundException | SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (ClassNotFoundException classNotFoundException) {
+            System.out.println(Cor.ROXO + classNotFoundException.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO + sQLException.getMessage());
         }
         return null;
     }
@@ -39,8 +43,8 @@ public class Conexao {
                 connection.close();
                 connection = null;
             }
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO + sQLException.getMessage());
         }
     }
 }
