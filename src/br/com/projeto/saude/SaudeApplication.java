@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.projeto.saude.tela;
+package br.com.projeto.saude;
 
 import br.com.projeto.saude.configuracao.Configuracao;
 import br.com.projeto.saude.tela.administrador.LoginAdministrador;
@@ -11,12 +11,17 @@ import br.com.projeto.saude.tela.paciente.CadastrarPaciente;
 import br.com.projeto.saude.tela.paciente.LoginPaciente;
 import br.com.projeto.saude.tela.tecnico.LoginTecnico;
 
-
 /**
  *
  * @author tecin
  */
 public class SaudeApplication extends javax.swing.JFrame {
+
+    private final LoginAdministrador loginAdministrador;
+    private final LoginTecnico loginTecnico;
+    private final LoginMedico loginMedico;
+    private final LoginPaciente loginPaciente;
+    private final CadastrarPaciente cadastrarPaciente;
 
     /**
      * Creates new form SaudeApplication
@@ -24,6 +29,11 @@ public class SaudeApplication extends javax.swing.JFrame {
     public SaudeApplication() {
         initComponents();
         Configuracao.iniciar();
+        this.loginAdministrador = new LoginAdministrador();
+        this.loginTecnico = new LoginTecnico();
+        this.loginMedico = new LoginMedico();
+        this.loginPaciente = new LoginPaciente();
+        this.cadastrarPaciente = new CadastrarPaciente();
     }
 
     /**
@@ -51,7 +61,7 @@ public class SaudeApplication extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("SISTEMA SAUDE+ v0.1.8");
+        jLabel7.setText("SISTEMA SAUDE+ v0.2.2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,62 +121,71 @@ public class SaudeApplication extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(bt_administrador)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(bt_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(bt_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_tecnico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt_medico)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bt_tecnico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bt_loginPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(bt_loginPaciente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt_cadastrarPaciente)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_cadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_administrador)
-                    .addComponent(bt_tecnico)
-                    .addComponent(bt_medico))
+                    .addComponent(bt_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_loginPaciente)
-                    .addComponent(bt_cadastrarPaciente))
-                .addGap(0, 122, Short.MAX_VALUE))
+                    .addComponent(bt_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_loginPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(bt_cadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_administradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_administradorActionPerformed
-        LoginAdministrador loginAdministrador = new LoginAdministrador();
-        loginAdministrador.setVisible(true);
+        if (!this.loginAdministrador.isActive()) {
+            this.loginAdministrador.setVisible(true);
+        }
     }//GEN-LAST:event_bt_administradorActionPerformed
 
     private void bt_tecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_tecnicoActionPerformed
-        LoginTecnico loginTecnico = new LoginTecnico();
-        loginTecnico.setVisible(true);
+        if (!this.loginTecnico.isActive()) {
+            this.loginTecnico.setVisible(true);
+        }
     }//GEN-LAST:event_bt_tecnicoActionPerformed
 
     private void bt_medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_medicoActionPerformed
-        LoginMedico loginMedico = new LoginMedico();
-        loginMedico.setVisible(true);
+        if (!this.loginMedico.isActive()) {
+            this.loginMedico.setVisible(true);
+        }
     }//GEN-LAST:event_bt_medicoActionPerformed
 
     private void bt_loginPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginPacienteActionPerformed
-        LoginPaciente loginPaciente = new LoginPaciente();
-        loginPaciente.setVisible(true);
+        if (!this.loginPaciente.isActive()) {
+            this.loginPaciente.setVisible(true);
+        }
     }//GEN-LAST:event_bt_loginPacienteActionPerformed
 
     private void bt_cadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarPacienteActionPerformed
-        CadastrarPaciente cadastrarPaciente = new CadastrarPaciente();
-        cadastrarPaciente.setVisible(true);
+        if (!this.cadastrarPaciente.isActive()) {
+            this.cadastrarPaciente.setVisible(true);
+        }
     }//GEN-LAST:event_bt_cadastrarPacienteActionPerformed
 
     /**

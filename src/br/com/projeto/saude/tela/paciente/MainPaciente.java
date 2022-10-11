@@ -13,6 +13,8 @@ import br.com.projeto.saude.tela.consulta.SolicitarConsulta;
  */
 public class MainPaciente extends javax.swing.JFrame {
 
+    private SolicitarConsulta solicitarConsulta;
+    private AtualizarPaciente atualizarPaciente;
     private Paciente paciente;
     
     /**
@@ -24,6 +26,8 @@ public class MainPaciente extends javax.swing.JFrame {
     
     public MainPaciente(Paciente paciente){
         initComponents();
+        this.solicitarConsulta = new SolicitarConsulta(paciente);
+        this.atualizarPaciente = new AtualizarPaciente(paciente);
         this.paciente = paciente;
     }
 
@@ -56,7 +60,7 @@ public class MainPaciente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,34 +90,36 @@ public class MainPaciente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(bt_atualizarPaciente)
-                .addGap(26, 26, 26)
-                .addComponent(bt_solicitarConsulta)
+                .addContainerGap()
+                .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_atualizarPaciente)
-                    .addComponent(bt_solicitarConsulta))
-                .addGap(0, 188, Short.MAX_VALUE))
+                    .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 197, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_solicitarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_solicitarConsultaActionPerformed
-        SolicitarConsulta solicitarConsulta = new SolicitarConsulta(this.paciente);
-        solicitarConsulta.setVisible(true);
+        if(!this.solicitarConsulta.isActive()){
+            this.solicitarConsulta.setVisible(true);
+        }   
     }//GEN-LAST:event_bt_solicitarConsultaActionPerformed
 
     private void bt_atualizarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarPacienteActionPerformed
-        AtualizarPaciente atualizarPaciente = new AtualizarPaciente(this.paciente);
-        atualizarPaciente.setVisible(true);
+        if(!this.atualizarPaciente.isActive()){
+            this.atualizarPaciente.setVisible(true);
+        }
     }//GEN-LAST:event_bt_atualizarPacienteActionPerformed
 
     /**

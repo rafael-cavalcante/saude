@@ -4,10 +4,10 @@
  */
 package br.com.projeto.saude.tela.paciente;
 
-import br.com.projeto.saude.tela.medico.*;
+import br.com.projeto.saude.configuracao.estilo.Cor;
 import br.com.projeto.saude.controller.ControllerPaciente;
-import br.com.projeto.saude.model.Medico;
 import br.com.projeto.saude.model.Paciente;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -90,21 +90,22 @@ public class LoginPaciente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(32, 32, 32)
-                        .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(32, 32, 32)
+                                .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(pf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(pf_senha)))
-                .addContainerGap(221, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_login)
-                .addGap(165, 165, 165))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,14 +120,18 @@ public class LoginPaciente extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(pf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(bt_login)
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addComponent(bt_login, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
+        loginPaciente();
+    }//GEN-LAST:event_bt_loginActionPerformed
+
+    private void loginPaciente() {
         try {
             Paciente paciente = new Paciente(
                     tf_cpf.getText(),
@@ -140,11 +145,11 @@ public class LoginPaciente extends javax.swing.JFrame {
                 mainPaciente.setVisible(true);
                 dispose();
             }
-
-        } catch (Exception exception) {
-            System.out.println("NÃO FOI POSSÍVEL REALIZAR LOGIN PACIENTE");
+            JOptionPane.showMessageDialog(null, "PACIENTE NÃO ENCONTRADO");
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(Cor.VERMELHO + numberFormatException.getMessage());
         }
-    }//GEN-LAST:event_bt_loginActionPerformed
+    }
 
     /**
      * @param args the command line arguments

@@ -4,10 +4,10 @@
  */
 package br.com.projeto.saude.tela.administrador;
 
+import br.com.projeto.saude.configuracao.estilo.Cor;
 import br.com.projeto.saude.controller.ControllerAdministrador;
 import br.com.projeto.saude.model.Administrador;
-import br.com.projeto.saude.model.Endereco;
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,7 +42,7 @@ public class LoginAdministrador extends javax.swing.JFrame {
         pf_senha = new javax.swing.JPasswordField();
         bt_login = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -90,21 +90,21 @@ public class LoginAdministrador extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(32, 32, 32)
-                        .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(pf_senha)))
-                .addContainerGap(222, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_login)
-                .addGap(165, 165, 165))
+                        .addComponent(pf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,14 +119,18 @@ public class LoginAdministrador extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(pf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(bt_login)
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 7, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
+        loginAdministrador();
+    }//GEN-LAST:event_bt_loginActionPerformed
+
+    private void loginAdministrador() {
         try {
             Administrador administrador = new Administrador(
                     tf_cpf.getText(),
@@ -141,10 +145,18 @@ public class LoginAdministrador extends javax.swing.JFrame {
                 dispose();
             }
 
-        } catch (Exception exception) {
-            System.out.println("NÃO FOI POSSÍVEL REALIZAR LOGIN O ADMINISTRADOR");
+            limparCampos();
+
+            JOptionPane.showMessageDialog(null, "ADMINISTRADOR NÃO ENCONTRADO");
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(Cor.VERMELHO + numberFormatException.getMessage());
         }
-    }//GEN-LAST:event_bt_loginActionPerformed
+    }
+    
+    private void limparCampos(){
+        tf_cpf.setText("");
+        pf_senha.setText("");
+    }
 
     /**
      * @param args the command line arguments
@@ -171,7 +183,6 @@ public class LoginAdministrador extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LoginAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

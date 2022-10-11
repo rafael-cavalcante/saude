@@ -20,9 +20,11 @@ import java.util.List;
  */
 public class MainTecnico extends javax.swing.JFrame {
 
-    private ControllerPaciente controllerPaciente;
-    private ControllerConsulta controllerConsulta;
-    private Tecnico tecnico;
+    private final CadastrarMedico cadastrarMedico;
+    private final SolicitarConsultaEmergencia solicitarConsultaEmergencia;
+    private final AtualizarConsulta atualizarConsulta;
+    private final ControllerPaciente controllerPaciente;
+    private final ControllerConsulta controllerConsulta;
     private List<Paciente> pacientes;
     private List<Consulta> consultas;
     
@@ -31,13 +33,20 @@ public class MainTecnico extends javax.swing.JFrame {
      */
     public MainTecnico() {
         initComponents();
+        this.cadastrarMedico = new CadastrarMedico();
+        this.solicitarConsultaEmergencia = new SolicitarConsultaEmergencia();
+        this.atualizarConsulta = new AtualizarConsulta();
+        this.controllerPaciente = new ControllerPaciente();
+        this.controllerConsulta = new ControllerConsulta();
     }
     
     public MainTecnico(Tecnico tecnico){
         initComponents();
+        this.cadastrarMedico = new CadastrarMedico(tecnico);
+        this.solicitarConsultaEmergencia = new SolicitarConsultaEmergencia();
+        this.atualizarConsulta = new AtualizarConsulta();
         this.controllerPaciente = new ControllerPaciente();
         this.controllerConsulta = new ControllerConsulta();
-        this.tecnico = tecnico;
         listarPacientes();
     }
 
@@ -93,6 +102,7 @@ public class MainTecnico extends javax.swing.JFrame {
         });
 
         bt_solicitarConsultaEmergencia.setText("SOLICITAR CONSULTA EMERGENCIA");
+        bt_solicitarConsultaEmergencia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bt_solicitarConsultaEmergencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_solicitarConsultaEmergenciaActionPerformed(evt);
@@ -126,23 +136,22 @@ public class MainTecnico extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cb_paciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(cb_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1)
+                            .addComponent(cb_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(bt_cadastrarMedico)
-                        .addGap(18, 18, 18)
+                        .addComponent(bt_cadastrarMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bt_solicitarConsultaEmergencia))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(bt_atualizarConsulta)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addGap(124, 124, 124)
+                        .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(cb_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,53 +159,61 @@ public class MainTecnico extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_cadastrarMedico)
-                    .addComponent(bt_solicitarConsultaEmergencia))
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(bt_cadastrarMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_solicitarConsultaEmergencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addGap(5, 5, 5)
+                .addComponent(cb_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cb_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cb_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cb_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(bt_atualizarConsulta)
-                .addGap(0, 45, Short.MAX_VALUE))
+                .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_atualizarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarConsultaActionPerformed
-        AtualizarConsulta atualizarConsulta = new AtualizarConsulta(this.consultas.get(cb_consulta.getSelectedIndex()));
-        atualizarConsulta.setVisible(true);
+        if(!this.atualizarConsulta.isActive()){
+            this.atualizarConsulta.selecionarConsulta(this.consultas.get(cb_consulta.getSelectedIndex()));
+            this.atualizarConsulta.setVisible(true);
+        }
     }//GEN-LAST:event_bt_atualizarConsultaActionPerformed
 
     private void bt_cadastrarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarMedicoActionPerformed
-        CadastrarMedico cadastrarMedico = new CadastrarMedico(this.tecnico);
-        cadastrarMedico.setVisible(true);
+        if(!this.cadastrarMedico.isActive()){
+            this.cadastrarMedico.setVisible(true);
+        }
     }//GEN-LAST:event_bt_cadastrarMedicoActionPerformed
 
     private void bt_solicitarConsultaEmergenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_solicitarConsultaEmergenciaActionPerformed
-        SolicitarConsultaEmergencia solicitarConsultaEmergencia = new SolicitarConsultaEmergencia();
-        solicitarConsultaEmergencia.setVisible(true);
+        if(!this.solicitarConsultaEmergencia.isActive()){
+            this.solicitarConsultaEmergencia.setVisible(true);
+        }
     }//GEN-LAST:event_bt_solicitarConsultaEmergenciaActionPerformed
 
     private void cb_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_pacienteActionPerformed
-        cb_consulta.removeAllItems();
-        listarConsultas();
+        atualizarListaConsultas();
     }//GEN-LAST:event_cb_pacienteActionPerformed
 
+    private void atualizarListaConsultas(){
+        cb_consulta.removeAllItems();
+        listarConsultas();
+    }
+    
     private void listarPacientes(){
         this.pacientes = this.controllerPaciente.listar();
-        pacientes.stream()
+        this.pacientes.stream()
                 .forEach(paciente -> cb_paciente.addItem(paciente.getCpf()));
     }
     
     private void listarConsultas(){
         this.consultas = this.controllerConsulta.listar(this.pacientes.get(cb_paciente.getSelectedIndex()));
-        consultas.stream()
+        this.consultas.stream()
                 .forEach(consulta -> cb_consulta.addItem(consulta.getMedico().getCrm() + " - " + consulta.getDataRealizacao()));
     }
     

@@ -13,18 +13,20 @@ import br.com.projeto.saude.tela.tecnico.CadastrarTecnico;
  */
 public class MainAdministrador extends javax.swing.JFrame {
 
-    private Administrador administrador;
-    
+    private CadastrarAdministrador cadastrarAdministrador;
+    private CadastrarTecnico cadastrarTecnico;
+
     /**
      * Creates new form MainAdministrador
      */
     public MainAdministrador() {
         initComponents();
     }
-    
+
     public MainAdministrador(Administrador administrador) {
         initComponents();
-        this.administrador = administrador;
+        this.cadastrarAdministrador = new CadastrarAdministrador();
+        this.cadastrarTecnico = new CadastrarTecnico(administrador);
     }
 
     /**
@@ -56,7 +58,7 @@ public class MainAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,10 +89,10 @@ public class MainAdministrador extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bt_cadastrarAdministrador)
-                .addGap(18, 18, 18)
-                .addComponent(bt_cadastrarTecnico)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bt_cadastrarAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_cadastrarTecnico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,22 +100,24 @@ public class MainAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_cadastrarAdministrador)
-                    .addComponent(bt_cadastrarTecnico))
-                .addGap(0, 204, Short.MAX_VALUE))
+                    .addComponent(bt_cadastrarAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_cadastrarTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 207, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_cadastrarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarAdministradorActionPerformed
-        CadastrarAdministrador cadastrarAdministrador = new CadastrarAdministrador();
-        cadastrarAdministrador.setVisible(true);
+         if(!this.cadastrarAdministrador.isActive()){
+             this.cadastrarAdministrador.setVisible(true);
+         }
     }//GEN-LAST:event_bt_cadastrarAdministradorActionPerformed
 
     private void bt_cadastrarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarTecnicoActionPerformed
-        CadastrarTecnico cadastrarTecnico = new CadastrarTecnico(this.administrador);
-        cadastrarTecnico.setVisible(true);
+        if(!this.cadastrarTecnico.isActive()){
+            this.cadastrarTecnico.setVisible(true);
+        }
     }//GEN-LAST:event_bt_cadastrarTecnicoActionPerformed
 
     /**
