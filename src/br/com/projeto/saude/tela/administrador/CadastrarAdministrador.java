@@ -4,7 +4,7 @@
  */
 package br.com.projeto.saude.tela.administrador;
 
-import br.com.projeto.saude.configuracao.estilo.Cor;
+import br.com.projeto.saude.configuracao.estilo.Estilo;
 import br.com.projeto.saude.controller.ControllerAdministrador;
 import br.com.projeto.saude.model.Administrador;
 import br.com.projeto.saude.model.Endereco;
@@ -191,7 +191,7 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "ADMINISTRADOR CADASTRADO COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
         }
     }
 

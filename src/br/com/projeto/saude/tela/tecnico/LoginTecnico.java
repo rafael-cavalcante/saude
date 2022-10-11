@@ -4,7 +4,7 @@
  */
 package br.com.projeto.saude.tela.tecnico;
 
-import br.com.projeto.saude.configuracao.estilo.Cor;
+import br.com.projeto.saude.configuracao.estilo.Estilo;
 import br.com.projeto.saude.controller.ControllerTecnico;
 import br.com.projeto.saude.model.Tecnico;
 import javax.swing.JOptionPane;
@@ -143,11 +143,11 @@ public class LoginTecnico extends javax.swing.JFrame {
                 MainTecnico mainTecnico = new MainTecnico(tecnico);
                 mainTecnico.setVisible(true);
                 dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "TECNICO NÃO ENCONTRADO");
             }
-
-            JOptionPane.showMessageDialog(null, "TECNICO NÃO ENCONTRADO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
         }
     }
 

@@ -4,7 +4,7 @@
  */
 package br.com.projeto.saude.tela.consulta;
 
-import br.com.projeto.saude.configuracao.estilo.Cor;
+import br.com.projeto.saude.configuracao.estilo.Estilo;
 import br.com.projeto.saude.controller.ControllerConsulta;
 import br.com.projeto.saude.controller.ControllerMedico;
 import br.com.projeto.saude.model.Consulta;
@@ -189,7 +189,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(null, "CONSULTA SOLICITADA COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
         }
     }
     

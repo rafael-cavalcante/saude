@@ -4,7 +4,7 @@
  */
 package br.com.projeto.saude.tela.medico;
 
-import br.com.projeto.saude.configuracao.estilo.Cor;
+import br.com.projeto.saude.configuracao.estilo.Estilo;
 import br.com.projeto.saude.controller.ControllerMedico;
 import br.com.projeto.saude.model.Endereco;
 import br.com.projeto.saude.model.Medico;
@@ -239,7 +239,7 @@ public class CadastrarMedico extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(null, "MEDICO CADASTRADO COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
         }
     }
     

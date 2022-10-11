@@ -1,13 +1,26 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package br.com.projeto.saude.configuracao.estilo;
 
-public class Cor {
+/**
+ *
+ * @author Rafael Cavalcante
+ */
+public enum Cor {
+    AMARELO ("\u001B[33m"),
+    VERDE   ("\u001B[32m"),
+    VERMELHO("\u001B[31m"),
+    ROXO    ("\u001B[35m");
 
-    public static final String PRETO = "\u001B[30m";
-    public static final String VERMELHO = "\u001B[31m";
-    public static final String VERDE = "\u001B[32m";
-    public static final String AMARELO = "\u001B[33m";
-    public static final String AZUL = "\u001B[34m";
-    public static final String ROXO = "\u001B[35m";
-    public static final String CIANO = "\u001B[36m";
-    public static final String BRANCO = "\u001B[37m";
+    private final String cor;
+
+    Cor(String cor) {
+        this.cor = cor;
+    }
+
+    public String getCor() {
+        return this.cor;
+    }
 }

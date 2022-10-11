@@ -4,7 +4,7 @@
  */
 package br.com.projeto.saude.tela.medico;
 
-import br.com.projeto.saude.configuracao.estilo.Cor;
+import br.com.projeto.saude.configuracao.estilo.Estilo;
 import br.com.projeto.saude.controller.ControllerMedico;
 import br.com.projeto.saude.model.Medico;
 import javax.swing.JOptionPane;
@@ -141,11 +141,11 @@ public class LoginMedico extends javax.swing.JFrame {
                 MainMedico mainMedico = new MainMedico(medico);
                 mainMedico.setVisible(true);
                 dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "MEDICO NÃO ENCONTRADO");
             }
-            
-            JOptionPane.showMessageDialog(null, "MEDICO NÃO ENCONTRADO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
         }
     }
 

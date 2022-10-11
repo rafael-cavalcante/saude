@@ -4,7 +4,7 @@
  */
 package br.com.projeto.saude.tela.telefone;
 
-import br.com.projeto.saude.configuracao.estilo.Cor;
+import br.com.projeto.saude.configuracao.estilo.Estilo;
 import br.com.projeto.saude.controller.ControllerTelefone;
 import br.com.projeto.saude.model.Pessoa;
 import br.com.projeto.saude.model.Telefone;
@@ -147,7 +147,7 @@ public class CadastrarTelefone extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(null, "TELEFONE CADASTRADO COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO + numberFormatException.getMessage());
+            System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
         }
     }
     

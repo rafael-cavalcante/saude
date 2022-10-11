@@ -4,7 +4,7 @@
  */
 package br.com.projeto.saude.tela.consulta;
 
-import br.com.projeto.saude.configuracao.estilo.Cor;
+import br.com.projeto.saude.configuracao.estilo.Estilo;
 import br.com.projeto.saude.controller.ControllerConsulta;
 import br.com.projeto.saude.controller.ControllerMedico;
 import br.com.projeto.saude.controller.ControllerPaciente;
@@ -164,7 +164,7 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(null, "CONSULTA DE EMERGENCIA SOLICITADA COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
         }
     }
     

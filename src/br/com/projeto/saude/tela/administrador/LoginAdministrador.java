@@ -4,7 +4,7 @@
  */
 package br.com.projeto.saude.tela.administrador;
 
-import br.com.projeto.saude.configuracao.estilo.Cor;
+import br.com.projeto.saude.configuracao.estilo.Estilo;
 import br.com.projeto.saude.controller.ControllerAdministrador;
 import br.com.projeto.saude.model.Administrador;
 import javax.swing.JOptionPane;
@@ -143,17 +143,17 @@ public class LoginAdministrador extends javax.swing.JFrame {
                 MainAdministrador mainAdministrador = new MainAdministrador(administrador);
                 mainAdministrador.setVisible(true);
                 dispose();
+            } else {
+                limparCampos();
+
+                JOptionPane.showMessageDialog(null, "ADMINISTRADOR NÃO ENCONTRADO");
             }
-
-            limparCampos();
-
-            JOptionPane.showMessageDialog(null, "ADMINISTRADOR NÃO ENCONTRADO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
         }
     }
-    
-    private void limparCampos(){
+
+    private void limparCampos() {
         tf_cpf.setText("");
         pf_senha.setText("");
     }

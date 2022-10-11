@@ -5,28 +5,29 @@
 package br.com.projeto.saude.model;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
- * @author tecin
+ * @author Rafael Cavalcante
  */
 public class Pessoa {
 
-    private String cpf;
-    private String senha;
-    private String nome;
+    private String cpf = null; //000.000.000-00
+    private String senha = null; //123456
+    private String nome = null; //
     private Endereco endereco;
     private List<Telefone> telefones;
 
-    public Pessoa(){
-        
+    public Pessoa() {
+
     }
-    
-    public Pessoa(String cpf){
+
+    public Pessoa(String cpf) {
         this.cpf = cpf;
     }
-    
-    public Pessoa(String cpf, String senha){
+
+    public Pessoa(String cpf, String senha) {
         this.cpf = cpf;
         this.senha = senha;
     }
@@ -38,7 +39,7 @@ public class Pessoa {
         this.endereco = endereco;
         this.telefones = telefones;
     }
-    
+
     public String getCpf() {
         return cpf;
     }
@@ -77,5 +78,10 @@ public class Pessoa {
 
     public void setTelefones(List<Telefone> telefones) {
         this.telefones = telefones;
+    }
+
+    public boolean isValido() {
+        return (Objects.nonNull(this.cpf) && Objects.nonNull(this.senha));
+
     }
 }
