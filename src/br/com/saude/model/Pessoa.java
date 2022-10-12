@@ -13,9 +13,9 @@ import java.util.Objects;
  */
 public class Pessoa {
 
-    private String cpf = null; //000.000.000-00
-    private String senha = null; //123456
-    private String nome = null; //
+    private String cpf; //000.000.000-00
+    private String senha; //123456
+    private String nome; //
     private Endereco endereco;
     private List<Telefone> telefones;
 

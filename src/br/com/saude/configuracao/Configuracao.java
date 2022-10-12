@@ -24,7 +24,7 @@ public class Configuracao {
                 "Saude+", 
                 new Endereco(
                         "Projeto saude",
-                        1,
+                        0,
                         "Ufersa Saude"
                 ), 
                 new ArrayList<>()

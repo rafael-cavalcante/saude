@@ -13,8 +13,8 @@ import java.util.Objects;
  */
 public class Medico extends Pessoa {
 
-    private String crm = null; //CRM/RN 123456
-    private String especializacao = null; //PEDIATRA
+    private String crm; //CRM/RN 123456
+    private String especializacao; //PEDIATRA
 
     public Medico() {
 

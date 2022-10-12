@@ -44,10 +44,10 @@ public class MainTecnico extends javax.swing.JFrame {
         initComponents();
         this.cadastrarMedico = new CadastrarMedico(tecnico);
         this.solicitarConsultaEmergencia = new SolicitarConsultaEmergencia();
-        this.atualizarConsulta = new AtualizarConsulta();
         this.controllerPaciente = new ControllerPaciente();
         this.controllerConsulta = new ControllerConsulta();
         listarPacientes();
+        this.atualizarConsulta = new AtualizarConsulta();
     }
 
     /**
@@ -180,6 +180,7 @@ public class MainTecnico extends javax.swing.JFrame {
     private void bt_atualizarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarConsultaActionPerformed
         if(!this.atualizarConsulta.isActive()){
             this.atualizarConsulta.selecionarConsulta(this.consultas.get(cb_consulta.getSelectedIndex()));
+            this.atualizarConsulta.carregarConsulta();
             this.atualizarConsulta.setVisible(true);
         }
     }//GEN-LAST:event_bt_atualizarConsultaActionPerformed
@@ -215,6 +216,10 @@ public class MainTecnico extends javax.swing.JFrame {
         this.consultas = this.controllerConsulta.listar(this.pacientes.get(cb_paciente.getSelectedIndex()));
         this.consultas.stream()
                 .forEach(consulta -> cb_consulta.addItem(consulta.getMedico().getCrm() + " - " + consulta.getDataRealizacao()));
+    }
+    
+    private void consultaSelecionada(){
+        this.atualizarConsulta.selecionarConsulta(this.consultas.get(cb_consulta.getSelectedIndex()));
     }
     
     /**

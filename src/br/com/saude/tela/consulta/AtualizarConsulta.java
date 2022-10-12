@@ -26,7 +26,6 @@ public class AtualizarConsulta extends javax.swing.JFrame {
     public AtualizarConsulta() {
         initComponents();
         this.controllerConsulta = new ControllerConsulta();
-        carregarConsulta();
     }
 
     /**
@@ -217,9 +216,10 @@ public class AtualizarConsulta extends javax.swing.JFrame {
                     this.consulta.getLaudo(),
                     LocalDate.parse(tf_dataRealizacao.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tf_status.getText(),
-                    Integer.parseInt(tf_prioridade.getText()),
+                    Integer.parseInt(tf_pressao.getText()),
                     Double.parseDouble(tf_peso.getText()),
-                    Integer.parseInt(tf_pressao.getText())
+                    Integer.parseInt(tf_prioridade.getText())
+                    
             );
 
             this.controllerConsulta.alterar(consultaAtualizada);
@@ -230,7 +230,7 @@ public class AtualizarConsulta extends javax.swing.JFrame {
         }
     }
     
-    private void carregarConsulta() {
+    public void carregarConsulta() {
         tf_paciente.setText(this.consulta.getPaciente().getCpf());
         tf_medico.setText(this.consulta.getMedico().getCrm());
         tf_laudo.setText(this.consulta.getLaudo().getCodigo() + "");
