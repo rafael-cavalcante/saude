@@ -61,7 +61,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tf_laudo" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="tf_prontuario" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
                                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -96,7 +96,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="tf_paciente" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tf_laudo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tf_prontuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tf_medico" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tf_status" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -180,10 +180,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="LAUDO"/>
+        <Property name="text" type="java.lang.String" value="PRONTUARIO"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tf_laudo">
+    <Component class="javax.swing.JTextField" name="tf_prontuario">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>

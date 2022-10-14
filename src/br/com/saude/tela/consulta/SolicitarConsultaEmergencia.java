@@ -9,9 +9,11 @@ import br.com.saude.controller.ControllerConsulta;
 import br.com.saude.controller.ControllerMedico;
 import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Consulta;
-import br.com.saude.model.Laudo;
 import br.com.saude.model.Medico;
 import br.com.saude.model.Paciente;
+import br.com.saude.model.Prontuario;
+import br.com.saude.service.CPFService;
+import br.com.saude.service.NumericoService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -155,7 +157,7 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
             Consulta consulta = new Consulta(
                     this.pacientes.get(cb_paciente.getSelectedIndex()),
                     this.medicos.get(cb_medico.getSelectedIndex()),
-                    new Laudo(Integer.parseInt(tf_laudo.getText()), LocalDate.now()),
+                    new Prontuario(NumericoService.formatarLong(tf_laudo.getText()), LocalDate.now()),
                     LocalDate.now(),
                     "EMERGÊNCIA"
             );
@@ -171,7 +173,7 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
     private void listarPacientes() {
         this.pacientes = this.controllerPaciente.listar();
         pacientes.stream()
-                .forEach(paciente -> cb_paciente.addItem(paciente.getCpf()));
+                .forEach(paciente -> cb_paciente.addItem(CPFService.formatar(paciente.getCpf())));
     }
 
     private void listarMedicos() {

@@ -5,7 +5,7 @@
 package br.com.saude.repository;
 
 import br.com.saude.configuracao.conexao.Conexao;
-import br.com.saude.model.Endereco;
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.model.Medico;
 import br.com.saude.model.Tecnico;
 import java.sql.PreparedStatement;
@@ -28,40 +28,35 @@ public class RepositoryMedico {
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
             preparedStatement.setString(1, medico.getCrm());
-            preparedStatement.setString(2, medico.getCpf());
-            preparedStatement.setString(3, tecnico.getCpf());
+            preparedStatement.setLong(2, medico.getCpf());
+            preparedStatement.setLong(3, tecnico.getCpf());
             preparedStatement.setString(4, medico.getEspecializacao());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
     }
-    
-    public List<Medico> buscar(){
+
+    public List<Medico> buscar() {
         try {
             ArrayList<Medico> medicos = new ArrayList<>();
-            
-            String query = "SELECT crm, nome FROM POSTINHO.PESSOA, POSTINHO.MEDICO "
-                    + "WHERE cpf_pessoa = cpf;";
+
+            String query = "SELECT crm FROM POSTINHO.MEDICO;";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Medico medico = new Medico();
-                medico.setCrm(resultSet.getString("crm"));
-                medico.setNome(resultSet.getString("nome"));
-                
-                medicos.add(medico);
+                medicos.add(new Medico(resultSet.getString("crm")));
             }
-            
+
             return medicos;
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -82,29 +77,27 @@ public class RepositoryMedico {
 
             if (resultSet.next()) {
                 Medico medicoLogado = new Medico(
-                        resultSet.getString("cpf"),
+                        resultSet.getLong("cpf"),
                         resultSet.getString("senha"),
                         resultSet.getString("nome"),
-                        new Endereco(
-                                resultSet.getString("rua"),
-                                resultSet.getInt("numero"),
-                                resultSet.getString("bairro")
-                        ),
+                        resultSet.getString("rua"),
+                        resultSet.getLong("numero"),
+                        resultSet.getString("bairro"),
                         new ArrayList<>(),
                         resultSet.getString("crm"),
                         resultSet.getString("especializacao")
                 );
                 return medicoLogado;
             }
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
         return null;
     }
-    
-    public boolean existe(Medico medico){
+
+    public boolean existe(Medico medico) {
         try {
             String query = "SELECT crm FROM POSTINHO.MEDICO "
                     + "WHERE crm = ?;";
@@ -118,8 +111,8 @@ public class RepositoryMedico {
             if (resultSet.next()) {
                 return true;
             }
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }

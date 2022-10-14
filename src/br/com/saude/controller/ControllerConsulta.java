@@ -7,7 +7,7 @@ package br.com.saude.controller;
 import br.com.saude.model.Consulta;
 import br.com.saude.model.Paciente;
 import br.com.saude.repository.RepositoryConsulta;
-import br.com.saude.repository.RepositoryLaudo;
+import br.com.saude.repository.RepositoryProntuario;
 import java.util.List;
 
 /**
@@ -17,16 +17,16 @@ import java.util.List;
 public class ControllerConsulta {
     
     private final RepositoryConsulta repositoryConsulta;
-    private final RepositoryLaudo repositoryLaudo;
+    private final RepositoryProntuario repositoryProntuario;
     
     public ControllerConsulta(){
         this.repositoryConsulta = new RepositoryConsulta();
-        this.repositoryLaudo = new RepositoryLaudo();
+        this.repositoryProntuario = new RepositoryProntuario();
     }
     
     public void solicitar(Consulta consulta){
         if(!this.repositoryConsulta.existe(consulta)){
-            this.repositoryLaudo.adicionar(consulta.getLaudo());
+            this.repositoryProntuario.adicionar(consulta.getProntuario());
             this.repositoryConsulta.adicionar(consulta);
         }
     }

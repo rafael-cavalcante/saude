@@ -4,11 +4,14 @@
  */
 package br.com.saude.tela.medico;
 
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerMedico;
-import br.com.saude.model.Endereco;
 import br.com.saude.model.Medico;
 import br.com.saude.model.Tecnico;
+import br.com.saude.service.CPFService;
+import br.com.saude.service.CRMService;
+import br.com.saude.service.NumericoService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -65,6 +68,7 @@ public class CadastrarMedico extends javax.swing.JFrame {
         tf_especializacao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -220,29 +224,40 @@ public class CadastrarMedico extends javax.swing.JFrame {
         cadastrarMedico();
     }//GEN-LAST:event_bt_cadastrarActionPerformed
 
-    private void cadastrarMedico(){
+    private void cadastrarMedico() {
         try {
             Medico medico = new Medico(
-                    tf_cpf.getText(),
+                    CPFService.formatar(tf_cpf.getText()),
                     new String(pf_senha.getPassword()),
                     tf_nome.getText(),
-                    new Endereco(
-                            tf_rua.getText(),
-                            Integer.parseInt(tf_numero.getText()),
-                            tf_bairro.getText()),
+                    tf_rua.getText(),
+                    NumericoService.formatarLong(tf_numero.getText()),
+                    tf_bairro.getText(),
                     new ArrayList<>(),
-                    tf_crm.getText(),
+                    CRMService.formatar(tf_crm.getText()),
                     tf_especializacao.getText()
             );
 
             this.controllerMedico.cadastrar(medico, this.tecnico);
-            
+
+            limparCampos();
             JOptionPane.showMessageDialog(null, "MEDICO CADASTRADO COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
         }
     }
-    
+
+    private void limparCampos() {
+        tf_crm.setText("");
+        tf_especializacao.setText("");
+        tf_cpf.setText("");
+        pf_senha.setText("");
+        tf_nome.setText("");
+        tf_rua.setText("");
+        tf_numero.setText("");
+        tf_bairro.setText("");
+    }
+
     /**
      * @param args the command line arguments
      */

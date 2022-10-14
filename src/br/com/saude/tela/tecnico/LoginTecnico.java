@@ -146,19 +146,19 @@ public class LoginTecnico extends javax.swing.JFrame {
                 mainTecnico.setVisible(true);
                 dispose();
             } else {
-                limparCampos();
                 JOptionPane.showMessageDialog(null, "TECNICO NÃO ENCONTRADO");
             }
+            limparCampos();
         } catch (NumberFormatException numberFormatException) {
             System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
         }
     }
 
-    private void limparCampos(){
+    private void limparCampos() {
         tf_cpf.setText("");
         pf_senha.setText("");
     }
-    
+
     /**
      * @param args the command line arguments
      */

@@ -27,26 +27,13 @@ public class DataService {
         }
     }
 
-    public static long formatar(String cpf) {
+    public static String formatar(String data) {
         try {
-            cpf = cpf.replace(".", "");
-            cpf = cpf.replace("-", "");
+            data = data.replace("/", "");
 
-            return Long.parseLong(cpf);
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AZUL.getCor() + numberFormatException.getMessage());
-            return 0;
-        }
-    }
-
-    public static String formatar(long cpf) {
-        try {
-            String CPF = String.valueOf(cpf);
-
-            return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
-                    + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AZUL.getCor() + numberFormatException.getMessage());
+            return data;
+        } catch (Exception exception) {
+            System.out.println(Cor.AZUL.getCor() + exception.getMessage());
             return null;
         }
     }

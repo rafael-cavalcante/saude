@@ -28,7 +28,7 @@ public class Medico extends Pessoa {
         this.crm = crm;
     }
 
-    public Medico(String crm, String especializacao, long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones) {
+    public Medico(long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones, String crm, String especializacao) {
         super(cpf, senha, nome, rua, numero, bairro, telefones);
         this.crm = crm;
         this.especializacao = especializacao;

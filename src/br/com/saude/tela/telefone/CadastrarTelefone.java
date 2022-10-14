@@ -4,10 +4,13 @@
  */
 package br.com.saude.tela.telefone;
 
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerTelefone;
 import br.com.saude.model.Pessoa;
 import br.com.saude.model.Telefone;
+import br.com.saude.service.CPFService;
+import br.com.saude.service.NumericoService;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,10 +50,11 @@ public class CadastrarTelefone extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tf_cpf = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        ftf_telefone = new javax.swing.JFormattedTextField();
+        tf_telefone = new javax.swing.JFormattedTextField();
         bt_cadastrarTelefone = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -77,15 +81,16 @@ public class CadastrarTelefone extends javax.swing.JFrame {
 
         jLabel1.setText("CPF");
 
-        tf_cpf.setEditable(false);
+        tf_cpf.setToolTipText("");
 
         jLabel2.setText("TELEFONE");
 
         try {
-            ftf_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+            tf_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tf_telefone.setText("");
 
         bt_cadastrarTelefone.setText("CADASTRAR");
         bt_cadastrarTelefone.addActionListener(new java.awt.event.ActionListener() {
@@ -104,10 +109,13 @@ public class CadastrarTelefone extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(ftf_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_cpf, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                            .addComponent(tf_telefone))
+                        .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -117,17 +125,17 @@ public class CadastrarTelefone extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ftf_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tf_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,14 +148,15 @@ public class CadastrarTelefone extends javax.swing.JFrame {
     private void cadastrarTelefone() {
         try {
             Telefone telefone = new Telefone(
-                    ftf_telefone.getText()
+                    NumericoService.formatarLong(tf_telefone.getText())
             );
             
             this.controllerTelefone.cadastrar(telefone, this.pessoa);
             
+            limparCampos();
             JOptionPane.showMessageDialog(null, "TELEFONE CADASTRADO COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
+            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
         }
     }
     
@@ -156,7 +165,11 @@ public class CadastrarTelefone extends javax.swing.JFrame {
     }
 
     private void carregarPessoa(){
-        tf_cpf.setText(this.pessoa.getCpf());
+        tf_cpf.setText(CPFService.formatar(this.pessoa.getCpf()));
+    }
+    
+    private void limparCampos(){
+        tf_telefone.setText("");
     }
     
     /**
@@ -196,11 +209,11 @@ public class CadastrarTelefone extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cadastrarTelefone;
-    private javax.swing.JFormattedTextField ftf_telefone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField tf_cpf;
+    private javax.swing.JFormattedTextField tf_telefone;
     // End of variables declaration//GEN-END:variables
 }

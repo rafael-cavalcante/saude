@@ -99,9 +99,10 @@ public class LoginAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addComponent(jLabel1)
-                        .addGap(32, 32, 32)
-                        .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
@@ -113,9 +114,9 @@ public class LoginAdministrador extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -138,17 +139,17 @@ public class LoginAdministrador extends javax.swing.JFrame {
                     CPFService.formatar(tf_cpf.getText()),
                     new String(pf_senha.getPassword())
             );
-            
+
             administrador = this.controllerAdministrador.login(administrador);
-            
+
             if (administrador != null) {
                 MainAdministrador mainAdministrador = new MainAdministrador(administrador);
                 mainAdministrador.setVisible(true);
                 dispose();
             } else {
-                limparCampos();
                 JOptionPane.showMessageDialog(null, "ADMINISTRADOR NÃO ENCONTRADO");
             }
+            limparCampos();
         } catch (NumberFormatException numberFormatException) {
             System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
         }

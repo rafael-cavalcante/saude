@@ -12,12 +12,12 @@ import br.com.saude.configuracao.estilo.Cor;
  */
 public class CRMService {
     
-    public static String formatar(String rg) {
+    public static String formatar(String crm) {
         try {
-            rg = rg.replace("CRM/", "");
-            rg = rg.replace(" ", "");
+            crm = crm.replace("CRM/", "");
+            crm = crm.replace(" ", "");
 
-            return rg;
+            return crm;
         } catch (Exception exception) {
             System.out.println(Cor.AZUL.getCor() + exception.getMessage());
             return null;

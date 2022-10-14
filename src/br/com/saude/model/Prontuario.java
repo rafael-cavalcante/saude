@@ -23,6 +23,11 @@ public class Prontuario {
         this.codigo = codigo;
     }
 
+    public Prontuario(long codigo, LocalDate dataCriacao) {
+        this.codigo = codigo;
+        this.dataCriacao = dataCriacao;
+    }
+
     public Prontuario(long codigo, LocalDate dataCriacao, String descricao) {
         this.codigo = codigo;
         this.dataCriacao = dataCriacao;

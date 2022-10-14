@@ -4,9 +4,10 @@
  */
 package br.com.saude.tela.medico;
 
-import br.com.saude.configuracao.estilo.Estilo;
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.controller.ControllerMedico;
 import br.com.saude.model.Medico;
+import br.com.saude.service.CRMService;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,6 +44,7 @@ public class LoginMedico extends javax.swing.JFrame {
         bt_login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -98,8 +100,8 @@ public class LoginMedico extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tf_crm, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(pf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_crm, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -131,9 +133,10 @@ public class LoginMedico extends javax.swing.JFrame {
 
     private void loginMedico() {
         try {
-            Medico medico = new Medico();
-            medico.setCrm(tf_crm.getText());
-            medico.setSenha(new String(pf_senha.getPassword()));
+            Medico medico = new Medico(
+                    CRMService.formatar(tf_crm.getText()),
+                    new String(pf_senha.getPassword())
+            );
 
             medico = this.controllerMedico.login(medico);
 
@@ -144,9 +147,15 @@ public class LoginMedico extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "MEDICO NÃO ENCONTRADO");
             }
+            limparCampos();
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
         }
+    }
+
+    private void limparCampos() {
+        tf_crm.setText("");
+        pf_senha.setText("");
     }
 
     /**

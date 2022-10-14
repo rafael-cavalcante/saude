@@ -8,9 +8,11 @@ import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerConsulta;
 import br.com.saude.controller.ControllerMedico;
 import br.com.saude.model.Consulta;
-import br.com.saude.model.Laudo;
 import br.com.saude.model.Medico;
 import br.com.saude.model.Paciente;
+import br.com.saude.model.Prontuario;
+import br.com.saude.service.CPFService;
+import br.com.saude.service.NumericoService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -63,7 +65,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cb_medico = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        tf_laudo = new javax.swing.JTextField();
+        tf_prontuario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         tf_dataRealizacao = new javax.swing.JFormattedTextField();
         jButton1 = new javax.swing.JButton();
@@ -99,7 +101,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
 
         jLabel2.setText("MEDICO");
 
-        jLabel3.setText("LAUDO");
+        jLabel3.setText("PRONTUARIO");
 
         jLabel4.setText("DATA REALIZACAO");
 
@@ -137,7 +139,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(tf_laudo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,7 +159,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_laudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -180,7 +182,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
             Consulta consulta = new Consulta(
                     this.paciente,
                     this.medicos.get(cb_medico.getSelectedIndex()),
-                    new Laudo(Integer.parseInt(tf_laudo.getText()), LocalDate.now()),
+                    new Prontuario(NumericoService.formatarLong(tf_prontuario.getText()), LocalDate.now()),
                     LocalDate.parse(tf_dataRealizacao.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     "PROCESSAMENTO"
             );
@@ -200,7 +202,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
     }
 
     private void carregarPaciente() {
-        tf_paciente.setText(this.paciente.getCpf());
+        tf_paciente.setText(CPFService.formatar(this.paciente.getCpf()));
     }
 
     /**
@@ -251,7 +253,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JFormattedTextField tf_dataRealizacao;
-    private javax.swing.JTextField tf_laudo;
     private javax.swing.JTextField tf_paciente;
+    private javax.swing.JTextField tf_prontuario;
     // End of variables declaration//GEN-END:variables
 }

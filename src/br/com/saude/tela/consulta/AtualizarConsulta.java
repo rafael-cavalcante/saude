@@ -7,6 +7,7 @@ package br.com.saude.tela.consulta;
 import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerConsulta;
 import br.com.saude.model.Consulta;
+import br.com.saude.service.CPFService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -43,7 +44,7 @@ public class AtualizarConsulta extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        tf_laudo = new javax.swing.JTextField();
+        tf_prontuario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         tf_dataRealizacao = new javax.swing.JFormattedTextField();
         jButton1 = new javax.swing.JButton();
@@ -88,9 +89,9 @@ public class AtualizarConsulta extends javax.swing.JFrame {
 
         jLabel2.setText("MEDICO");
 
-        jLabel3.setText("LAUDO");
+        jLabel3.setText("PRONTUARIO");
 
-        tf_laudo.setEditable(false);
+        tf_prontuario.setEditable(false);
 
         jLabel4.setText("DATA REALIZACAO");
 
@@ -152,7 +153,7 @@ public class AtualizarConsulta extends javax.swing.JFrame {
                                     .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_laudo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +178,7 @@ public class AtualizarConsulta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_laudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -213,7 +214,7 @@ public class AtualizarConsulta extends javax.swing.JFrame {
             Consulta consultaAtualizada = new Consulta(
                     this.consulta.getPaciente(),
                     this.consulta.getMedico(),
-                    this.consulta.getLaudo(),
+                    this.consulta.getProntuario(),
                     LocalDate.parse(tf_dataRealizacao.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tf_status.getText(),
                     Integer.parseInt(tf_pressao.getText()),
@@ -231,13 +232,13 @@ public class AtualizarConsulta extends javax.swing.JFrame {
     }
     
     public void carregarConsulta() {
-        tf_paciente.setText(this.consulta.getPaciente().getCpf());
+        tf_paciente.setText(CPFService.formatar(this.consulta.getPaciente().getCpf()));
         tf_medico.setText(this.consulta.getMedico().getCrm());
-        tf_laudo.setText(this.consulta.getLaudo().getCodigo() + "");
+        tf_prontuario.setText(String.valueOf(this.consulta.getProntuario().getCodigo()));
         tf_status.setText(this.consulta.getStatus());
-        tf_pressao.setText(this.consulta.getPressao() + "");
-        tf_peso.setText(this.consulta.getPeso() + "");
-        tf_prioridade.setText(this.consulta.getPrioridade() + "");
+        tf_pressao.setText(String.valueOf(this.consulta.getPressao()));
+        tf_peso.setText(String.valueOf(this.consulta.getPeso()));
+        tf_prioridade.setText(String.valueOf(this.consulta.getPrioridade()));
         if (this.consulta.getDataRealizacao() != null) {
             tf_dataRealizacao.setText(this.consulta.getDataRealizacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).replace("/", ""));
         }
@@ -292,12 +293,12 @@ public class AtualizarConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JFormattedTextField tf_dataRealizacao;
-    private javax.swing.JTextField tf_laudo;
     private javax.swing.JTextField tf_medico;
     private javax.swing.JTextField tf_paciente;
     private javax.swing.JTextField tf_peso;
     private javax.swing.JTextField tf_pressao;
     private javax.swing.JTextField tf_prioridade;
+    private javax.swing.JTextField tf_prontuario;
     private javax.swing.JTextField tf_status;
     // End of variables declaration//GEN-END:variables
 }
