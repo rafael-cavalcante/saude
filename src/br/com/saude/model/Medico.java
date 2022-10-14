@@ -5,7 +5,6 @@
 package br.com.saude.model;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -13,8 +12,8 @@ import java.util.Objects;
  */
 public class Medico extends Pessoa {
 
-    private String crm; //CRM/RN 123456
-    private String especializacao; //PEDIATRA
+    private String crm;
+    private String especializacao;
 
     public Medico() {
 
@@ -24,8 +23,13 @@ public class Medico extends Pessoa {
         this.crm = crm;
     }
 
-    public Medico(String cpf, String senha, String nome, Endereco endereco, List<Telefone> telefones, String crm, String especializacao) {
-        super(cpf, senha, nome, endereco, telefones);
+    public Medico(String crm, String senha) {
+        super(senha);
+        this.crm = crm;
+    }
+
+    public Medico(String crm, String especializacao, long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones) {
+        super(cpf, senha, nome, rua, numero, bairro, telefones);
         this.crm = crm;
         this.especializacao = especializacao;
     }
@@ -44,10 +48,5 @@ public class Medico extends Pessoa {
 
     public void setEspecializacao(String especializacao) {
         this.especializacao = especializacao;
-    }
-
-    @Override
-    public boolean isValido() {
-        return (super.isValido() && Objects.nonNull(this.crm)); //To change body of generated methods, choose Tools | Templates.
     }
 }

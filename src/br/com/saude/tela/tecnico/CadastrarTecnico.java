@@ -7,8 +7,9 @@ package br.com.saude.tela.tecnico;
 import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerTecnico;
 import br.com.saude.model.Administrador;
-import br.com.saude.model.Endereco;
 import br.com.saude.model.Tecnico;
+import br.com.saude.service.CPFService;
+import br.com.saude.service.NumericoService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -186,27 +187,36 @@ public class CadastrarTecnico extends javax.swing.JFrame {
         cadastrarTecnico();
     }//GEN-LAST:event_bt_cadastrarActionPerformed
 
-    private void cadastrarTecnico(){
+    private void cadastrarTecnico() {
         try {
             Tecnico tecnico = new Tecnico(
-                    tf_cpf.getText(),
+                    CPFService.formatar(tf_cpf.getText()),
                     new String(pf_senha.getPassword()),
                     tf_nome.getText(),
-                    new Endereco(
-                            tf_rua.getText(),
-                            Integer.parseInt(tf_numero.getText()),
-                            tf_bairro.getText()),
+                    tf_rua.getText(),
+                    NumericoService.formatarLong(tf_numero.getText()),
+                    tf_bairro.getText(),
                     new ArrayList<>()
             );
 
             this.controllerTecnico.cadastrar(tecnico, this.administrador);
 
+            limparCampos();
             JOptionPane.showMessageDialog(null, "TECNICO CADASTRADO COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
         }
     }
     
+    private void limparCampos() {
+        tf_cpf.setText("");
+        pf_senha.setText("");
+        tf_nome.setText("");
+        tf_rua.setText("");
+        tf_numero.setText("");
+        tf_bairro.setText("");
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -242,7 +252,7 @@ public class CadastrarTecnico extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cadastrar;
     private javax.swing.JLabel jLabel1;

@@ -7,6 +7,7 @@ package br.com.saude.tela.tecnico;
 import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerTecnico;
 import br.com.saude.model.Tecnico;
+import br.com.saude.service.CPFService;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,6 +44,7 @@ public class LoginTecnico extends javax.swing.JFrame {
         bt_login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -133,7 +135,7 @@ public class LoginTecnico extends javax.swing.JFrame {
     private void loginTecnico() {
         try {
             Tecnico tecnico = new Tecnico(
-                    tf_cpf.getText(),
+                    CPFService.formatar(tf_cpf.getText()),
                     new String(pf_senha.getPassword())
             );
 
@@ -144,13 +146,19 @@ public class LoginTecnico extends javax.swing.JFrame {
                 mainTecnico.setVisible(true);
                 dispose();
             } else {
+                limparCampos();
                 JOptionPane.showMessageDialog(null, "TECNICO NÃO ENCONTRADO");
             }
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
         }
     }
 
+    private void limparCampos(){
+        tf_cpf.setText("");
+        pf_senha.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */

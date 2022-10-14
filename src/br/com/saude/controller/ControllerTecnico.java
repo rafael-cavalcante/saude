@@ -8,6 +8,7 @@ import br.com.saude.model.Administrador;
 import br.com.saude.model.Tecnico;
 import br.com.saude.repository.RepositoryPessoa;
 import br.com.saude.repository.RepositoryTecnico;
+import br.com.saude.repository.RepositoryTelefone;
 
 /**
  *
@@ -17,10 +18,12 @@ public class ControllerTecnico {
 
     private final RepositoryPessoa repositoryPessoa;
     private final RepositoryTecnico repositorytecnico;
+    private final RepositoryTelefone repositoryTelefone;
 
     public ControllerTecnico() {
         this.repositoryPessoa = new RepositoryPessoa();
         this.repositorytecnico = new RepositoryTecnico();
+        this.repositoryTelefone = new RepositoryTelefone();
     }
 
     public void cadastrar(Tecnico tecnico, Administrador administrador) {
@@ -31,6 +34,10 @@ public class ControllerTecnico {
     }
 
     public Tecnico login(Tecnico tecnico) {
-        return this.repositorytecnico.buscar(tecnico);
+        tecnico = this.repositorytecnico.buscar(tecnico);
+        if(tecnico != null){
+            tecnico.setTelefones(this.repositoryTelefone.buscar(tecnico));
+        }
+        return tecnico;
     }
 }

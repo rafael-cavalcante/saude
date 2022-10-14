@@ -5,7 +5,6 @@
 package br.com.saude.model;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -13,38 +12,46 @@ import java.util.Objects;
  */
 public class Pessoa {
 
-    private String cpf; //000.000.000-00
-    private String senha; //123456
-    private String nome; //
-    private Endereco endereco;
+    private long cpf = -1;
+    private String senha;
+    private String nome;
+    private String rua;
+    private long numero;
+    private String bairro;
     private List<Telefone> telefones;
 
     public Pessoa() {
 
     }
 
-    public Pessoa(String cpf) {
+    public Pessoa(long cpf) {
         this.cpf = cpf;
     }
 
-    public Pessoa(String cpf, String senha) {
+    public Pessoa(String senha) {
+        this.senha = senha;
+    }
+
+    public Pessoa(long cpf, String senha) {
         this.cpf = cpf;
         this.senha = senha;
     }
 
-    public Pessoa(String cpf, String senha, String nome, Endereco endereco, List<Telefone> telefones) {
+    public Pessoa(long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones) {
         this.cpf = cpf;
         this.senha = senha;
         this.nome = nome;
-        this.endereco = endereco;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
         this.telefones = telefones;
     }
 
-    public String getCpf() {
+    public long getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 
@@ -64,12 +71,28 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public String getRua() {
+        return rua;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public long getNumero() {
+        return numero;
+    }
+
+    public void setNumero(long numero) {
+        this.numero = numero;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
     public List<Telefone> getTelefones() {
@@ -78,10 +101,5 @@ public class Pessoa {
 
     public void setTelefones(List<Telefone> telefones) {
         this.telefones = telefones;
-    }
-
-    public boolean isValido() {
-        return (Objects.nonNull(this.cpf) && Objects.nonNull(this.senha));
-
     }
 }

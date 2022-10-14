@@ -16,11 +16,15 @@ public class Tecnico extends Pessoa {
         
     }
 
-    public Tecnico(String cpf, String senha) {
+    public Tecnico(long cpf) {
+        super(cpf);
+    }
+
+    public Tecnico(long cpf, String senha) {
         super(cpf, senha);
     }
-    
-    public Tecnico(String cpf, String senha, String nome, Endereco endereco, List<Telefone> telefones) {
-        super(cpf, senha, nome, endereco, telefones);
-    }   
+
+    public Tecnico(long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones) {
+        super(cpf, senha, nome, rua, numero, bairro, telefones);
+    }
 }

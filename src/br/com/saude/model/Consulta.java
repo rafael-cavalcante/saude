@@ -14,7 +14,7 @@ public class Consulta {
     
     private Paciente paciente;
     private Medico medico;
-    private Laudo laudo;
+    private Prontuario prontuario;
     private LocalDate dataRealizacao;
     private String status;
     private int pressao;
@@ -25,18 +25,18 @@ public class Consulta {
         
     }
 
-    public Consulta(Paciente paciente, Medico medico, Laudo laudo, LocalDate dataRealizacao, String status) {
+    public Consulta(Paciente paciente, Medico medico, Prontuario prontuario, LocalDate dataRealizacao, String status) {
         this.paciente = paciente;
         this.medico = medico;
-        this.laudo = laudo;
+        this.prontuario = prontuario;
         this.dataRealizacao = dataRealizacao;
         this.status = status;
     }
 
-    public Consulta(Paciente paciente, Medico medico, Laudo laudo, LocalDate dataRealizacao, String status, int pressao, double peso, int prioridade) {
+    public Consulta(Paciente paciente, Medico medico, Prontuario prontuario, LocalDate dataRealizacao, String status, int pressao, double peso, int prioridade) {
         this.paciente = paciente;
         this.medico = medico;
-        this.laudo = laudo;
+        this.prontuario = prontuario;
         this.dataRealizacao = dataRealizacao;
         this.status = status;
         this.pressao = pressao;
@@ -62,12 +62,12 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public Laudo getLaudo() {
-        return laudo;
+    public Prontuario getProntuario() {
+        return prontuario;
     }
 
-    public void setLaudo(Laudo laudo) {
-        this.laudo = laudo;
+    public void setProntuario(Prontuario prontuario) {
+        this.prontuario = prontuario;
     }
 
     public LocalDate getDataRealizacao() {

@@ -9,6 +9,7 @@ import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Consulta;
 import br.com.saude.model.Paciente;
 import br.com.saude.model.Tecnico;
+import br.com.saude.service.CPFService;
 import br.com.saude.tela.consulta.AtualizarConsulta;
 import br.com.saude.tela.consulta.SolicitarConsultaEmergencia;
 import br.com.saude.tela.medico.CadastrarMedico;
@@ -70,6 +71,7 @@ public class MainTecnico extends javax.swing.JFrame {
         cb_consulta = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -209,7 +211,7 @@ public class MainTecnico extends javax.swing.JFrame {
     private void listarPacientes(){
         this.pacientes = this.controllerPaciente.listar();
         this.pacientes.stream()
-                .forEach(paciente -> cb_paciente.addItem(paciente.getCpf()));
+                .forEach(paciente -> cb_paciente.addItem(CPFService.formatar(paciente.getCpf())));
     }
     
     private void listarConsultas(){

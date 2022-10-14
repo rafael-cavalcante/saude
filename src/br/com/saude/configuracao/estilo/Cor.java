@@ -5,14 +5,18 @@
 package br.com.saude.configuracao.estilo;
 
 /**
- *
+ * 
  * @author Rafael Cavalcante
  */
 public enum Cor {
-    AMARELO ("\u001B[33m"),
-    VERDE   ("\u001B[32m"),
+    PRETO   ("\u001B[30m"),
     VERMELHO("\u001B[31m"),
-    ROXO    ("\u001B[35m");
+    VERDE   ("\u001B[32m"),
+    AMARELO ("\u001B[33m"),
+    AZUL    ("\u001B[34m"),
+    ROXO    ("\u001B[35m"),
+    CIANO   ("\u001B[36m"),
+    BRANCO  ("\u001B[37m");
 
     private final String cor;
 

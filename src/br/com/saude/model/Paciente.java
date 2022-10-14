@@ -15,23 +15,25 @@ public class Paciente extends Pessoa {
 
     private String rg;
     private LocalDate dataNascimento;
+    private String email;
 
     public Paciente(){
         
     }
 
-    public Paciente(String cpf) {
+    public Paciente(long cpf) {
         super(cpf);
     }
     
-    public Paciente(String cpf, String senha) {
+    public Paciente(long cpf, String senha) {
         super(cpf, senha);
     }
 
-    public Paciente(String cpf, String senha, String nome, Endereco endereco, List<Telefone> telefones, String rg, LocalDate dataNascimento) {
-        super(cpf, senha, nome, endereco, telefones);
+    public Paciente(long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones, String rg, LocalDate dataNascimento, String email) {
+        super(cpf, senha, nome, rua, numero, bairro, telefones);
         this.rg = rg;
         this.dataNascimento = dataNascimento;
+        this.email = email;
     }
 
     public String getRg() {
@@ -48,5 +50,13 @@ public class Paciente extends Pessoa {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

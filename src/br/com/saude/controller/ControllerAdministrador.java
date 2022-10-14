@@ -7,6 +7,7 @@ package br.com.saude.controller;
 import br.com.saude.model.Administrador;
 import br.com.saude.repository.RepositoryAdministrador;
 import br.com.saude.repository.RepositoryPessoa;
+import br.com.saude.repository.RepositoryTelefone;
 
 /**
  *
@@ -16,10 +17,12 @@ public class ControllerAdministrador {
 
     private final RepositoryPessoa repositoryPessoa;
     private final RepositoryAdministrador repositoryAdministrador;
+    private final RepositoryTelefone repositoryTelefone;
 
     public ControllerAdministrador() {
         this.repositoryPessoa = new RepositoryPessoa();
         this.repositoryAdministrador = new RepositoryAdministrador();
+        this.repositoryTelefone = new RepositoryTelefone();
     }
 
     public void cadastrar(Administrador administrador) {
@@ -30,6 +33,10 @@ public class ControllerAdministrador {
     }
 
     public Administrador login(Administrador administrador) {
-        return  this.repositoryAdministrador.buscar(administrador);
+        administrador = this.repositoryAdministrador.buscar(administrador);
+        if(administrador != null){
+            administrador.setTelefones(this.repositoryTelefone.buscar(administrador));
+        }
+        return administrador;
     }
 }

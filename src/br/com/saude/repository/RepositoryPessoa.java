@@ -5,6 +5,7 @@
 package br.com.saude.repository;
 
 import br.com.saude.configuracao.conexao.Conexao;
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.model.Pessoa;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -22,16 +23,16 @@ public class RepositoryPessoa {
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
-            preparedStatement.setString(1, pessoa.getCpf());
+            preparedStatement.setLong(1, pessoa.getCpf());
             preparedStatement.setString(2, pessoa.getSenha());
             preparedStatement.setString(3, pessoa.getNome());
-            preparedStatement.setString(4, pessoa.getEndereco().getRua());
-            preparedStatement.setInt(5, pessoa.getEndereco().getNumero());
-            preparedStatement.setString(6, pessoa.getEndereco().getBairro());
+            preparedStatement.setString(4, pessoa.getRua());
+            preparedStatement.setLong(5, pessoa.getNumero());
+            preparedStatement.setString(6, pessoa.getBairro());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -46,16 +47,16 @@ public class RepositoryPessoa {
 
             preparedStatement.setString(1, pessoa.getSenha());
             preparedStatement.setString(2, pessoa.getNome());
-            preparedStatement.setString(3, pessoa.getEndereco().getRua());
-            preparedStatement.setInt(4, pessoa.getEndereco().getNumero());
-            preparedStatement.setString(5, pessoa.getEndereco().getBairro());
-            preparedStatement.setString(6, pessoa.getCpf());
+            preparedStatement.setString(3, pessoa.getRua());
+            preparedStatement.setLong(4, pessoa.getNumero());
+            preparedStatement.setString(5, pessoa.getBairro());
+            preparedStatement.setLong(6, pessoa.getCpf());
 
             preparedStatement.executeUpdate();
             
             return true;
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }

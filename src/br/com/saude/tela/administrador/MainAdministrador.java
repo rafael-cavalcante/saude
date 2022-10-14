@@ -44,6 +44,7 @@ public class MainAdministrador extends javax.swing.JFrame {
         bt_cadastrarTecnico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 

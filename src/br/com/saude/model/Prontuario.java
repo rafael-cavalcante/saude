@@ -10,30 +10,30 @@ import java.time.LocalDate;
  *
  * @author tecin
  */
-public class Laudo {
+public class Prontuario {
     
-    private int codigo;
+    private long codigo;
     private LocalDate dataCriacao;
     private String descricao;
 
-    public Laudo(){
-        
+    public Prontuario() {
     }
-    
-    public Laudo(int codigo){
+
+    public Prontuario(long codigo) {
         this.codigo = codigo;
     }
-    
-    public Laudo(int codigo, LocalDate dataCriacao){
+
+    public Prontuario(long codigo, LocalDate dataCriacao, String descricao) {
         this.codigo = codigo;
         this.dataCriacao = dataCriacao;
+        this.descricao = descricao;
     }
     
-    public int getCodigo() {
+    public long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(long codigo) {
         this.codigo = codigo;
     }
 

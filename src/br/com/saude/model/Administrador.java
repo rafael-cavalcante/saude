@@ -11,16 +11,20 @@ import java.util.List;
  * @author tecin
  */
 public class Administrador extends Pessoa {
-    
-    public Administrador(){
-        
+
+    public Administrador() {
+
     }
-    
-    public Administrador(String cpf, String senha){
+
+    public Administrador(long cpf) {
+        super(cpf);
+    }
+
+    public Administrador(long cpf, String senha) {
         super(cpf, senha);
     }
-    
-    public Administrador(String cpf, String senha, String nome, Endereco endereco, List<Telefone> telefones) {
-        super(cpf, senha, nome, endereco, telefones);
+
+    public Administrador(long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones) {
+        super(cpf, senha, nome, rua, numero, bairro, telefones);
     }
 }

@@ -7,7 +7,8 @@ package br.com.saude.tela.administrador;
 import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerAdministrador;
 import br.com.saude.model.Administrador;
-import br.com.saude.model.Endereco;
+import br.com.saude.service.CPFService;
+import br.com.saude.service.NumericoService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -53,6 +54,7 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
         bt_cadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -175,23 +177,21 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
     private void cadastrarAdministrador() {
         try {
             Administrador administrador = new Administrador(
-                    tf_cpf.getText(),
+                    CPFService.formatar(tf_cpf.getText()),
                     new String(pf_senha.getPassword()),
                     tf_nome.getText(),
-                    new Endereco(
-                            tf_rua.getText(),
-                            Integer.parseInt(tf_numero.getText()),
-                            tf_bairro.getText()),
+                    tf_rua.getText(),
+                    NumericoService.formatarLong(tf_numero.getText()),
+                    tf_bairro.getText(),
                     new ArrayList<>()
             );
 
             this.controllerAdministrador.cadastrar(administrador);
 
             limparCampos();
-
             JOptionPane.showMessageDialog(null, "ADMINISTRADOR CADASTRADO COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
         }
     }
 

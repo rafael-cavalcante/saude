@@ -7,6 +7,7 @@ package br.com.saude.tela.administrador;
 import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerAdministrador;
 import br.com.saude.model.Administrador;
+import br.com.saude.service.CPFService;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,6 +44,7 @@ public class LoginAdministrador extends javax.swing.JFrame {
         bt_login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -133,23 +135,22 @@ public class LoginAdministrador extends javax.swing.JFrame {
     private void loginAdministrador() {
         try {
             Administrador administrador = new Administrador(
-                    tf_cpf.getText(),
+                    CPFService.formatar(tf_cpf.getText()),
                     new String(pf_senha.getPassword())
             );
-
+            
             administrador = this.controllerAdministrador.login(administrador);
-
+            
             if (administrador != null) {
                 MainAdministrador mainAdministrador = new MainAdministrador(administrador);
                 mainAdministrador.setVisible(true);
                 dispose();
             } else {
                 limparCampos();
-
                 JOptionPane.showMessageDialog(null, "ADMINISTRADOR NÃO ENCONTRADO");
             }
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.VERMELHO + numberFormatException.getMessage());
+            System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
         }
     }
 

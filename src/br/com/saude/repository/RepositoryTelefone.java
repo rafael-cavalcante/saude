@@ -5,6 +5,7 @@
 package br.com.saude.repository;
 
 import br.com.saude.configuracao.conexao.Conexao;
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.model.Pessoa;
 import br.com.saude.model.Telefone;
 import java.sql.PreparedStatement;
@@ -27,12 +28,12 @@ public class RepositoryTelefone {
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
-            preparedStatement.setString(1, pessoa.getCpf());
-            preparedStatement.setString(2, telefone.getNumero());
+            preparedStatement.setLong(1, pessoa.getCpf());
+            preparedStatement.setLong(2, telefone.getNumero());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -47,17 +48,17 @@ public class RepositoryTelefone {
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
-            preparedStatement.setString(1, pessoa.getCpf());
+            preparedStatement.setLong(1, pessoa.getCpf());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                telefones.add(new Telefone(resultSet.getString("numero")));
+                telefones.add(new Telefone(resultSet.getLong("numero")));
             }
             
             return telefones;
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -71,16 +72,16 @@ public class RepositoryTelefone {
             
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
-            preparedStatement.setString(1, pessoa.getCpf());
-            preparedStatement.setString(2, telefone.getNumero());
+            preparedStatement.setLong(1, pessoa.getCpf());
+            preparedStatement.setLong(2, telefone.getNumero());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 return true;
             }
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }

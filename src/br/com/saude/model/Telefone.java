@@ -10,17 +10,17 @@ package br.com.saude.model;
  */
 public class Telefone {
 
-    private String numero;
-    
-    public Telefone(String numero){
+    private long numero;
+
+    public Telefone(long numero) {
         this.numero = numero;
     }
-
-    public String getNumero() {
+    
+    public long getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(long numero) {
         this.numero = numero;
-    }  
+    }
 }
