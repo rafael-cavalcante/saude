@@ -9,6 +9,7 @@ import br.com.saude.controller.ControllerAdministrador;
 import br.com.saude.model.Administrador;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.NumericoService;
+import br.com.saude.service.SenhaService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -177,11 +178,11 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
     private void cadastrarAdministrador() {
         try {
             Administrador administrador = new Administrador(
-                    CPFService.formatar(tf_cpf.getText()),
-                    new String(pf_senha.getPassword()),
+                    CPFService.validar(tf_cpf.getText()),
+                    SenhaService.validar(new String(pf_senha.getPassword())),
                     tf_nome.getText(),
                     tf_rua.getText(),
-                    NumericoService.formatarLong(tf_numero.getText()),
+                    NumericoService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
                     new ArrayList<>()
             );
@@ -190,8 +191,8 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
 
             limparCampos();
             JOptionPane.showMessageDialog(null, "ADMINISTRADOR CADASTRADO COM SUCESSO");
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
     }
 

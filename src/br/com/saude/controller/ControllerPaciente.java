@@ -26,12 +26,11 @@ public class ControllerPaciente {
         this.repositoryTelefone = new RepositoryTelefone();
     }
 
-    public boolean cadastrar(Paciente paciente) {
+    public void cadastrar(Paciente paciente) {
         if (!this.repositoryPaciente.existe(paciente)) {
             this.repositoryPessoa.adicionar(paciente);
-            return this.repositoryPaciente.adicionar(paciente);
+            this.repositoryPaciente.adicionar(paciente);
         }
-        return false;
     }
 
     public Paciente login(Paciente paciente) {

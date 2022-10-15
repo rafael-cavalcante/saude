@@ -6,7 +6,7 @@ package br.com.saude.repository;
 
 import br.com.saude.configuracao.conexao.Conexao;
 import br.com.saude.model.Paciente;
-import java.sql.Date;
+import br.com.saude.service.DataService;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class RepositoryPaciente {
 
-    public boolean adicionar(Paciente paciente) {
+    public void adicionar(Paciente paciente) {
         try {
             String query = "INSERT INTO POSTINHO.PACIENTE (cpf_pessoa, rg, data_nascimento, email) "
                     + "VALUES (?,?,?,?);";
@@ -28,18 +28,15 @@ public class RepositoryPaciente {
 
             preparedStatement.setLong(1, paciente.getCpf());
             preparedStatement.setLong(2, paciente.getRg());
-            preparedStatement.setDate(3, Date.valueOf(paciente.getDataNascimento()));
+            preparedStatement.setDate(3, DataService.converter(paciente.getDataNascimento()));
             preparedStatement.setString(4, paciente.getEmail());
 
             preparedStatement.executeUpdate();
-            
-            return true;
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         } finally {
             Conexao.desconectar();
         }
-        return false;
     }
 
     public List<Paciente> buscar() {
@@ -72,8 +69,8 @@ public class RepositoryPaciente {
 
     public Paciente buscar(Paciente paciente) {
         try {
-            String query = "SELECT cpf, senha, nome, bairro, rua, numero, rg, data_nascimento FROM POSTINHO.PESSOA, POSTINHO.PACIENTE "
-                    + "WHERE cpf  = ? AND senha = ? AND cpf = cpf_pessoa;";
+            String query = "SELECT cpf, senha, nome, rua, numero, bairro, rg, data_nascimento, email FROM POSTINHO.PESSOA, POSTINHO.PACIENTE "
+                    + "WHERE cpf = ? AND senha = ? AND cpf = cpf_pessoa;";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
@@ -92,7 +89,7 @@ public class RepositoryPaciente {
                         resultSet.getString("bairro"),
                         new ArrayList<>(),
                         resultSet.getLong("rg"),
-                        resultSet.getDate("data_nascimento").toLocalDate(),
+                        DataService.converter(resultSet.getDate("data_nascimento")),
                         resultSet.getString("email")
                 );
                 return pacienteLogado;
@@ -113,7 +110,7 @@ public class RepositoryPaciente {
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
             preparedStatement.setLong(1, paciente.getRg());
-            preparedStatement.setDate(2, Date.valueOf(paciente.getDataNascimento()));
+            preparedStatement.setDate(2, DataService.converter(paciente.getDataNascimento()));
             preparedStatement.setLong(3, paciente.getCpf());
 
             preparedStatement.executeUpdate();

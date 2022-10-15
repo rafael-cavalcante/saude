@@ -10,6 +10,7 @@ import br.com.saude.model.Administrador;
 import br.com.saude.model.Tecnico;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.NumericoService;
+import br.com.saude.service.SenhaService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -190,11 +191,11 @@ public class CadastrarTecnico extends javax.swing.JFrame {
     private void cadastrarTecnico() {
         try {
             Tecnico tecnico = new Tecnico(
-                    CPFService.formatar(tf_cpf.getText()),
-                    new String(pf_senha.getPassword()),
+                    CPFService.validar(tf_cpf.getText()),
+                    SenhaService.validar(new String(pf_senha.getPassword())),
                     tf_nome.getText(),
                     tf_rua.getText(),
-                    NumericoService.formatarLong(tf_numero.getText()),
+                    NumericoService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
                     new ArrayList<>()
             );
@@ -203,8 +204,8 @@ public class CadastrarTecnico extends javax.swing.JFrame {
 
             limparCampos();
             JOptionPane.showMessageDialog(null, "TECNICO CADASTRADO COM SUCESSO");
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
     }
     

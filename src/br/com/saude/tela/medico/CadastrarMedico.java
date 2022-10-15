@@ -11,6 +11,7 @@ import br.com.saude.model.Tecnico;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.CRMService;
 import br.com.saude.service.NumericoService;
+import br.com.saude.service.SenhaService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -226,14 +227,14 @@ public class CadastrarMedico extends javax.swing.JFrame {
     private void cadastrarMedico() {
         try {
             Medico medico = new Medico(
-                    CPFService.formatar(tf_cpf.getText()),
-                    new String(pf_senha.getPassword()),
+                    CPFService.validar(tf_cpf.getText()),
+                    SenhaService.validar(new String(pf_senha.getPassword())),
                     tf_nome.getText(),
                     tf_rua.getText(),
-                    NumericoService.formatarLong(tf_numero.getText()),
+                    NumericoService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
                     new ArrayList<>(),
-                    CRMService.formatar(tf_crm.getText()),
+                    CRMService.validar(tf_crm.getText()),
                     tf_especializacao.getText()
             );
 
@@ -241,8 +242,8 @@ public class CadastrarMedico extends javax.swing.JFrame {
 
             limparCampos();
             JOptionPane.showMessageDialog(null, "MEDICO CADASTRADO COM SUCESSO");
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
     }
 

@@ -8,6 +8,7 @@ import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.controller.ControllerTecnico;
 import br.com.saude.model.Tecnico;
 import br.com.saude.service.CPFService;
+import br.com.saude.service.SenhaService;
 import javax.swing.JOptionPane;
 
 /**
@@ -135,8 +136,8 @@ public class LoginTecnico extends javax.swing.JFrame {
     private void loginTecnico() {
         try {
             Tecnico tecnico = new Tecnico(
-                    CPFService.formatar(tf_cpf.getText()),
-                    new String(pf_senha.getPassword())
+                    CPFService.validar(tf_cpf.getText()),
+                    SenhaService.validar(new String(pf_senha.getPassword()))
             );
 
             tecnico = this.controllerTecnico.login(tecnico);
@@ -149,8 +150,8 @@ public class LoginTecnico extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "TECNICO NÃO ENCONTRADO");
             }
             limparCampos();
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
     }
 

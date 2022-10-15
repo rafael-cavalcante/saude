@@ -11,9 +11,7 @@ import br.com.saude.service.CPFService;
 import br.com.saude.service.DataService;
 import br.com.saude.service.NumericoService;
 import br.com.saude.service.RGService;
-import java.awt.HeadlessException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import br.com.saude.service.SenhaService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -239,28 +237,24 @@ public class AtualizarPaciente extends javax.swing.JFrame {
 
     private void atualizarPaciente() {
         try {
-            if (DataService.validar(tf_dataNascimento.getText())) {
-                Paciente pacienteAtualizado = new Paciente(
-                        CPFService.formatar(tf_cpf.getText()),
-                        new String(pf_senha.getPassword()),
-                        tf_nome.getText(),
-                        tf_rua.getText(),
-                        NumericoService.formatarLong(tf_numero.getText()),
-                        tf_bairro.getText(),
-                        new ArrayList<>(),
-                        RGService.formatar(tf_rg.getText()),
-                        LocalDate.parse(tf_dataNascimento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                        tf_email.getText()
-                );
+            Paciente pacienteAtualizado = new Paciente(
+                    CPFService.validar(tf_cpf.getText()),
+                    SenhaService.validar(new String(pf_senha.getPassword())),
+                    tf_nome.getText(),
+                    tf_rua.getText(),
+                    NumericoService.converterLong(tf_numero.getText()),
+                    tf_bairro.getText(),
+                    new ArrayList<>(),
+                    RGService.validar(tf_rg.getText()),
+                    DataService.validar(tf_dataNascimento.getText()),
+                    tf_email.getText()
+            );
 
-                this.controllerPaciente.alterar(pacienteAtualizado);
+            this.controllerPaciente.alterar(pacienteAtualizado);
 
-                JOptionPane.showMessageDialog(null, "PACIENTE ATUALIZADA COM SUCESSO");
-            } else {
-                JOptionPane.showMessageDialog(null, "DATA DE NASCIMENTO INVÁLIDA!");
-            }
-        } catch (HeadlessException headlessException) {
-            System.out.println(Cor.AMARELO.getCor() + headlessException.getMessage());
+            JOptionPane.showMessageDialog(null, "PACIENTE ATUALIZADA COM SUCESSO");
+        } catch (Exception exception) {
+            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
     }
 
@@ -268,7 +262,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         this.controllerPaciente = new ControllerPaciente();
     }
 
-    private void carregarPaciente() {        
+    private void carregarPaciente() {
         tf_cpf.setText(CPFService.formatar(this.paciente.getCpf()));
         pf_senha.setText(this.paciente.getSenha());
         tf_nome.setText(this.paciente.getNome());

@@ -12,20 +12,20 @@ import br.com.saude.configuracao.estilo.Cor;
  */
 public class NumericoService {
 
-    public static long formatarLong(String numero) {
+    public static long converterLong(String numero) {
         try {
             return Long.parseLong(numero);
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AZUL.getCor() + numberFormatException.getMessage());
+            System.out.println(Cor.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
             return 0;
         }
     }
 
-    public static int formatarInt(String numero) {
+    public static int converterInt(String numero) {
         try {
             return Integer.parseInt(numero);
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AZUL.getCor() + numberFormatException.getMessage());
+            System.out.println(Cor.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
             return 0;
         }
     }

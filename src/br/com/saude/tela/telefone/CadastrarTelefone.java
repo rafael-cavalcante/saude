@@ -9,7 +9,7 @@ import br.com.saude.controller.ControllerTelefone;
 import br.com.saude.model.Pessoa;
 import br.com.saude.model.Telefone;
 import br.com.saude.service.CPFService;
-import br.com.saude.service.NumericoService;
+import br.com.saude.service.TelefoneService;
 import javax.swing.JOptionPane;
 
 /**
@@ -86,11 +86,10 @@ public class CadastrarTelefone extends javax.swing.JFrame {
         jLabel2.setText("TELEFONE");
 
         try {
-            tf_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+            tf_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tf_telefone.setText("");
 
         bt_cadastrarTelefone.setText("CADASTRAR");
         bt_cadastrarTelefone.addActionListener(new java.awt.event.ActionListener() {
@@ -148,30 +147,30 @@ public class CadastrarTelefone extends javax.swing.JFrame {
     private void cadastrarTelefone() {
         try {
             Telefone telefone = new Telefone(
-                    NumericoService.formatarLong(tf_telefone.getText())
+                    TelefoneService.validar(tf_telefone.getText())
             );
-            
+
             this.controllerTelefone.cadastrar(telefone, this.pessoa);
-            
+
             limparCampos();
             JOptionPane.showMessageDialog(null, "TELEFONE CADASTRADO COM SUCESSO");
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
     }
-    
-    private void initControllers(){
+
+    private void initControllers() {
         this.controllerTelefone = new ControllerTelefone();
     }
 
-    private void carregarPessoa(){
+    private void carregarPessoa() {
         tf_cpf.setText(CPFService.formatar(this.pessoa.getCpf()));
     }
-    
-    private void limparCampos(){
+
+    private void limparCampos() {
         tf_telefone.setText("");
     }
-    
+
     /**
      * @param args the command line arguments
      */

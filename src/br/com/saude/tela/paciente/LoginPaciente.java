@@ -8,7 +8,7 @@ import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
-import java.awt.HeadlessException;
+import br.com.saude.service.SenhaService;
 import javax.swing.JOptionPane;
 
 /**
@@ -103,12 +103,12 @@ public class LoginPaciente extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(pf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(pf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,10 +137,10 @@ public class LoginPaciente extends javax.swing.JFrame {
     private void loginPaciente() {
         try {
             Paciente paciente = new Paciente(
-                    CPFService.formatar(tf_cpf.getText()),
-                    new String(pf_senha.getPassword())
+                    CPFService.validar(tf_cpf.getText()),
+                    SenhaService.validar(new String(pf_senha.getPassword()))
             );
-
+            
             paciente = this.controllerPaciente.login(paciente);
 
             if (paciente != null) {
@@ -151,8 +151,8 @@ public class LoginPaciente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "PACIENTE NÃO ENCONTRADO");
             }
             limparCampos();
-        } catch (HeadlessException headlessException) {
-            System.out.println(Cor.VERMELHO.getCor() + headlessException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
     }
 

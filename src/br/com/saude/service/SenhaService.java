@@ -8,16 +8,13 @@ package br.com.saude.service;
  *
  * @author tecin
  */
-public class CRMService {
-
-    public static String validar(String crm) throws Exception {
-        if (!crm.contains(" ")) {
-            crm = crm.replace("CRM/", "");
-            crm = crm.replace(" ", "");
-
-            return crm;
+public class SenhaService {
+    
+    public static String validar(String senha) throws Exception{
+        if(!senha.isEmpty() && senha.length() >= 6){
+            return senha;
         } else {
-            throw new Exception("CRM INVÁLIDA!");
+            throw new Exception("SENHA INVÁLIDA!");
         }
     }
 }

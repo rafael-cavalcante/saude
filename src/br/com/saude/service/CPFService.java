@@ -4,30 +4,24 @@
  */
 package br.com.saude.service;
 
-import br.com.saude.configuracao.estilo.Cor;
-
 /**
  *
  * @author tecin
  */
 public class CPFService {
 
-    public static long formatar(String cpf) {
+    public static long validar(String cpf) throws Exception {
+        if (!cpf.contains(" ")) {
             cpf = cpf.replace(".", "");
             cpf = cpf.replace("-", "");
-            
+
             return Long.parseLong(cpf);
+        } else {
+            throw new Exception("CPF INVÁLIDA!");
+        }
     }
 
     public static String formatar(long cpf) {
-        try {
-            String CPF = String.format("%011d", cpf);
-            
-            return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
-                    + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
-        } catch (Exception e) {
-            System.out.println(Cor.AZUL.getCor() + e.getMessage());
-            return null;
-        }
+        return String.format("%011d", cpf);
     }
 }

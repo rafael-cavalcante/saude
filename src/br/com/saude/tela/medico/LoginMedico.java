@@ -7,7 +7,9 @@ package br.com.saude.tela.medico;
 import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.controller.ControllerMedico;
 import br.com.saude.model.Medico;
+import br.com.saude.service.CPFService;
 import br.com.saude.service.CRMService;
+import br.com.saude.service.SenhaService;
 import javax.swing.JOptionPane;
 
 /**
@@ -134,8 +136,8 @@ public class LoginMedico extends javax.swing.JFrame {
     private void loginMedico() {
         try {
             Medico medico = new Medico(
-                    CRMService.formatar(tf_crm.getText()),
-                    new String(pf_senha.getPassword())
+                    CRMService.validar(tf_crm.getText()),
+                    SenhaService.validar(new String(pf_senha.getPassword()))
             );
 
             medico = this.controllerMedico.login(medico);
@@ -148,8 +150,8 @@ public class LoginMedico extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "MEDICO NÃO ENCONTRADO");
             }
             limparCampos();
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
     }
 

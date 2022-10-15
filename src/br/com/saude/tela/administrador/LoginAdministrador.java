@@ -8,6 +8,7 @@ import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.controller.ControllerAdministrador;
 import br.com.saude.model.Administrador;
 import br.com.saude.service.CPFService;
+import br.com.saude.service.SenhaService;
 import javax.swing.JOptionPane;
 
 /**
@@ -136,8 +137,8 @@ public class LoginAdministrador extends javax.swing.JFrame {
     private void loginAdministrador() {
         try {
             Administrador administrador = new Administrador(
-                    CPFService.formatar(tf_cpf.getText()),
-                    new String(pf_senha.getPassword())
+                    CPFService.validar(tf_cpf.getText()),
+                    SenhaService.validar(new String(pf_senha.getPassword()))
             );
 
             administrador = this.controllerAdministrador.login(administrador);
@@ -150,8 +151,8 @@ public class LoginAdministrador extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "ADMINISTRADOR NÃO ENCONTRADO");
             }
             limparCampos();
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
     }
 

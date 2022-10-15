@@ -12,26 +12,20 @@ import br.com.saude.configuracao.estilo.Cor;
  */
 public class RGService {
 
-    public static long formatar(String rg) {
+    public static long validar(String rg) {
         try {
-            rg = rg.replace(".", "");
+            if (!rg.contains(" ")) {
+                rg = rg.replace(".", "");
 
-            return Long.parseLong(rg);
+                return Long.parseLong(rg);
+            }
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AZUL.getCor() + numberFormatException.getMessage());
-            return 0;
+            System.out.println(Cor.AZUL.getCor() + "RG INVÁLIDA!");
         }
+        return 0;
     }
 
     public static String formatar(long rg) {
-        try {
-            String RG = String.valueOf(rg);
-
-            return (RG.substring(0, 3) + "." + RG.substring(3, 6) + "."
-                    + RG.substring(6, 9));
-        } catch (Exception e) {
-            System.out.println(Cor.VERMELHO.getCor() + e.getMessage());
-            return null;
-        }
+        return String.format("%09d", rg);
     }
 }

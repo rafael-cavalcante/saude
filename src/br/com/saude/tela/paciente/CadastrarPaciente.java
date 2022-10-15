@@ -11,7 +11,7 @@ import br.com.saude.service.CPFService;
 import br.com.saude.service.DataService;
 import br.com.saude.service.NumericoService;
 import br.com.saude.service.RGService;
-import java.awt.HeadlessException;
+import br.com.saude.service.SenhaService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -196,12 +196,13 @@ public class CadastrarPaciente extends javax.swing.JFrame {
                     .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel9)
-                    .addComponent(tf_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pf_senha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pf_senha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel9)
+                        .addComponent(tf_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(tf_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -213,7 +214,7 @@ public class CadastrarPaciente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(tf_rua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tf_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,24 +236,24 @@ public class CadastrarPaciente extends javax.swing.JFrame {
     private void cadastrarPaciente() {
         try {
             Paciente paciente = new Paciente(
-                    CPFService.formatar(tf_cpf.getText()),
-                    new String(pf_senha.getPassword()),
+                    CPFService.validar(tf_cpf.getText()),
+                    SenhaService.validar(new String(pf_senha.getPassword())),
                     tf_nome.getText(),
                     tf_rua.getText(),
-                    NumericoService.formatarLong(tf_numero.getText()),
+                    NumericoService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
                     new ArrayList<>(),
-                    RGService.formatar(tf_rg.getText()),
-                    DataService.formatar(tf_dataNascimento.getText()),
+                    RGService.validar(tf_rg.getText()),
+                    DataService.validar(tf_dataNascimento.getText()),
                     tf_email.getText()
             );
 
-            if (this.controllerPaciente.cadastrar(paciente)) {
-                limparCampos();
-                JOptionPane.showMessageDialog(null, "PACIENTE CADASTRADO COM SUCESSO");
-            }
-        } catch (HeadlessException headlessException) {
-            System.out.println(Cor.VERMELHO.getCor() + headlessException.getMessage());
+            this.controllerPaciente.cadastrar(paciente);
+            
+            limparCampos();
+            JOptionPane.showMessageDialog(null, "PACIENTE CADASTRADO COM SUCESSO");
+        } catch (Exception exception) {
+            System.out.println(Cor.VERMELHO.getCor() + exception.getMessage());
         }
     }
 

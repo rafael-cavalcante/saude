@@ -157,7 +157,7 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
             Consulta consulta = new Consulta(
                     this.pacientes.get(cb_paciente.getSelectedIndex()),
                     this.medicos.get(cb_medico.getSelectedIndex()),
-                    new Prontuario(NumericoService.formatarLong(tf_laudo.getText()), LocalDate.now()),
+                    new Prontuario(NumericoService.converterLong(tf_laudo.getText()), LocalDate.now()),
                     LocalDate.now(),
                     "EMERGÊNCIA"
             );

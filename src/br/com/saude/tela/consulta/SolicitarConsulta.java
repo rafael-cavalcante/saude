@@ -182,7 +182,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
             Consulta consulta = new Consulta(
                     this.paciente,
                     this.medicos.get(cb_medico.getSelectedIndex()),
-                    new Prontuario(NumericoService.formatarLong(tf_prontuario.getText()), LocalDate.now()),
+                    new Prontuario(NumericoService.converterLong(tf_prontuario.getText()), LocalDate.now()),
                     LocalDate.parse(tf_dataRealizacao.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     "PROCESSAMENTO"
             );
