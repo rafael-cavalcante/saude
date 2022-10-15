@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.administrador;
 
-import br.com.saude.configuracao.estilo.Estilo;
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.controller.ControllerAdministrador;
 import br.com.saude.model.Administrador;
 import br.com.saude.service.CPFService;
@@ -151,7 +151,7 @@ public class LoginAdministrador extends javax.swing.JFrame {
             }
             limparCampos();
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
+            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
         }
     }
 

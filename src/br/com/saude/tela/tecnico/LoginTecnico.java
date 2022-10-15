@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.tecnico;
 
-import br.com.saude.configuracao.estilo.Estilo;
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.controller.ControllerTecnico;
 import br.com.saude.model.Tecnico;
 import br.com.saude.service.CPFService;
@@ -150,7 +150,7 @@ public class LoginTecnico extends javax.swing.JFrame {
             }
             limparCampos();
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
+            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
         }
     }
 

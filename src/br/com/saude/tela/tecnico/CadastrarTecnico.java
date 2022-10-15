@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.tecnico;
 
-import br.com.saude.configuracao.estilo.Estilo;
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.controller.ControllerTecnico;
 import br.com.saude.model.Administrador;
 import br.com.saude.model.Tecnico;
@@ -204,7 +204,7 @@ public class CadastrarTecnico extends javax.swing.JFrame {
             limparCampos();
             JOptionPane.showMessageDialog(null, "TECNICO CADASTRADO COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.AMARELO + numberFormatException.getMessage());
+            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
         }
     }
     

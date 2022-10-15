@@ -13,15 +13,10 @@ import br.com.saude.configuracao.estilo.Cor;
 public class CPFService {
 
     public static long formatar(String cpf) {
-        try {
             cpf = cpf.replace(".", "");
             cpf = cpf.replace("-", "");
             
             return Long.parseLong(cpf);
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AZUL.getCor() + numberFormatException.getMessage());
-            return 0;
-        }
     }
 
     public static String formatar(long cpf) {

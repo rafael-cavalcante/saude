@@ -5,10 +5,10 @@
 package br.com.saude.service;
 
 import br.com.saude.configuracao.estilo.Cor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 
 /**
  *
@@ -16,25 +16,25 @@ import java.time.format.ResolverStyle;
  */
 public class DataService {
 
-    public static boolean validar(String data) {
+    public static LocalDate formatar(String data) {
         try {
-            LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy").withResolverStyle(ResolverStyle.STRICT));
-
-            return true;
-        } catch (DateTimeParseException dateTimeParseException) {
-            System.out.println(Cor.AZUL.getCor() + dateTimeParseException.getMessage());
-            return false;
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            simpleDateFormat.setLenient(false);
+            simpleDateFormat.parse(data);
+            
+            return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } catch (ParseException exception) {
+            System.out.println(Cor.AZUL.getCor() + exception.getMessage());
         }
+        return null;
     }
 
-    public static String formatar(String data) {
+    public static String formatar(LocalDate data) {
         try {
-            data = data.replace("/", "");
-
-            return data;
+            return data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).replace("/", "");
         } catch (Exception exception) {
             System.out.println(Cor.AZUL.getCor() + exception.getMessage());
-            return null;
         }
+        return null;
     }
 }

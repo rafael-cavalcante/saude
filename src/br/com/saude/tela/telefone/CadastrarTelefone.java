@@ -5,7 +5,6 @@
 package br.com.saude.tela.telefone;
 
 import br.com.saude.configuracao.estilo.Cor;
-import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerTelefone;
 import br.com.saude.model.Pessoa;
 import br.com.saude.model.Telefone;
@@ -81,6 +80,7 @@ public class CadastrarTelefone extends javax.swing.JFrame {
 
         jLabel1.setText("CPF");
 
+        tf_cpf.setEditable(false);
         tf_cpf.setToolTipText("");
 
         jLabel2.setText("TELEFONE");
@@ -113,7 +113,7 @@ public class CadastrarTelefone extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tf_cpf, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                            .addComponent(tf_cpf, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                             .addComponent(tf_telefone))
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()

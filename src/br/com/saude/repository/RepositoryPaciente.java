@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class RepositoryPaciente {
 
-    public void adicionar(Paciente paciente) {
+    public boolean adicionar(Paciente paciente) {
         try {
             String query = "INSERT INTO POSTINHO.PACIENTE (cpf_pessoa, rg, data_nascimento, email) "
                     + "VALUES (?,?,?,?);";
@@ -27,16 +27,19 @@ public class RepositoryPaciente {
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
             preparedStatement.setLong(1, paciente.getCpf());
-            preparedStatement.setString(2, paciente.getRg());
+            preparedStatement.setLong(2, paciente.getRg());
             preparedStatement.setDate(3, Date.valueOf(paciente.getDataNascimento()));
             preparedStatement.setString(4, paciente.getEmail());
 
             preparedStatement.executeUpdate();
+            
+            return true;
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         } finally {
             Conexao.desconectar();
         }
+        return false;
     }
 
     public List<Paciente> buscar() {
@@ -88,7 +91,7 @@ public class RepositoryPaciente {
                         resultSet.getLong("numero"),
                         resultSet.getString("bairro"),
                         new ArrayList<>(),
-                        resultSet.getString("rg"),
+                        resultSet.getLong("rg"),
                         resultSet.getDate("data_nascimento").toLocalDate(),
                         resultSet.getString("email")
                 );
@@ -109,7 +112,7 @@ public class RepositoryPaciente {
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
-            preparedStatement.setString(1, paciente.getRg());
+            preparedStatement.setLong(1, paciente.getRg());
             preparedStatement.setDate(2, Date.valueOf(paciente.getDataNascimento()));
             preparedStatement.setLong(3, paciente.getCpf());
 

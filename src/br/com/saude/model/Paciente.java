@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Paciente extends Pessoa {
 
-    private String rg;
+    private long rg;
     private LocalDate dataNascimento;
     private String email;
 
@@ -29,18 +29,18 @@ public class Paciente extends Pessoa {
         super(cpf, senha);
     }
 
-    public Paciente(long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones, String rg, LocalDate dataNascimento, String email) {
+    public Paciente(long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones, long rg, LocalDate dataNascimento, String email) {
         super(cpf, senha, nome, rua, numero, bairro, telefones);
         this.rg = rg;
         this.dataNascimento = dataNascimento;
         this.email = email;
     }
 
-    public String getRg() {
+    public long getRg() {
         return rg;
     }
 
-    public void setRg(String rg) {
+    public void setRg(long rg) {
         this.rg = rg;
     }
 

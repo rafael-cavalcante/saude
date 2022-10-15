@@ -5,7 +5,6 @@
 package br.com.saude.tela.medico;
 
 import br.com.saude.configuracao.estilo.Cor;
-import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerMedico;
 import br.com.saude.model.Medico;
 import br.com.saude.model.Tecnico;
