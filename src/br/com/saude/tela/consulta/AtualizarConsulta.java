@@ -6,10 +6,13 @@ package br.com.saude.tela.consulta;
 
 import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.controller.ControllerConsulta;
+import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Consulta;
+import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,15 +21,18 @@ import javax.swing.JOptionPane;
  */
 public class AtualizarConsulta extends javax.swing.JFrame {
 
-    private final ControllerConsulta controllerConsulta;
-    private Consulta consulta;
+    private ControllerPaciente controllerPaciente;
+    private ControllerConsulta controllerConsulta;
+    private List<Paciente> pacientes;
+    private List<Consulta> consultas;
 
     /**
      * Creates new form CadastrarConsulta
      */
     public AtualizarConsulta() {
         initComponents();
-        this.controllerConsulta = new ControllerConsulta();
+        initControllers();
+        listarPacientes();
     }
 
     /**
@@ -40,23 +46,28 @@ public class AtualizarConsulta extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        tf_paciente = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        tf_prontuario = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        tf_dataRealizacao = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        cb_pacientes = new javax.swing.JComboBox<>();
+        cb_consultas = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        tf_paciente = new javax.swing.JTextField();
         tf_medico = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        tf_pressao = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        tf_peso = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        tf_prioridade = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tf_prontuario = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         tf_status = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        tf_dataRealizacao = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tf_pressao = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        tf_peso = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        tf_prioridade = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -83,23 +94,49 @@ public class AtualizarConsulta extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel1.setText("CONSULTAS");
+
+        jLabel8.setText("PACIENTES");
+
+        cb_pacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_pacientesActionPerformed(evt);
+            }
+        });
+
+        cb_consultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_consultasActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("PACIENTE");
+
         tf_paciente.setEditable(false);
 
-        jLabel1.setText("PACIENTE");
+        tf_medico.setEditable(false);
 
         jLabel2.setText("MEDICO");
 
-        jLabel3.setText("PRONTUARIO");
-
         tf_prontuario.setEditable(false);
 
-        jLabel4.setText("DATA REALIZACAO");
+        jLabel3.setText("PRONTUARIO");
+
+        jLabel10.setText("STATUS");
 
         try {
             tf_dataRealizacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+        jLabel4.setText("DATA REALIZACAO");
+
+        jLabel5.setText("PRESSÃO");
+
+        jLabel6.setText("PESO (Kg)");
+
+        jLabel9.setText("PRIORIDADE");
 
         jButton1.setText("ATUALIZAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -108,94 +145,114 @@ public class AtualizarConsulta extends javax.swing.JFrame {
             }
         });
 
-        tf_medico.setEditable(false);
-
-        jLabel5.setText("PRESSÃO");
-
-        jLabel6.setText("PESO (Kg)");
-
-        jLabel9.setText("PRIORIDADE");
-
-        jLabel10.setText("STATUS");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(tf_dataRealizacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tf_pressao, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8)
+                                .addComponent(cb_pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_pressao, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6)
+                            .addComponent(cb_consultas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(tf_status, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tf_dataRealizacao)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addComponent(tf_peso, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(tf_peso, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_prioridade, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(tf_status, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jLabel5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(tf_prioridade))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_pacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_consultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_dataRealizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_pressao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_peso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_prioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,44 +260,76 @@ public class AtualizarConsulta extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         atualizarConsulta();
+        atualizarListaConsultas();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void selecionarConsulta(Consulta consulta){
-        this.consulta = consulta;
+    private void cb_pacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_pacientesActionPerformed
+        atualizarListaConsultas();
+    }//GEN-LAST:event_cb_pacientesActionPerformed
+
+    private void cb_consultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_consultasActionPerformed
+        selecionarConsulta();
+    }//GEN-LAST:event_cb_consultasActionPerformed
+    
+    private void initControllers() {
+        this.controllerPaciente = new ControllerPaciente();
+        this.controllerConsulta = new ControllerConsulta();
     }
     
-    private void atualizarConsulta(){
+    private void atualizarConsulta() {
         try {
+            Consulta consulta = this.consultas.get(cb_consultas.getSelectedIndex());
+
             Consulta consultaAtualizada = new Consulta(
-                    this.consulta.getPaciente(),
-                    this.consulta.getMedico(),
-                    this.consulta.getProntuario(),
+                    consulta.getPaciente(),
+                    consulta.getMedico(),
+                    consulta.getProntuario(),
                     LocalDate.parse(tf_dataRealizacao.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                     tf_status.getText(),
                     Integer.parseInt(tf_pressao.getText()),
                     Double.parseDouble(tf_peso.getText()),
                     Integer.parseInt(tf_prioridade.getText())
-                    
             );
 
             this.controllerConsulta.alterar(consultaAtualizada);
-            
+
             JOptionPane.showMessageDialog(null, "CONSULTA ATUALIZADA COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
             System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
         }
     }
-    
-    public void carregarConsulta() {
-        tf_paciente.setText(CPFService.formatar(this.consulta.getPaciente().getCpf()));
-        tf_medico.setText(this.consulta.getMedico().getCrm());
-        tf_prontuario.setText(String.valueOf(this.consulta.getProntuario().getCodigo()));
-        tf_status.setText(this.consulta.getStatus());
-        tf_pressao.setText(String.valueOf(this.consulta.getPressao()));
-        tf_peso.setText(String.valueOf(this.consulta.getPeso()));
-        tf_prioridade.setText(String.valueOf(this.consulta.getPrioridade()));
-        if (this.consulta.getDataRealizacao() != null) {
-            tf_dataRealizacao.setText(this.consulta.getDataRealizacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).replace("/", ""));
+
+    private void listarPacientes() {
+        this.pacientes = this.controllerPaciente.listar();
+        this.pacientes.stream()
+                .forEach((Paciente paciente) -> cb_pacientes.addItem(CPFService.formatar(paciente.getCpf())));
+    }
+
+    private void listarConsultas() {
+        this.consultas = this.controllerConsulta.listar(this.pacientes.get(cb_pacientes.getSelectedIndex()));
+        this.consultas.stream()
+                .forEach((Consulta consulta) -> cb_consultas.addItem(consulta.getMedico().getCrm() + " - " + consulta.getDataRealizacao()));
+    }
+
+    private void atualizarListaConsultas() {
+        cb_consultas.removeAllItems();
+        listarConsultas();
+    }
+
+    private void selecionarConsulta() {
+        carregarConsulta(this.consultas.get(cb_consultas.getSelectedIndex()));
+    }
+
+    public void carregarConsulta(Consulta consulta) {
+        tf_paciente.setText(CPFService.formatar(consulta.getPaciente().getCpf()));
+        tf_medico.setText(consulta.getMedico().getCrm());
+        tf_prontuario.setText(String.valueOf(consulta.getProntuario().getCodigo()));
+        tf_status.setText(consulta.getStatus());
+        tf_pressao.setText(String.valueOf(consulta.getPressao()));
+        tf_peso.setText(String.valueOf(consulta.getPeso()));
+        tf_prioridade.setText(String.valueOf(consulta.getPrioridade()));
+        if (consulta.getDataRealizacao() != null) {
+            tf_dataRealizacao.setText(consulta.getDataRealizacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).replace("/", ""));
         }
     }
 
@@ -281,17 +370,22 @@ public class AtualizarConsulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cb_consultas;
+    private javax.swing.JComboBox<String> cb_pacientes;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JFormattedTextField tf_dataRealizacao;
     private javax.swing.JTextField tf_medico;
     private javax.swing.JTextField tf_paciente;

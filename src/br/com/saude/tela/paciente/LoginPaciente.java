@@ -144,7 +144,11 @@ public class LoginPaciente extends javax.swing.JFrame {
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
         loginPaciente();
     }//GEN-LAST:event_bt_loginActionPerformed
-
+    
+    private void initControllers() {
+        this.controllerPaciente = new ControllerPaciente();
+    }
+    
     private void loginPaciente() {
         try {
             Paciente paciente = new Paciente(
@@ -165,10 +169,6 @@ public class LoginPaciente extends javax.swing.JFrame {
         } catch (Exception exception) {
             System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
-    }
-
-    private void initControllers() {
-        this.controllerPaciente = new ControllerPaciente();
     }
 
     private void limparCampos() {

@@ -144,7 +144,11 @@ public class LoginTecnico extends javax.swing.JFrame {
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
         loginTecnico();
     }//GEN-LAST:event_bt_loginActionPerformed
-
+    
+    private void initControllers() {
+        this.controllerTecnico = new ControllerTecnico();
+    }
+    
     private void loginTecnico() {
         try {
             Tecnico tecnico = new Tecnico(
@@ -165,10 +169,6 @@ public class LoginTecnico extends javax.swing.JFrame {
         } catch (Exception exception) {
             System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
-    }
-
-    private void initControllers() {
-        this.controllerTecnico = new ControllerTecnico();
     }
 
     private void limparCampos() {

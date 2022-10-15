@@ -25,8 +25,8 @@ public class RepositoryConsulta {
 
     public void adicionar(Consulta consulta) {
         try {
-            String query = "INSERT INTO POSTINHO.CONSULTA (cpf_paciente, crm_medico, codigo_laudo, data_realizacao, status) "
-                    + "VALUES (?,?,?,?,?);";
+            String query = "INSERT INTO POSTINHO.CONSULTA (cpf_paciente, crm_medico, codigo_laudo, data_realizacao, status, prioridade) "
+                    + "VALUES (?,?,?,?,?,?);";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
@@ -35,6 +35,7 @@ public class RepositoryConsulta {
             preparedStatement.setLong(3, consulta.getProntuario().getCodigo());
             preparedStatement.setDate(4, Date.valueOf(consulta.getDataRealizacao()));
             preparedStatement.setString(5, consulta.getStatus());
+            preparedStatement.setInt(5, consulta.getPrioridade());
 
             preparedStatement.executeUpdate();
         } catch (SQLException sQLException) {

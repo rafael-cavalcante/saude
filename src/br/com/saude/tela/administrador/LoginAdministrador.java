@@ -148,6 +148,10 @@ public class LoginAdministrador extends javax.swing.JFrame {
         loginAdministrador();
     }//GEN-LAST:event_bt_loginActionPerformed
 
+    private void initControllers() {
+        this.controllerAdministrador = new ControllerAdministrador();
+    }
+    
     private void loginAdministrador() {
         try {
             Administrador administrador = new Administrador(
@@ -168,10 +172,6 @@ public class LoginAdministrador extends javax.swing.JFrame {
         } catch (Exception exception) {
             System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
-    }
-
-    private void initControllers() {
-        this.controllerAdministrador = new ControllerAdministrador();
     }
 
     private void limparCampos() {

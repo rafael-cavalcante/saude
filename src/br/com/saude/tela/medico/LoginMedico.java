@@ -145,6 +145,10 @@ public class LoginMedico extends javax.swing.JFrame {
         loginMedico();
     }//GEN-LAST:event_bt_loginActionPerformed
 
+    private void initControllers() {
+        this.controllerMedico = new ControllerMedico();
+    }
+
     private void loginMedico() {
         try {
             Medico medico = new Medico(
@@ -165,10 +169,6 @@ public class LoginMedico extends javax.swing.JFrame {
         } catch (Exception exception) {
             System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
-    }
-
-    private void initControllers() {
-        this.controllerMedico = new ControllerMedico();
     }
 
     private void limparCampos() {

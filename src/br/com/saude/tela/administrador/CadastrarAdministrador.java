@@ -195,7 +195,11 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
     private void bt_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarActionPerformed
         cadastrarAdministrador();
     }//GEN-LAST:event_bt_cadastrarActionPerformed
-
+        
+    private void initControllers(){
+        this.controllerAdministrador = new ControllerAdministrador();
+    }
+    
     private void cadastrarAdministrador() {
         try {
             Administrador administrador = new Administrador(
@@ -215,10 +219,6 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
         } catch (Exception exception) {
             System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
         }
-    }
-    
-    private void initControllers(){
-        this.controllerAdministrador = new ControllerAdministrador();
     }
 
     private void limparCampos() {
