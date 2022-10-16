@@ -15,28 +15,29 @@ import java.util.List;
  * @author tecin
  */
 public class ControllerConsulta {
-    
+
     private final RepositoryConsulta repositoryConsulta;
     private final RepositoryProntuario repositoryProntuario;
-    
-    public ControllerConsulta(){
+
+    public ControllerConsulta() {
         this.repositoryConsulta = new RepositoryConsulta();
         this.repositoryProntuario = new RepositoryProntuario();
     }
-    
-    public void solicitar(Consulta consulta){
-        if(!this.repositoryConsulta.existe(consulta)){
+
+    public boolean solicitar(Consulta consulta) {
+        if (!this.repositoryProntuario.existe(consulta.getProntuario())) {
             this.repositoryProntuario.adicionar(consulta.getProntuario());
-            this.repositoryConsulta.adicionar(consulta);
+            return this.repositoryConsulta.adicionar(consulta);
         }
+        return false;
     }
-    
-    public List<Consulta> listar(Paciente paciente){
+
+    public List<Consulta> listar(Paciente paciente) {
         return this.repositoryConsulta.buscar(paciente);
     }
-    
-    public boolean alterar(Consulta consulta){
-        if(this.repositoryConsulta.existe(consulta)){
+
+    public boolean alterar(Consulta consulta) {
+        if (this.repositoryConsulta.existe(consulta)) {
             return this.repositoryConsulta.atualizar(consulta);
         }
         return false;

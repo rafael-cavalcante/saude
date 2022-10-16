@@ -6,6 +6,7 @@ package br.com.saude;
 
 import br.com.saude.configuracao.Configuracao;
 import br.com.saude.tela.administrador.LoginAdministrador;
+import br.com.saude.tela.administrador.calendario.VisualizarHorarios;
 import br.com.saude.tela.medico.LoginMedico;
 import br.com.saude.tela.paciente.CadastrarPaciente;
 import br.com.saude.tela.paciente.LoginPaciente;
@@ -22,6 +23,7 @@ public class SaudeApplication extends javax.swing.JFrame {
     private LoginMedico loginMedico;
     private LoginPaciente loginPaciente;
     private CadastrarPaciente cadastrarPaciente;
+    private VisualizarHorarios visualizarHorarios;
 
     /**
      * Creates new form SaudeApplication
@@ -49,6 +51,7 @@ public class SaudeApplication extends javax.swing.JFrame {
         bt_medico = new javax.swing.JButton();
         bt_loginPaciente = new javax.swing.JButton();
         bt_cadastrarPaciente = new javax.swing.JButton();
+        bt_visualizarHorarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Saude+");
@@ -112,6 +115,13 @@ public class SaudeApplication extends javax.swing.JFrame {
             }
         });
 
+        bt_visualizarHorarios.setText("HORARIOS DE CONSULTA");
+        bt_visualizarHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_visualizarHorariosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -128,11 +138,12 @@ public class SaudeApplication extends javax.swing.JFrame {
                         .addComponent(bt_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_loginPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_cadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(bt_visualizarHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_cadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +157,9 @@ public class SaudeApplication extends javax.swing.JFrame {
                     .addComponent(bt_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_loginPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt_cadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_cadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_visualizarHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -198,12 +211,20 @@ public class SaudeApplication extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_cadastrarPacienteActionPerformed
 
+    private void bt_visualizarHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_visualizarHorariosActionPerformed
+        if(!this.visualizarHorarios.isActive()){
+            this.visualizarHorarios.inicializar();
+            this.visualizarHorarios.setVisible(true);
+        }
+    }//GEN-LAST:event_bt_visualizarHorariosActionPerformed
+
     private void initTelas() {
         this.loginAdministrador = new LoginAdministrador();
         this.loginTecnico = new LoginTecnico();
         this.loginMedico = new LoginMedico();
         this.loginPaciente = new LoginPaciente();
         this.cadastrarPaciente = new CadastrarPaciente();
+        this.visualizarHorarios = new VisualizarHorarios();
     }
 
     /**
@@ -247,6 +268,7 @@ public class SaudeApplication extends javax.swing.JFrame {
     private javax.swing.JButton bt_loginPaciente;
     private javax.swing.JButton bt_medico;
     private javax.swing.JButton bt_tecnico;
+    private javax.swing.JButton bt_visualizarHorarios;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

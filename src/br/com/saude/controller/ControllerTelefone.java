@@ -11,24 +11,25 @@ import java.util.List;
 
 /**
  * Classe responsável por solicita as operações com o objeto telefone.
- * 
+ *
  * @author Rafael Cavalcante
  */
 public class ControllerTelefone {
-    
+
     private final RepositoryTelefone repositoryTelefone;
-    
-    public ControllerTelefone(){
+
+    public ControllerTelefone() {
         this.repositoryTelefone = new RepositoryTelefone();
     }
-    
-    public void cadastrar(Telefone telefone, Pessoa pessoa){
-        if(!this.repositoryTelefone.existe(telefone, pessoa)){
-            this.repositoryTelefone.adicionar(telefone, pessoa);
+
+    public boolean cadastrar(Telefone telefone, Pessoa pessoa) {
+        if (!this.repositoryTelefone.existe(telefone, pessoa)) {
+            return this.repositoryTelefone.adicionar(telefone, pessoa);
         }
+        return false;
     }
-    
-    public List<Telefone> listar(Pessoa pessoa){
+
+    public List<Telefone> listar(Pessoa pessoa) {
         return this.repositoryTelefone.buscar(pessoa);
     }
 }

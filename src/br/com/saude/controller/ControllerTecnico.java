@@ -26,11 +26,12 @@ public class ControllerTecnico {
         this.repositoryTelefone = new RepositoryTelefone();
     }
 
-    public void cadastrar(Tecnico tecnico, Administrador administrador) {
-        if (!this.repositorytecnico.existe(tecnico)) {
+    public boolean cadastrar(Tecnico tecnico, Administrador administrador) {
+        if (!this.repositoryPessoa.existe(tecnico)) {
             this.repositoryPessoa.adicionar(tecnico);
-            this.repositorytecnico.adicionar(tecnico, administrador);
+            return this.repositorytecnico.adicionar(tecnico, administrador);
         }
+        return false;
     }
 
     public Tecnico login(Tecnico tecnico) {

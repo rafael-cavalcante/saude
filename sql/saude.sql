@@ -82,3 +82,11 @@ create table postinho.consulta(
 	foreign key(crm_medico) references postinho.medico(crm),
 	foreign key(codigo_prontuario) references postinho.prontuario(codigo)
 );
+
+create table postinho.horario(
+        data date,
+        descricao text,
+        cpf_tecnico bigint,
+        primary key(data),
+        foreign key(cpf_tecnico) references postinho.tecnico(cpf_pessoa)
+);

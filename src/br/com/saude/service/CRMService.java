@@ -13,7 +13,6 @@ public class CRMService {
     public static String validar(String crm) throws Exception {
         if (!crm.contains(" ")) {
             crm = crm.replace("CRM/", "");
-            crm = crm.replace(" ", "");
 
             return crm;
         } else {

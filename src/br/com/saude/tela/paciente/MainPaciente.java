@@ -5,6 +5,7 @@
 package br.com.saude.tela.paciente;
 
 import br.com.saude.model.Paciente;
+import br.com.saude.tela.consulta.AtualizarConsultaPaciente;
 import br.com.saude.tela.consulta.SolicitarConsulta;
 import br.com.saude.tela.telefone.CadastrarTelefone;
 
@@ -17,6 +18,7 @@ public class MainPaciente extends javax.swing.JFrame {
     private SolicitarConsulta solicitarConsulta;
     private AtualizarPaciente atualizarPaciente;
     private CadastrarTelefone cadastrarTelefone;
+    private AtualizarConsultaPaciente atualizarConsultaPaciente;
     private Paciente paciente;
     
     /**
@@ -47,6 +49,7 @@ public class MainPaciente extends javax.swing.JFrame {
         bt_atualizarPaciente = new javax.swing.JButton();
         bt_solicitarConsulta = new javax.swing.JButton();
         bt_cadastrarTelefone = new javax.swing.JButton();
+        bt_atualizarConsulta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -95,20 +98,30 @@ public class MainPaciente extends javax.swing.JFrame {
             }
         });
 
+        bt_atualizarConsulta.setText("ATUALIZAR CONSULTA");
+        bt_atualizarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_atualizarConsultaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +131,9 @@ public class MainPaciente extends javax.swing.JFrame {
                     .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -158,10 +173,17 @@ public class MainPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_cadastrarTelefoneActionPerformed
 
+    private void bt_atualizarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarConsultaActionPerformed
+        if(!this.atualizarConsultaPaciente.isActive()){
+            this.atualizarConsultaPaciente.setVisible(true);
+        }
+    }//GEN-LAST:event_bt_atualizarConsultaActionPerformed
+
     private void initTelas(){
         this.solicitarConsulta = new SolicitarConsulta(this.paciente);
         this.atualizarPaciente = new AtualizarPaciente(this.paciente);
         this.cadastrarTelefone = new CadastrarTelefone(this.paciente);
+        this.atualizarConsultaPaciente = new AtualizarConsultaPaciente(this.paciente);
     }
     
     /**
@@ -200,6 +222,7 @@ public class MainPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_atualizarConsulta;
     private javax.swing.JButton bt_atualizarPaciente;
     private javax.swing.JButton bt_cadastrarTelefone;
     private javax.swing.JButton bt_solicitarConsulta;

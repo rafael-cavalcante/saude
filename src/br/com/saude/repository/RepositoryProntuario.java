@@ -7,7 +7,7 @@ package br.com.saude.repository;
 import br.com.saude.configuracao.conexao.Conexao;
 import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.model.Prontuario;
-import java.sql.Date;
+import br.com.saude.service.DataService;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +26,7 @@ public class RepositoryProntuario {
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
             preparedStatement.setLong(1, prontuario.getCodigo());
-            preparedStatement.setDate(2, Date.valueOf(prontuario.getDataCriacao()));
+            preparedStatement.setDate(2, DataService.converter(prontuario.getDataCriacao()));
             preparedStatement.setString(3, prontuario.getDescricao());
 
             preparedStatement.executeUpdate();

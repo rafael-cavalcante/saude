@@ -25,11 +25,12 @@ public class ControllerAdministrador {
         this.repositoryTelefone = new RepositoryTelefone();
     }
 
-    public void cadastrar(Administrador administrador) {
-        if (!this.repositoryAdministrador.existe(administrador)) {
+    public boolean cadastrar(Administrador administrador) {
+        if (!this.repositoryPessoa.existe(administrador)) {
             this.repositoryPessoa.adicionar(administrador);
-            this.repositoryAdministrador.adicionar(administrador);
+            return this.repositoryAdministrador.adicionar(administrador);
         }
+        return false;
     }
 
     public Administrador login(Administrador administrador) {

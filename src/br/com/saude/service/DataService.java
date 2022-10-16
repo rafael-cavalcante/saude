@@ -16,6 +16,8 @@ import java.time.format.DateTimeFormatter;
  * @author tecin
  */
 public class DataService {
+    private static final LocalDate localDateErro = null;
+    private static final Date dateErro = null;
 
     public static LocalDate validar(String data) {
         try {
@@ -29,23 +31,21 @@ public class DataService {
         } catch (ParseException parseException) {
             System.out.println(Cor.AZUL.getCor() + "DATA VAZIA OU INVÁLIDA!");
         }
-        return null;
+        return localDateErro;
     }
 
     public static Date converter(LocalDate localDate) {
         if (localDate != null) {
             return Date.valueOf(localDate);
         }
-        Date data = null;
-        return data;
+        return dateErro;
     }
     
     public static LocalDate converter(Date date) {
         if (date != null) {
             return date.toLocalDate();
         }
-        LocalDate localDate = null;
-        return localDate;
+        return localDateErro;
     }
     
 

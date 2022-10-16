@@ -27,11 +27,12 @@ public class ControllerMedico {
         this.repositoryTelefone = new RepositoryTelefone();
     }
 
-    public void cadastrar(Medico medico, Tecnico tecnico) {
-        if (!this.repositoryMedico.existe(medico)) {
+    public boolean cadastrar(Medico medico, Tecnico tecnico) {
+        if (!repositoryPessoa.existe(medico)) {
             this.repositoryPessoa.adicionar(medico);
-            this.repositoryMedico.adicionar(medico, tecnico);
+            return this.repositoryMedico.adicionar(medico, tecnico);
         }
+        return false;
     }
 
     public Medico login(Medico medico) {

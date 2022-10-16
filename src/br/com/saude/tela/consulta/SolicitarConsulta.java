@@ -14,6 +14,7 @@ import br.com.saude.model.Prontuario;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.DataService;
 import br.com.saude.service.NumericoService;
+import java.awt.HeadlessException;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -197,15 +198,16 @@ public class SolicitarConsulta extends javax.swing.JFrame {
                     this.medicos.get(cb_medico.getSelectedIndex()),
                     new Prontuario(NumericoService.converterLong(tf_prontuario.getText()), LocalDate.now()),
                     DataService.validar(tf_dataRealizacao.getText()),
-                    "PROCESSAMENTO",
+                    "Processamento",
                     0
             );
 
-            this.controllerConsulta.solicitar(consulta);
-
-            JOptionPane.showMessageDialog(null, "CONSULTA SOLICITADA COM SUCESSO");
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
+            if (this.controllerConsulta.solicitar(consulta)) {
+                limparCampos();
+                JOptionPane.showMessageDialog(null, "CONSULTA SOLICITADA COM SUCESSO");
+            }
+        } catch (HeadlessException  headlessException) {
+            System.out.println(Cor.AMARELO.getCor() + headlessException.getMessage());
         }
     }
 
@@ -217,6 +219,11 @@ public class SolicitarConsulta extends javax.swing.JFrame {
 
     private void carregarPaciente() {
         tf_paciente.setText(CPFService.formatar(this.paciente.getCpf()));
+    }
+
+    private void limparCampos() {
+        tf_prontuario.setText("");
+        tf_dataRealizacao.setText("");
     }
 
     /**

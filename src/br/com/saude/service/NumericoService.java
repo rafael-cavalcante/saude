@@ -17,8 +17,8 @@ public class NumericoService {
             return Long.parseLong(numero);
         } catch (NumberFormatException numberFormatException) {
             System.out.println(Cor.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
-            return 0;
         }
+        return 0;
     }
 
     public static int converterInt(String numero) {
@@ -26,7 +26,16 @@ public class NumericoService {
             return Integer.parseInt(numero);
         } catch (NumberFormatException numberFormatException) {
             System.out.println(Cor.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
-            return 0;
         }
+        return 0;
+    }
+
+    public static String formatar(long numero) {
+        try {
+            return String.valueOf(numero);
+        } catch (Exception exception) {
+            System.out.println(Cor.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
+        }
+        return null;
     }
 }

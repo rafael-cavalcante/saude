@@ -10,6 +10,7 @@ import br.com.saude.model.Consulta;
 import br.com.saude.model.Medico;
 import br.com.saude.model.Paciente;
 import br.com.saude.model.Prontuario;
+import br.com.saude.service.DataService;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ public class RepositoryConsulta {
 
     public boolean adicionar(Consulta consulta) {
         try {
-            String query = "INSERT INTO POSTINHO.CONSULTA (cpf_paciente, crm_medico, codigo_laudo, data_realizacao, status, prioridade) "
+            String query = "INSERT INTO POSTINHO.CONSULTA (cpf_paciente, crm_medico, codigo_prontuario, data_realizacao, status, prioridade) "
                     + "VALUES (?,?,?,?,?,?);";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
@@ -33,9 +34,9 @@ public class RepositoryConsulta {
             preparedStatement.setLong(1, consulta.getPaciente().getCpf());
             preparedStatement.setString(2, consulta.getMedico().getCrm());
             preparedStatement.setLong(3, consulta.getProntuario().getCodigo());
-            preparedStatement.setDate(4, Date.valueOf(consulta.getDataRealizacao()));
+            preparedStatement.setDate(4, DataService.converter(consulta.getDataRealizacao()));
             preparedStatement.setString(5, consulta.getStatus());
-            preparedStatement.setInt(5, consulta.getPrioridade());
+            preparedStatement.setInt(6, consulta.getPrioridade());
 
             preparedStatement.executeUpdate();
 
@@ -52,11 +53,11 @@ public class RepositoryConsulta {
         try {
             List<Consulta> consultas = new ArrayList<>();
 
-            String query = "SELECT cpf_paciente, crm_medico, codigo_laudo, status, peso, pressao, data_realizacao, prioridade FROM POSTINHO.CONSULTA "
-                    + "WHERE cpf_paciente = ?;";
+            String query = "SELECT cpf_paciente, crm_medico, codigo_prontuario, status, peso, pressao, data_realizacao, prioridade FROM POSTINHO.CONSULTA "
+                    + "WHERE cpf_paciente = ? AND status = 'Processamento';";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
-
+            
             preparedStatement.setLong(1, paciente.getCpf());
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -88,7 +89,7 @@ public class RepositoryConsulta {
     public boolean atualizar(Consulta consulta) {
         try {
             String query = "UPDATE POSTINHO.CONSULTA SET data_realizacao = ?, status = ?, pressao = ?, peso = ?, prioridade = ? "
-                    + "WHERE cpf_paciente = ? AND crm_medico = ? AND codigo_laudo = ?;";
+                    + "WHERE cpf_paciente = ? AND crm_medico = ? AND codigo_prontuario = ?;";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
@@ -114,8 +115,8 @@ public class RepositoryConsulta {
 
     public boolean existe(Consulta consulta) {
         try {
-            String query = "SELECT cpf_paciente, crm_medico, codigo_laudo FROM POSTINHO.CONSULTA "
-                    + "WHERE cpf_paciente = ? AND crm_medico = ? AND codigo_laudo = ?;";
+            String query = "SELECT cpf_paciente, crm_medico, codigo_prontuario FROM POSTINHO.CONSULTA "
+                    + "WHERE cpf_paciente = ? AND crm_medico = ? AND codigo_prontuario = ?;";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 

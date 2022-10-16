@@ -96,7 +96,7 @@ public class CadastrarMedico extends javax.swing.JFrame {
         jLabel8.setText("CRM");
 
         try {
-            tf_crm.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("CRM/UU ######")));
+            tf_crm.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("CRM/UU######")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }

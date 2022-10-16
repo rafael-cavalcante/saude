@@ -45,8 +45,6 @@ public class Consulta {
         this.prioridade = prioridade;
     }
     
-    
-
     public Paciente getPaciente() {
         return paciente;
     }
