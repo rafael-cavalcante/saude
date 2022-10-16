@@ -18,9 +18,9 @@ import java.sql.SQLException;
  */
 public class RepositoryProntuario {
 
-    public void adicionar(Prontuario prontuario) {
+    public boolean adicionar(Prontuario prontuario) {
         try {
-            String query = "INSERT INTO POSTINHO.LAUDO (codigo, data_criacao, descricao) "
+            String query = "INSERT INTO POSTINHO.PRONTUARIO (codigo, data_criacao, descricao) "
                     + "VALUES (?,?,?);";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
@@ -30,16 +30,19 @@ public class RepositoryProntuario {
             preparedStatement.setString(3, prontuario.getDescricao());
 
             preparedStatement.executeUpdate();
+
+            return true;
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
+        return false;
     }
-    
-    public boolean existe(Prontuario prontuario){
+
+    public boolean existe(Prontuario prontuario) {
         try {
-            String query = "SELECT codigo FROM POSTINHO.LAUDO "
+            String query = "SELECT codigo FROM POSTINHO.PRONTUARIO "
                     + "WHERE codigo = ?;";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
@@ -47,10 +50,8 @@ public class RepositoryProntuario {
             preparedStatement.setLong(1, prontuario.getCodigo());
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            
-            if(resultSet.next()){
-                return true;
-            }
+
+            return resultSet.next();
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {

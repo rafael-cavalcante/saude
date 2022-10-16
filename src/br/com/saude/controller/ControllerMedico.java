@@ -16,7 +16,7 @@ import java.util.List;
  * @author tecin
  */
 public class ControllerMedico {
-    
+
     private final RepositoryPessoa repositoryPessoa;
     private final RepositoryMedico repositoryMedico;
     private final RepositoryTelefone repositoryTelefone;
@@ -36,13 +36,13 @@ public class ControllerMedico {
 
     public Medico login(Medico medico) {
         medico = this.repositoryMedico.buscar(medico);
-        if(medico != null){
+        if (medico != null) {
             medico.setTelefones(this.repositoryTelefone.buscar(medico));
         }
         return medico;
     }
-    
-    public List<Medico> listar(){
+
+    public List<Medico> listar() {
         return this.repositoryMedico.buscar();
     }
 }

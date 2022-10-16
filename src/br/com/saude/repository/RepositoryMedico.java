@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class RepositoryMedico {
 
-    public void adicionar(Medico medico, Tecnico tecnico) {
+    public boolean adicionar(Medico medico, Tecnico tecnico) {
         try {
             String query = "INSERT INTO POSTINHO.MEDICO (crm, cpf_pessoa, cpf_tecnico, especializacao) "
                     + "VALUES (?,?,?,?);";
@@ -33,16 +33,52 @@ public class RepositoryMedico {
             preparedStatement.setString(4, medico.getEspecializacao());
 
             preparedStatement.executeUpdate();
+
+            return true;
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
+        return false;
+    }
+
+    public Medico buscar(Medico medico) {
+        try {
+            String query = "SELECT crm, especializacao, cpf, senha, nome, bairro, rua, numero FROM POSTINHO.PESSOA, POSTINHO.MEDICO "
+                    + "WHERE crm = ? AND cpf_pessoa = cpf AND senha = ? ;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            preparedStatement.setString(1, medico.getCrm());
+            preparedStatement.setString(2, medico.getSenha());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return new Medico(
+                        resultSet.getLong("cpf"),
+                        resultSet.getString("senha"),
+                        resultSet.getString("nome"),
+                        resultSet.getString("rua"),
+                        resultSet.getLong("numero"),
+                        resultSet.getString("bairro"),
+                        new ArrayList<>(),
+                        resultSet.getString("crm"),
+                        resultSet.getString("especializacao")
+                );
+            }
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return null;
     }
 
     public List<Medico> buscar() {
         try {
-            ArrayList<Medico> medicos = new ArrayList<>();
+            List<Medico> medicos = new ArrayList<>();
 
             String query = "SELECT crm FROM POSTINHO.MEDICO;";
 
@@ -63,40 +99,6 @@ public class RepositoryMedico {
         return null;
     }
 
-    public Medico buscar(Medico medico) {
-        try {
-            String query = "SELECT crm, especializacao, cpf, senha, nome, bairro, rua, numero FROM POSTINHO.PESSOA, POSTINHO.MEDICO "
-                    + "WHERE crm = ? AND cpf_pessoa = cpf AND senha = ? ;";
-
-            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
-
-            preparedStatement.setString(1, medico.getCrm());
-            preparedStatement.setString(2, medico.getSenha());
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                Medico medicoLogado = new Medico(
-                        resultSet.getLong("cpf"),
-                        resultSet.getString("senha"),
-                        resultSet.getString("nome"),
-                        resultSet.getString("rua"),
-                        resultSet.getLong("numero"),
-                        resultSet.getString("bairro"),
-                        new ArrayList<>(),
-                        resultSet.getString("crm"),
-                        resultSet.getString("especializacao")
-                );
-                return medicoLogado;
-            }
-        } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
-        } finally {
-            Conexao.desconectar();
-        }
-        return null;
-    }
-
     public boolean existe(Medico medico) {
         try {
             String query = "SELECT crm FROM POSTINHO.MEDICO "
@@ -108,9 +110,7 @@ public class RepositoryMedico {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
-            }
+            return resultSet.next();
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {

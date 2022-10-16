@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class RepositoryAdministrador {
 
-    public void adicionar(Administrador administrador) {
+    public boolean adicionar(Administrador administrador) {
         try {
             String query = "INSERT INTO POSTINHO.ADMINISTRADOR (cpf_pessoa) "
                     + "VALUES (?);";
@@ -28,11 +28,14 @@ public class RepositoryAdministrador {
             preparedStatement.setLong(1, administrador.getCpf());
 
             preparedStatement.executeUpdate();
+
+            return true;
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
+        return false;
     }
 
     public Administrador buscar(Administrador administrador) {
@@ -48,7 +51,7 @@ public class RepositoryAdministrador {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                Administrador administradorLogado = new Administrador(
+                return new Administrador(
                         resultSet.getLong("cpf"),
                         resultSet.getString("senha"),
                         resultSet.getString("nome"),
@@ -57,7 +60,6 @@ public class RepositoryAdministrador {
                         resultSet.getString("bairro"),
                         new ArrayList<>()
                 );
-                return administradorLogado;
             }
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
@@ -78,9 +80,7 @@ public class RepositoryAdministrador {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
-            }
+            return resultSet.next();
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {

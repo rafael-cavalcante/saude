@@ -29,10 +29,8 @@ public class Conexao {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
 
             return connection;
-        } catch (ClassNotFoundException classNotFoundException) {
+        } catch (ClassNotFoundException | SQLException classNotFoundException) {
             System.out.println(Cor.ROXO.getCor() + classNotFoundException.getMessage());
-        } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         }
         return null;
     }
@@ -44,7 +42,7 @@ public class Conexao {
                 connection = null;
             }
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Cor.ROXO.getCor() + sQLException.getMessage());
         }
     }
 }

@@ -35,7 +35,7 @@ public class ControllerTecnico {
 
     public Tecnico login(Tecnico tecnico) {
         tecnico = this.repositorytecnico.buscar(tecnico);
-        if(tecnico != null){
+        if (tecnico != null) {
             tecnico.setTelefones(this.repositoryTelefone.buscar(tecnico));
         }
         return tecnico;

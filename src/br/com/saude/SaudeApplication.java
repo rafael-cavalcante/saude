@@ -198,14 +198,14 @@ public class SaudeApplication extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_cadastrarPacienteActionPerformed
 
-    private void initTelas(){
+    private void initTelas() {
         this.loginAdministrador = new LoginAdministrador();
         this.loginTecnico = new LoginTecnico();
         this.loginMedico = new LoginMedico();
         this.loginPaciente = new LoginPaciente();
         this.cadastrarPaciente = new CadastrarPaciente();
     }
-    
+
     /**
      * @param args the command line arguments
      */

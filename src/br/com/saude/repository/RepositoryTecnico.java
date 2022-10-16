@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class RepositoryTecnico {
 
-    public void adicionar(Tecnico tecnico, Administrador administrador) {
+    public boolean adicionar(Tecnico tecnico, Administrador administrador) {
         try {
             String query = "INSERT INTO POSTINHO.TECNICO (cpf_pessoa, cpf_administrador) "
                     + "VALUES (?,?);";
@@ -30,11 +30,14 @@ public class RepositoryTecnico {
             preparedStatement.setLong(2, administrador.getCpf());
 
             preparedStatement.executeUpdate();
+            
+            return true;
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
+        return false;
     }
 
     public Tecnico buscar(Tecnico tecnico) {
@@ -50,7 +53,7 @@ public class RepositoryTecnico {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                Tecnico tecnicoLogado = new Tecnico(
+                return new Tecnico(
                         resultSet.getLong("cpf"),
                         resultSet.getString("senha"),
                         resultSet.getString("nome"),
@@ -59,7 +62,6 @@ public class RepositoryTecnico {
                         resultSet.getString("bairro"),
                         new ArrayList<>()
                 );
-                return tecnicoLogado;
             }
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
@@ -80,9 +82,7 @@ public class RepositoryTecnico {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
-            }
+            return resultSet.next();
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {

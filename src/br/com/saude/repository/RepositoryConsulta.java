@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class RepositoryConsulta {
 
-    public void adicionar(Consulta consulta) {
+    public boolean adicionar(Consulta consulta) {
         try {
             String query = "INSERT INTO POSTINHO.CONSULTA (cpf_paciente, crm_medico, codigo_laudo, data_realizacao, status, prioridade) "
                     + "VALUES (?,?,?,?,?,?);";
@@ -38,11 +38,14 @@ public class RepositoryConsulta {
             preparedStatement.setInt(5, consulta.getPrioridade());
 
             preparedStatement.executeUpdate();
+
+            return true;
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
+        return false;
     }
 
     public List<Consulta> buscar(Paciente paciente) {
@@ -59,18 +62,18 @@ public class RepositoryConsulta {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Consulta consulta = new Consulta(
-                        new Paciente(resultSet.getLong("cpf_paciente")),
-                        new Medico(resultSet.getString("crm_medico")),
-                        new Prontuario(resultSet.getInt("codigo_prontuario")),
-                        resultSet.getDate("data_realizacao").toLocalDate(),
-                        resultSet.getString("status"),
-                        resultSet.getInt("pressao"),
-                        resultSet.getDouble("peso"),
-                        resultSet.getInt("prioridade")
+                consultas.add(
+                        new Consulta(
+                                new Paciente(resultSet.getLong("cpf_paciente")),
+                                new Medico(resultSet.getString("crm_medico")),
+                                new Prontuario(resultSet.getLong("codigo_prontuario")),
+                                resultSet.getDate("data_realizacao").toLocalDate(),
+                                resultSet.getString("status"),
+                                resultSet.getInt("pressao"),
+                                resultSet.getDouble("peso"),
+                                resultSet.getInt("prioridade")
+                        )
                 );
-
-                consultas.add(consulta);
             }
 
             return consultas;
@@ -122,9 +125,7 @@ public class RepositoryConsulta {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
-            }
+            return resultSet.next();
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {

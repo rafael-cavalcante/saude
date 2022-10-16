@@ -5,6 +5,7 @@
 package br.com.saude.repository;
 
 import br.com.saude.configuracao.conexao.Conexao;
+import br.com.saude.configuracao.estilo.Cor;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.DataService;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class RepositoryPaciente {
 
-    public void adicionar(Paciente paciente) {
+    public boolean adicionar(Paciente paciente) {
         try {
             String query = "INSERT INTO POSTINHO.PACIENTE (cpf_pessoa, rg, data_nascimento, email) "
                     + "VALUES (?,?,?,?);";
@@ -32,13 +33,51 @@ public class RepositoryPaciente {
             preparedStatement.setString(4, paciente.getEmail());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+            
+            return true;
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
+        return false;
     }
 
+    public Paciente buscar(Paciente paciente) {
+        try {
+            String query = "SELECT cpf, senha, nome, rua, numero, bairro, rg, data_nascimento, email FROM POSTINHO.PESSOA, POSTINHO.PACIENTE "
+                    + "WHERE cpf = ? AND senha = ? AND cpf = cpf_pessoa;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            preparedStatement.setLong(1, paciente.getCpf());
+            preparedStatement.setString(2, paciente.getSenha());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return new Paciente(
+                        resultSet.getLong("cpf"),
+                        resultSet.getString("senha"),
+                        resultSet.getString("nome"),
+                        resultSet.getString("rua"),
+                        resultSet.getLong("numero"),
+                        resultSet.getString("bairro"),
+                        new ArrayList<>(),
+                        resultSet.getLong("rg"),
+                        DataService.converter(resultSet.getDate("data_nascimento")),
+                        resultSet.getString("email")
+                );
+            }
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return null;
+    }
+    
+    
     public List<Paciente> buscar() {
         try {
             List<Paciente> pacientes = new ArrayList<>();
@@ -57,45 +96,10 @@ public class RepositoryPaciente {
 
                 pacientes.add(paciente);
             }
-
+            
             return pacientes;
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
-        } finally {
-            Conexao.desconectar();
-        }
-        return null;
-    }
-
-    public Paciente buscar(Paciente paciente) {
-        try {
-            String query = "SELECT cpf, senha, nome, rua, numero, bairro, rg, data_nascimento, email FROM POSTINHO.PESSOA, POSTINHO.PACIENTE "
-                    + "WHERE cpf = ? AND senha = ? AND cpf = cpf_pessoa;";
-
-            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
-
-            preparedStatement.setLong(1, paciente.getCpf());
-            preparedStatement.setString(2, paciente.getSenha());
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                Paciente pacienteLogado = new Paciente(
-                        resultSet.getLong("cpf"),
-                        resultSet.getString("senha"),
-                        resultSet.getString("nome"),
-                        resultSet.getString("rua"),
-                        resultSet.getLong("numero"),
-                        resultSet.getString("bairro"),
-                        new ArrayList<>(),
-                        resultSet.getLong("rg"),
-                        DataService.converter(resultSet.getDate("data_nascimento")),
-                        resultSet.getString("email")
-                );
-                return pacienteLogado;
-            }
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -116,8 +120,8 @@ public class RepositoryPaciente {
             preparedStatement.executeUpdate();
 
             return true;
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -135,11 +139,9 @@ public class RepositoryPaciente {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
-            }
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+            return resultSet.next();
+        } catch (SQLException sQLException) {
+            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }

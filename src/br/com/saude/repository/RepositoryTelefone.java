@@ -16,13 +16,13 @@ import java.util.List;
 
 /**
  * Classe responsável por realizar as operações com a tabela telefone.
- * 
+ *
  * @author Rafael Cavalcante
  */
 public class RepositoryTelefone {
-    
-    public void adicionar(Telefone telefone, Pessoa pessoa){
-         try {
+
+    public boolean adicionar(Telefone telefone, Pessoa pessoa) {
+        try {
             String query = "INSERT INTO POSTINHO.TELEFONE (cpf_pessoa, numero) "
                     + "VALUES (?,?);";
 
@@ -32,17 +32,20 @@ public class RepositoryTelefone {
             preparedStatement.setLong(2, telefone.getNumero());
 
             preparedStatement.executeUpdate();
+
+            return true;
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
+        return false;
     }
-    
-    public List<Telefone> buscar(Pessoa pessoa){
+
+    public List<Telefone> buscar(Pessoa pessoa) {
         try {
-            ArrayList<Telefone> telefones = new ArrayList<>();
-            
+            List<Telefone> telefones = new ArrayList<>();
+
             String query = "SELECT numero FROM POSTINHO.TELEFONE "
                     + "WHERE cpf_pessoa  = ?;";
 
@@ -55,7 +58,7 @@ public class RepositoryTelefone {
             while (resultSet.next()) {
                 telefones.add(new Telefone(resultSet.getLong("numero")));
             }
-            
+
             return telefones;
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
@@ -64,12 +67,12 @@ public class RepositoryTelefone {
         }
         return null;
     }
-    
-    public boolean existe(Telefone telefone, Pessoa pessoa){
+
+    public boolean existe(Telefone telefone, Pessoa pessoa) {
         try {
             String query = "SELECT cpf_pessoa, numero FROM POSTINHO.TELEFONE "
                     + "WHERE cpf_pessoa = ? AND numero = ?;";
-            
+
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
             preparedStatement.setLong(1, pessoa.getCpf());
@@ -77,9 +80,7 @@ public class RepositoryTelefone {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
-                return true;
-            }
+            return resultSet.next();
         } catch (SQLException sQLException) {
             System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
         } finally {

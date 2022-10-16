@@ -15,7 +15,7 @@ import java.util.List;
  * @author tecin
  */
 public class ControllerPaciente {
-    
+
     private final RepositoryPessoa repositoryPessoa;
     private final RepositoryPaciente repositoryPaciente;
     private final RepositoryTelefone repositoryTelefone;
@@ -35,18 +35,18 @@ public class ControllerPaciente {
 
     public Paciente login(Paciente paciente) {
         paciente = this.repositoryPaciente.buscar(paciente);
-        if(paciente != null){
+        if (paciente != null) {
             paciente.setTelefones(this.repositoryTelefone.buscar(paciente));
         }
         return paciente;
     }
-    
-    public List<Paciente> listar(){
+
+    public List<Paciente> listar() {
         return this.repositoryPaciente.buscar();
     }
-    
-    public boolean alterar(Paciente paciente){
-        if(this.repositoryPaciente.existe(paciente)){
+
+    public boolean alterar(Paciente paciente) {
+        if (this.repositoryPaciente.existe(paciente)) {
             this.repositoryPessoa.atualizar(paciente);
             return this.repositoryPaciente.atualizar(paciente);
         }
