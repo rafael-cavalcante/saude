@@ -6,7 +6,7 @@ package br.com.saude;
 
 import br.com.saude.configuracao.Configuracao;
 import br.com.saude.tela.administrador.LoginAdministrador;
-import br.com.saude.tela.administrador.calendario.VisualizarHorarios;
+import br.com.saude.tela.administrador.horario.VisualizarHorarios;
 import br.com.saude.tela.medico.LoginMedico;
 import br.com.saude.tela.paciente.CadastrarPaciente;
 import br.com.saude.tela.paciente.LoginPaciente;
@@ -18,12 +18,12 @@ import br.com.saude.tela.tecnico.LoginTecnico;
  */
 public class SaudeApplication extends javax.swing.JFrame {
 
-    private LoginAdministrador loginAdministrador;
-    private LoginTecnico loginTecnico;
-    private LoginMedico loginMedico;
-    private LoginPaciente loginPaciente;
-    private CadastrarPaciente cadastrarPaciente;
-    private VisualizarHorarios visualizarHorarios;
+    private final LoginAdministrador loginAdministrador;
+    private final LoginTecnico loginTecnico;
+    private final LoginMedico loginMedico;
+    private final LoginPaciente loginPaciente;
+    private final CadastrarPaciente cadastrarPaciente;
+    private final VisualizarHorarios visualizarHorarios;
 
     /**
      * Creates new form SaudeApplication
@@ -31,7 +31,12 @@ public class SaudeApplication extends javax.swing.JFrame {
     public SaudeApplication() {
         initComponents();
         Configuracao.iniciar();
-        initTelas();
+        loginAdministrador = new LoginAdministrador();
+        loginTecnico = new LoginTecnico();
+        loginMedico = new LoginMedico();
+        loginPaciente = new LoginPaciente();
+        cadastrarPaciente = new CadastrarPaciente();
+        visualizarHorarios = new VisualizarHorarios();
     }
 
     /**
@@ -182,50 +187,41 @@ public class SaudeApplication extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_administradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_administradorActionPerformed
-        if (!this.loginAdministrador.isActive()) {
-            this.loginAdministrador.setVisible(true);
+        if (!loginAdministrador.isActive()) {
+            loginAdministrador.setVisible(true);
         }
     }//GEN-LAST:event_bt_administradorActionPerformed
 
     private void bt_tecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_tecnicoActionPerformed
-        if (!this.loginTecnico.isActive()) {
-            this.loginTecnico.setVisible(true);
+        if (!loginTecnico.isActive()) {
+            loginTecnico.setVisible(true);
         }
     }//GEN-LAST:event_bt_tecnicoActionPerformed
 
     private void bt_medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_medicoActionPerformed
-        if (!this.loginMedico.isActive()) {
-            this.loginMedico.setVisible(true);
+        if (!loginMedico.isActive()) {
+            loginMedico.setVisible(true);
         }
     }//GEN-LAST:event_bt_medicoActionPerformed
 
     private void bt_loginPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginPacienteActionPerformed
-        if (!this.loginPaciente.isActive()) {
-            this.loginPaciente.setVisible(true);
+        if (!loginPaciente.isActive()) {
+            loginPaciente.setVisible(true);
         }
     }//GEN-LAST:event_bt_loginPacienteActionPerformed
 
     private void bt_cadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarPacienteActionPerformed
-        if (!this.cadastrarPaciente.isActive()) {
-            this.cadastrarPaciente.setVisible(true);
+        if (!cadastrarPaciente.isActive()) {
+            cadastrarPaciente.setVisible(true);
         }
     }//GEN-LAST:event_bt_cadastrarPacienteActionPerformed
 
     private void bt_visualizarHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_visualizarHorariosActionPerformed
-        if(!this.visualizarHorarios.isActive()){
-            this.visualizarHorarios.inicializar();
-            this.visualizarHorarios.setVisible(true);
+        if(!visualizarHorarios.isActive()){
+            visualizarHorarios.inicializar();
+            visualizarHorarios.setVisible(true);
         }
     }//GEN-LAST:event_bt_visualizarHorariosActionPerformed
-
-    private void initTelas() {
-        this.loginAdministrador = new LoginAdministrador();
-        this.loginTecnico = new LoginTecnico();
-        this.loginMedico = new LoginMedico();
-        this.loginPaciente = new LoginPaciente();
-        this.cadastrarPaciente = new CadastrarPaciente();
-        this.visualizarHorarios = new VisualizarHorarios();
-    }
 
     /**
      * @param args the command line arguments
@@ -255,10 +251,8 @@ public class SaudeApplication extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SaudeApplication().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SaudeApplication().setVisible(true);
         });
     }
 

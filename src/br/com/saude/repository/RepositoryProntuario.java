@@ -5,7 +5,7 @@
 package br.com.saude.repository;
 
 import br.com.saude.configuracao.conexao.Conexao;
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.model.Prontuario;
 import br.com.saude.service.DataService;
 import java.sql.PreparedStatement;
@@ -33,7 +33,7 @@ public class RepositoryProntuario {
 
             return true;
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -53,7 +53,7 @@ public class RepositoryProntuario {
 
             return resultSet.next();
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }

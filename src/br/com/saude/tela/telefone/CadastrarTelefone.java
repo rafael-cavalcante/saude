@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.telefone;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerTelefone;
 import br.com.saude.model.Pessoa;
 import br.com.saude.model.Telefone;
@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarTelefone extends javax.swing.JFrame {
 
-    private ControllerTelefone controllerTelefone;
+    private final ControllerTelefone controllerTelefone;
     private Pessoa pessoa;
 
     /**
@@ -26,13 +26,7 @@ public class CadastrarTelefone extends javax.swing.JFrame {
      */
     public CadastrarTelefone() {
         initComponents();
-    }
-
-    public CadastrarTelefone(Pessoa pessoa) {
-        initComponents();
-        initControllers();
-        this.pessoa = pessoa;
-        carregarPessoa();
+        this.controllerTelefone = new ControllerTelefone();
     }
 
     /**
@@ -160,23 +154,24 @@ public class CadastrarTelefone extends javax.swing.JFrame {
         cadastrarTelefone();
     }//GEN-LAST:event_bt_cadastrarTelefoneActionPerformed
 
+    public void inicializar(Pessoa pessoa) {
+        this.pessoa = pessoa;
+        carregarPessoa();
+    }
+
     private void cadastrarTelefone() {
         try {
             Telefone telefone = new Telefone(
                     TelefoneService.validar(tf_telefone.getText())
             );
 
-            this.controllerTelefone.cadastrar(telefone, this.pessoa);
-
-            limparCampos();
-            JOptionPane.showMessageDialog(null, "TELEFONE CADASTRADO COM SUCESSO");
+            if (this.controllerTelefone.cadastrar(telefone, this.pessoa)) {
+                limparCampos();
+                JOptionPane.showMessageDialog(null, "TELEFONE CADASTRADO COM SUCESSO");
+            }
         } catch (Exception exception) {
-            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
-    }
-
-    private void initControllers() {
-        this.controllerTelefone = new ControllerTelefone();
     }
 
     private void carregarPessoa() {

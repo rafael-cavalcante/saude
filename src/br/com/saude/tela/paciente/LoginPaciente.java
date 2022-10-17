@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.paciente;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
@@ -17,14 +17,15 @@ import javax.swing.JOptionPane;
  */
 public class LoginPaciente extends javax.swing.JFrame {
 
-    private ControllerPaciente controllerPaciente;
+    private final ControllerPaciente controllerPaciente;
+    private static final MainPaciente mainPaciente = new MainPaciente();
 
     /**
      * Creates new form CadastrarAdministrador
      */
     public LoginPaciente() {
         initComponents();
-        initControllers();
+        this.controllerPaciente = new ControllerPaciente();
     }
 
     /**
@@ -145,21 +146,17 @@ public class LoginPaciente extends javax.swing.JFrame {
         loginPaciente();
     }//GEN-LAST:event_bt_loginActionPerformed
     
-    private void initControllers() {
-        this.controllerPaciente = new ControllerPaciente();
-    }
-    
     private void loginPaciente() {
         try {
             Paciente paciente = new Paciente(
                     CPFService.validar(tf_cpf.getText()),
                     SenhaService.validar(new String(tf_senha.getPassword()))
             );
-            
+
             paciente = this.controllerPaciente.login(paciente);
 
             if (paciente != null) {
-                MainPaciente mainPaciente = new MainPaciente(paciente);
+                mainPaciente.inicializar(paciente);
                 mainPaciente.setVisible(true);
                 dispose();
             } else {
@@ -167,7 +164,7 @@ public class LoginPaciente extends javax.swing.JFrame {
             }
             limparCampos();
         } catch (Exception exception) {
-            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
     }
 

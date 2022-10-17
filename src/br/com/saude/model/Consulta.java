@@ -25,6 +25,14 @@ public class Consulta {
         
     }
 
+    public Consulta(Paciente paciente, Medico medico, Prontuario prontuario, LocalDate dataRealizacao, String status) {
+        this.paciente = paciente;
+        this.medico = medico;
+        this.prontuario = prontuario;
+        this.dataRealizacao = dataRealizacao;
+        this.status = status;
+    }
+    
     public Consulta(Paciente paciente, Medico medico, Prontuario prontuario, LocalDate dataRealizacao, String status, int prioridade) {
         this.paciente = paciente;
         this.medico = medico;

@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.consulta;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerConsulta;
 import br.com.saude.controller.ControllerMedico;
 import br.com.saude.model.Consulta;
@@ -12,9 +12,8 @@ import br.com.saude.model.Medico;
 import br.com.saude.model.Paciente;
 import br.com.saude.model.Prontuario;
 import br.com.saude.service.CPFService;
+import br.com.saude.service.CodigoService;
 import br.com.saude.service.DataService;
-import br.com.saude.service.NumericoService;
-import java.awt.HeadlessException;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,8 +24,8 @@ import javax.swing.JOptionPane;
  */
 public class SolicitarConsulta extends javax.swing.JFrame {
 
-    private ControllerConsulta controllerConsulta;
-    private ControllerMedico controllerMedico;
+    private final ControllerConsulta controllerConsulta;
+    private final ControllerMedico controllerMedico;
     private List<Medico> medicos;
     private Paciente paciente;
 
@@ -35,14 +34,8 @@ public class SolicitarConsulta extends javax.swing.JFrame {
      */
     public SolicitarConsulta() {
         initComponents();
-    }
-
-    public SolicitarConsulta(Paciente paciente) {
-        initComponents();
-        initControllers();
-        this.paciente = paciente;
-        carregarPaciente();
-        listarMedicos();
+        this.controllerConsulta = new ControllerConsulta();
+        this.controllerMedico = new ControllerMedico();
     }
 
     /**
@@ -58,7 +51,6 @@ public class SolicitarConsulta extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tf_paciente = new javax.swing.JTextField();
         cb_medico = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         tf_prontuario = new javax.swing.JTextField();
@@ -66,6 +58,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
         tf_dataRealizacao = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        tf_paciente = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,9 +87,9 @@ public class SolicitarConsulta extends javax.swing.JFrame {
 
         jLabel1.setText("PACIENTE");
 
-        tf_paciente.setEditable(false);
-
         jLabel2.setText("MEDICO");
+
+        tf_prontuario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel3.setText("PRONTUARIO");
 
@@ -105,6 +98,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tf_dataRealizacao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel4.setText("DATA REALIZACAO");
 
@@ -115,6 +109,13 @@ public class SolicitarConsulta extends javax.swing.JFrame {
             }
         });
 
+        tf_paciente.setEditable(false);
+        try {
+            tf_paciente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -122,9 +123,9 @@ public class SolicitarConsulta extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel1)
+                    .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cb_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -153,10 +154,10 @@ public class SolicitarConsulta extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_dataRealizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_dataRealizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -186,9 +187,10 @@ public class SolicitarConsulta extends javax.swing.JFrame {
         solicitarConsulta();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void initControllers() {
-        this.controllerConsulta = new ControllerConsulta();
-        this.controllerMedico = new ControllerMedico();
+    public void inicializar(Paciente paciente) {
+        this.paciente = paciente;
+        carregarPaciente();
+        listarMedicos();
     }
 
     private void solicitarConsulta() {
@@ -196,29 +198,29 @@ public class SolicitarConsulta extends javax.swing.JFrame {
             Consulta consulta = new Consulta(
                     this.paciente,
                     this.medicos.get(cb_medico.getSelectedIndex()),
-                    new Prontuario(NumericoService.converterLong(tf_prontuario.getText()), LocalDate.now()),
+                    new Prontuario(CodigoService.validar(tf_prontuario.getText()), LocalDate.now()),
                     DataService.validar(tf_dataRealizacao.getText()),
-                    "Processamento",
-                    0
+                    "Processamento"
             );
 
             if (this.controllerConsulta.solicitar(consulta)) {
                 limparCampos();
                 JOptionPane.showMessageDialog(null, "CONSULTA SOLICITADA COM SUCESSO");
             }
-        } catch (HeadlessException  headlessException) {
-            System.out.println(Cor.AMARELO.getCor() + headlessException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
-    }
-
-    private void listarMedicos() {
-        this.medicos = this.controllerMedico.listar();
-        medicos.stream()
-                .forEach((Medico medico) -> cb_medico.addItem(medico.getCrm()));
     }
 
     private void carregarPaciente() {
         tf_paciente.setText(CPFService.formatar(this.paciente.getCpf()));
+    }
+
+    private void listarMedicos() {
+        cb_medico.removeAllItems();
+        this.medicos = this.controllerMedico.listar();
+        this.medicos.stream()
+                .forEach((Medico medico) -> cb_medico.addItem(medico.getCrm()));
     }
 
     private void limparCampos() {
@@ -253,14 +255,10 @@ public class SolicitarConsulta extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SolicitarConsulta().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SolicitarConsulta().setVisible(true);
         });
     }
 
@@ -275,7 +273,7 @@ public class SolicitarConsulta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JFormattedTextField tf_dataRealizacao;
-    private javax.swing.JTextField tf_paciente;
+    private javax.swing.JFormattedTextField tf_paciente;
     private javax.swing.JTextField tf_prontuario;
     // End of variables declaration//GEN-END:variables
 }

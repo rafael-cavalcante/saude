@@ -4,19 +4,19 @@
  */
 package br.com.saude.service;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 
 /**
  *
  * @author tecin
  */
 public class NumericoService {
-
+    
     public static long converterLong(String numero) {
         try {
             return Long.parseLong(numero);
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
+            System.out.println(Estilo.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
         }
         return 0;
     }
@@ -25,7 +25,7 @@ public class NumericoService {
         try {
             return Integer.parseInt(numero);
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
+            System.out.println(Estilo.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
         }
         return 0;
     }
@@ -34,7 +34,7 @@ public class NumericoService {
         try {
             return String.valueOf(numero);
         } catch (Exception exception) {
-            System.out.println(Cor.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
+            System.out.println(Estilo.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
         }
         return null;
     }

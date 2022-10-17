@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.consulta;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerConsulta;
 import br.com.saude.model.Consulta;
 import br.com.saude.model.Paciente;
@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class AtualizarConsultaPaciente extends javax.swing.JFrame {
 
-    private ControllerConsulta controllerConsulta;
+    private final ControllerConsulta controllerConsulta;
     private List<Consulta> consultas;
     private Paciente paciente;
 
@@ -30,13 +30,7 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
      */
     public AtualizarConsultaPaciente() {
         initComponents();
-    }
-
-    public AtualizarConsultaPaciente(Paciente paciente) {
-        initComponents();
-        initControllers();
-        this.paciente = paciente;
-        listarConsultas();
+        this.controllerConsulta = new ControllerConsulta();
     }
 
     /**
@@ -238,16 +232,17 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
         atualizarConsulta();
     }//GEN-LAST:event_bt_atualizarActionPerformed
 
-    private void initControllers() {
-        this.controllerConsulta = new ControllerConsulta();
+    public void inicializar(Paciente paciente){
+        this.paciente = paciente;
+        listarConsultas();
     }
 
     private void atualizarConsulta() {
         try {
             Consulta consulta = this.consultas.get(cb_consultas.getSelectedIndex());
 
-            if (DataService.validar(tf_dataRealizacao.getText()) != null) {
-                consulta.setDataRealizacao(DataService.validar(tf_dataRealizacao.getText()));
+            if (DataService.verificar(tf_dataRealizacao.getText()) != null) {
+                consulta.setDataRealizacao(DataService.verificar(tf_dataRealizacao.getText()));
             }
             consulta.setStatus(cb_status.getItemAt(cb_status.getSelectedIndex()));
 
@@ -255,7 +250,7 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "CONSULTA ATUALIZADA COM SUCESSO");
         } catch (HeadlessException headlessException) {
-            System.out.println(Cor.AMARELO.getCor() + headlessException.getMessage());
+            System.out.println(Estilo.AMARELO.getCor() + headlessException.getMessage());
         }
     }
 
@@ -319,10 +314,8 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AtualizarConsultaPaciente().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AtualizarConsultaPaciente().setVisible(true);
         });
     }
 

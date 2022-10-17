@@ -8,7 +8,7 @@ package br.com.saude.configuracao.estilo;
  *
  * @author Rafael Cavalcante
  */
-public enum Cor {
+public enum Estilo {
     PRETO("\u001B[30m"),
     VERMELHO("\u001B[31m"),
     VERDE("\u001B[32m"),
@@ -20,7 +20,7 @@ public enum Cor {
 
     private final String cor;
 
-    Cor(String cor) {
+    Estilo(String cor) {
         this.cor = cor;
     }
 

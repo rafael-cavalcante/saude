@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.paciente;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
@@ -21,21 +21,15 @@ import javax.swing.JOptionPane;
  */
 public class AtualizarPaciente extends javax.swing.JFrame {
 
-    private ControllerPaciente controllerPaciente;
-    private Paciente paciente = new Paciente();
+    private final ControllerPaciente controllerPaciente;
+    private Paciente paciente;
 
     /**
      * Creates new form CadastrarAdministrador
      */
     public AtualizarPaciente() {
         initComponents();
-    }
-
-    public AtualizarPaciente(Paciente paciente) {
-        initComponents();
-        initControllers();
-        this.paciente = paciente;
-        carregarPaciente();
+        this.controllerPaciente = new ControllerPaciente();
     }
 
     /**
@@ -51,7 +45,6 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tf_cpf = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tf_rg = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -69,6 +62,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         tf_numero = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         bt_atualizar = new javax.swing.JButton();
+        tf_cpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -97,8 +91,6 @@ public class AtualizarPaciente extends javax.swing.JFrame {
 
         jLabel1.setText("CPF");
 
-        tf_cpf.setEditable(false);
-
         jLabel8.setText("RG");
 
         try {
@@ -114,6 +106,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tf_dataNascimento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel2.setText("SENHA");
 
@@ -134,6 +127,13 @@ public class AtualizarPaciente extends javax.swing.JFrame {
             }
         });
 
+        tf_cpf.setEditable(false);
+        try {
+            tf_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -143,18 +143,6 @@ public class AtualizarPaciente extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(93, 93, 93)
@@ -179,12 +167,24 @@ public class AtualizarPaciente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tf_bairro, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(tf_numero))))
+                            .addComponent(tf_numero)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bt_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tf_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tf_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bt_atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,9 +196,9 @@ public class AtualizarPaciente extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_rg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_dataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -233,9 +233,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,9 +246,14 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_atualizarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void bt_atualizarActionPerformed(java.awt.event.ActionEvent evt) {
         atualizarPaciente();
-    }             
+    }
+
+    public void inicializar(Paciente paciente) {
+        this.paciente = paciente;
+        carregarPaciente();
+    }
 
     private void atualizarPaciente() {
         try {
@@ -263,7 +266,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
                     tf_bairro.getText(),
                     new ArrayList<>(),
                     RGService.validar(tf_rg.getText()),
-                    DataService.validar(tf_dataNascimento.getText()),
+                    DataService.verificar(tf_dataNascimento.getText()),
                     tf_email.getText()
             );
 
@@ -271,12 +274,8 @@ public class AtualizarPaciente extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "PACIENTE ATUALIZADA COM SUCESSO");
         } catch (Exception exception) {
-            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
-    }
-
-    private void initControllers() {
-        this.controllerPaciente = new ControllerPaciente();
     }
 
     private void carregarPaciente() {
@@ -284,7 +283,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         tf_senha.setText(this.paciente.getSenha());
         tf_nome.setText(this.paciente.getNome());
         tf_rua.setText(this.paciente.getRua());
-        tf_numero.setText(String.valueOf(this.paciente.getNumero()));
+        tf_numero.setText(NumericoService.formatar(this.paciente.getNumero()));
         tf_bairro.setText(this.paciente.getBairro());
         tf_rg.setText(RGService.formatar(this.paciente.getRg()));
         tf_dataNascimento.setText(DataService.formatar(this.paciente.getDataNascimento()));
@@ -319,10 +318,8 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AtualizarPaciente().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AtualizarPaciente().setVisible(true);
         });
     }
 
@@ -341,7 +338,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField tf_bairro;
-    private javax.swing.JTextField tf_cpf;
+    private javax.swing.JFormattedTextField tf_cpf;
     private javax.swing.JFormattedTextField tf_dataNascimento;
     private javax.swing.JTextField tf_email;
     private javax.swing.JTextField tf_nome;

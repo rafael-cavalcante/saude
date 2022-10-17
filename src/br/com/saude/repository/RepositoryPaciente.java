@@ -5,7 +5,7 @@
 package br.com.saude.repository;
 
 import br.com.saude.configuracao.conexao.Conexao;
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.DataService;
 import java.sql.PreparedStatement;
@@ -36,7 +36,7 @@ public class RepositoryPaciente {
             
             return true;
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -70,7 +70,7 @@ public class RepositoryPaciente {
                 );
             }
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -99,7 +99,7 @@ public class RepositoryPaciente {
             
             return pacientes;
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -121,7 +121,7 @@ public class RepositoryPaciente {
 
             return true;
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -141,7 +141,7 @@ public class RepositoryPaciente {
 
             return resultSet.next();
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }

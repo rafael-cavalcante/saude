@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.consulta;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerConsulta;
 import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Consulta;
@@ -295,7 +295,7 @@ public class AtualizarConsulta extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "CONSULTA ATUALIZADA COM SUCESSO");
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AMARELO.getCor() + numberFormatException.getMessage());
+            System.out.println(Estilo.AMARELO.getCor() + numberFormatException.getMessage());
         }
     }
 

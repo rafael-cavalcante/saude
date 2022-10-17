@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.saude.tela.administrador.calendario;
+package br.com.saude.tela.administrador.horario;
 
 import br.com.saude.controller.ControllerHorario;
+import br.com.saude.model.HorarioTableModel;
 import br.com.saude.service.DataService;
 import java.time.LocalDate;
 import javax.swing.JTable;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class VisualizarHorarios extends javax.swing.JFrame {
 
     private final ControllerHorario controllerHorario;
+    private final HorarioTableModel horarioTableModel;
 
     /**
      * Creates new form Calendario
@@ -24,6 +26,7 @@ public class VisualizarHorarios extends javax.swing.JFrame {
     public VisualizarHorarios() {
         initComponents();
         this.controllerHorario = new ControllerHorario();
+        this.horarioTableModel = new HorarioTableModel();
     }
 
     /**
@@ -39,7 +42,7 @@ public class VisualizarHorarios extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tb_calendario = new javax.swing.JTable();
+        tb_horarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,8 +69,8 @@ public class VisualizarHorarios extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tb_calendario.setAutoCreateRowSorter(true);
-        tb_calendario.setModel(new javax.swing.table.DefaultTableModel(
+        tb_horarios.setAutoCreateRowSorter(true);
+        tb_horarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -90,7 +93,7 @@ public class VisualizarHorarios extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tb_calendario);
+        jScrollPane1.setViewportView(tb_horarios);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -132,21 +135,11 @@ public class VisualizarHorarios extends javax.swing.JFrame {
     }
 
     private void carregarHorarios() {
-        configurarTabela();
+        this.horarioTableModel.setHorarios(this.controllerHorario.listar(LocalDate.now()));
 
-        DefaultTableModel modelo = (DefaultTableModel) tb_calendario.getModel();
+        tb_horarios.setModel(horarioTableModel);
 
-        this.controllerHorario.listar(LocalDate.now())
-                .stream()
-                .forEach((horario) -> {
-                    modelo.addRow(new Object[]{DataService.formatar(horario.getData()), horario.getDescricao()});
-                });
-    }
-
-    private void configurarTabela() {
-        tb_calendario.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);        // Configura a largura para 100 pixels
-        tb_calendario.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tb_calendario.getColumnModel().getColumn(1).setPreferredWidth(270);
+        tb_horarios.getModel().removeTableModelListener(tb_horarios);
     }
 
     /**
@@ -178,10 +171,8 @@ public class VisualizarHorarios extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VisualizarHorarios().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VisualizarHorarios().setVisible(true);
         });
     }
 
@@ -190,6 +181,6 @@ public class VisualizarHorarios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tb_calendario;
+    private javax.swing.JTable tb_horarios;
     // End of variables declaration//GEN-END:variables
 }

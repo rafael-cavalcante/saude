@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.paciente;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
@@ -263,7 +263,7 @@ public class CadastrarPaciente extends javax.swing.JFrame {
                     tf_bairro.getText(),
                     new ArrayList<>(),
                     RGService.validar(tf_rg.getText()),
-                    DataService.validar(tf_dataNascimento.getText()),
+                    DataService.verificar(tf_dataNascimento.getText()),
                     tf_email.getText()
             );
 
@@ -272,7 +272,7 @@ public class CadastrarPaciente extends javax.swing.JFrame {
             limparCampos();
             JOptionPane.showMessageDialog(null, "PACIENTE CADASTRADO COM SUCESSO");
         } catch (Exception exception) {
-            System.out.println(Cor.VERMELHO.getCor() + exception.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + exception.getMessage());
         }
     }
 

@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.medico;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerMedico;
 import br.com.saude.model.Medico;
 import br.com.saude.service.CRMService;
@@ -17,14 +17,15 @@ import javax.swing.JOptionPane;
  */
 public class LoginMedico extends javax.swing.JFrame {
 
-    private ControllerMedico controllerMedico;
+    private final ControllerMedico controllerMedico;
+    private static final MainMedico mainMedico = new MainMedico();
 
     /**
      * Creates new form CadastrarAdministrador
      */
     public LoginMedico() {
         initComponents();
-        initControllers();
+        this.controllerMedico = new ControllerMedico();
     }
 
     /**
@@ -145,10 +146,6 @@ public class LoginMedico extends javax.swing.JFrame {
         loginMedico();
     }//GEN-LAST:event_bt_loginActionPerformed
 
-    private void initControllers() {
-        this.controllerMedico = new ControllerMedico();
-    }
-
     private void loginMedico() {
         try {
             Medico medico = new Medico(
@@ -159,15 +156,15 @@ public class LoginMedico extends javax.swing.JFrame {
             medico = this.controllerMedico.login(medico);
 
             if (medico != null) {
-                MainMedico mainMedico = new MainMedico(medico);
-                mainMedico.setVisible(true);
+                LoginMedico.mainMedico.inicializar(medico);
+                LoginMedico.mainMedico.setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "MEDICO NÃO ENCONTRADO");
             }
             limparCampos();
         } catch (Exception exception) {
-            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
     }
 

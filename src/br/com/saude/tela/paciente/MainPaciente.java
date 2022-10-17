@@ -14,24 +14,22 @@ import br.com.saude.tela.telefone.CadastrarTelefone;
  * @author tecin
  */
 public class MainPaciente extends javax.swing.JFrame {
-
-    private SolicitarConsulta solicitarConsulta;
-    private AtualizarPaciente atualizarPaciente;
-    private CadastrarTelefone cadastrarTelefone;
-    private AtualizarConsultaPaciente atualizarConsultaPaciente;
-    private Paciente paciente;
     
+    private static SolicitarConsulta solicitarConsulta;
+    private static AtualizarPaciente atualizarPaciente;
+    private static CadastrarTelefone cadastrarTelefone;
+    private static AtualizarConsultaPaciente atualizarConsultaPaciente;
+    private Paciente paciente;
+
     /**
      * Creates new form MainPaciente
      */
     public MainPaciente() {
         initComponents();
-    }
-    
-    public MainPaciente(Paciente paciente){
-        initComponents();
-        this.paciente = paciente;
-        initTelas();
+        solicitarConsulta = new SolicitarConsulta();
+        atualizarPaciente = new AtualizarPaciente();
+        cadastrarTelefone = new CadastrarTelefone();
+        atualizarConsultaPaciente = new AtualizarConsultaPaciente();
     }
 
     /**
@@ -156,36 +154,49 @@ public class MainPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_solicitarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_solicitarConsultaActionPerformed
-        if(!this.solicitarConsulta.isActive()){
-            this.solicitarConsulta.setVisible(true);
-        }   
+        if (!solicitarConsulta.isActive()) {
+            solicitarConsulta.inicializar(this.paciente);
+            solicitarConsulta.setVisible(true);
+        }
     }//GEN-LAST:event_bt_solicitarConsultaActionPerformed
 
     private void bt_atualizarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarPacienteActionPerformed
-        if(!this.atualizarPaciente.isActive()){
-            this.atualizarPaciente.setVisible(true);
+        if (!atualizarPaciente.isActive()) {
+            atualizarPaciente.inicializar(this.paciente);
+            atualizarPaciente.setVisible(true);
         }
     }//GEN-LAST:event_bt_atualizarPacienteActionPerformed
 
     private void bt_cadastrarTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarTelefoneActionPerformed
-        if(!this.cadastrarTelefone.isActive()){
-            this.cadastrarTelefone.setVisible(true);
+        if (!cadastrarTelefone.isActive()) {
+            cadastrarTelefone.inicializar(this.paciente);
+            cadastrarTelefone.setVisible(true);
         }
     }//GEN-LAST:event_bt_cadastrarTelefoneActionPerformed
 
     private void bt_atualizarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarConsultaActionPerformed
-        if(!this.atualizarConsultaPaciente.isActive()){
-            this.atualizarConsultaPaciente.setVisible(true);
+        if (!atualizarConsultaPaciente.isActive()) {
+            atualizarConsultaPaciente.inicializar(this.paciente);
+            atualizarConsultaPaciente.setVisible(true);
         }
     }//GEN-LAST:event_bt_atualizarConsultaActionPerformed
-
-    private void initTelas(){
-        this.solicitarConsulta = new SolicitarConsulta(this.paciente);
-        this.atualizarPaciente = new AtualizarPaciente(this.paciente);
-        this.cadastrarTelefone = new CadastrarTelefone(this.paciente);
-        this.atualizarConsultaPaciente = new AtualizarConsultaPaciente(this.paciente);
-    }
     
+    public void inicializar(Paciente paciente) {
+        this.paciente = paciente;
+        if (solicitarConsulta.isVisible()) {
+            solicitarConsulta.inicializar(paciente);
+        }
+        if (atualizarPaciente.isVisible()) {
+            atualizarPaciente.inicializar(paciente);
+        }
+        if (cadastrarTelefone.isVisible()) {
+            cadastrarTelefone.inicializar(paciente);
+        }
+        if (atualizarConsultaPaciente.isVisible()) {
+            atualizarConsultaPaciente.inicializar(paciente);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -214,10 +225,8 @@ public class MainPaciente extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainPaciente().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainPaciente().setVisible(true);
         });
     }
 

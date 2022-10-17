@@ -5,7 +5,7 @@
 package br.com.saude.repository;
 
 import br.com.saude.configuracao.conexao.Conexao;
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.model.Medico;
 import br.com.saude.model.Tecnico;
 import java.sql.PreparedStatement;
@@ -36,7 +36,7 @@ public class RepositoryMedico {
 
             return true;
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -69,7 +69,7 @@ public class RepositoryMedico {
                 );
             }
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -92,7 +92,7 @@ public class RepositoryMedico {
 
             return medicos;
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -112,7 +112,7 @@ public class RepositoryMedico {
 
             return resultSet.next();
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }

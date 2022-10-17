@@ -4,7 +4,7 @@
  */
 package br.com.saude.configuracao.conexao;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -30,7 +30,7 @@ public class Conexao {
 
             return connection;
         } catch (ClassNotFoundException | SQLException classNotFoundException) {
-            System.out.println(Cor.ROXO.getCor() + classNotFoundException.getMessage());
+            System.out.println(Estilo.ROXO.getCor() + classNotFoundException.getMessage());
         }
         return null;
     }
@@ -42,7 +42,7 @@ public class Conexao {
                 connection = null;
             }
         } catch (SQLException sQLException) {
-            System.out.println(Cor.ROXO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.ROXO.getCor() + sQLException.getMessage());
         }
     }
 }

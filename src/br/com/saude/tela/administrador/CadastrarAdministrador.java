@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.administrador;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerAdministrador;
 import br.com.saude.model.Administrador;
 import br.com.saude.service.CPFService;
@@ -217,7 +217,7 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
             limparCampos();
             JOptionPane.showMessageDialog(null, "ADMINISTRADOR CADASTRADO COM SUCESSO");
         } catch (Exception exception) {
-            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
     }
 

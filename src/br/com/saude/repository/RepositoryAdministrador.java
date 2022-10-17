@@ -5,7 +5,7 @@
 package br.com.saude.repository;
 
 import br.com.saude.configuracao.conexao.Conexao;
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.model.Administrador;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +31,7 @@ public class RepositoryAdministrador {
 
             return true;
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -62,7 +62,7 @@ public class RepositoryAdministrador {
                 );
             }
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }
@@ -82,7 +82,7 @@ public class RepositoryAdministrador {
 
             return resultSet.next();
         } catch (SQLException sQLException) {
-            System.out.println(Cor.VERMELHO.getCor() + sQLException.getMessage());
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
         } finally {
             Conexao.desconectar();
         }

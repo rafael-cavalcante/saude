@@ -13,17 +13,16 @@ import br.com.saude.model.Medico;
 public class MainMedico extends javax.swing.JFrame {
 
     private Medico medico;
-    
+
     /**
      * Creates new form MainMedico
      */
     public MainMedico() {
         initComponents();
     }
-    
+
     public MainMedico(Medico medico) {
         initComponents();
-        this.medico = medico;
     }
 
     /**
@@ -94,6 +93,10 @@ public class MainMedico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void inicializar(Medico medico) {
+        this.medico = medico;
+    }
 
     /**
      * @param args the command line arguments

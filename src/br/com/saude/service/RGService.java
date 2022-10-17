@@ -4,7 +4,7 @@
  */
 package br.com.saude.service;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 
 /**
  *
@@ -20,7 +20,7 @@ public class RGService {
                 return Long.parseLong(rg);
             }
         } catch (NumberFormatException numberFormatException) {
-            System.out.println(Cor.AZUL.getCor() + "RG INVÁLIDA!");
+            System.out.println(Estilo.AZUL.getCor() + "RG INVÁLIDA!");
         }
         return 0;
     }

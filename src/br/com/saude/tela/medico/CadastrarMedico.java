@@ -4,7 +4,7 @@
  */
 package br.com.saude.tela.medico;
 
-import br.com.saude.configuracao.estilo.Cor;
+import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerMedico;
 import br.com.saude.model.Medico;
 import br.com.saude.model.Tecnico;
@@ -253,7 +253,7 @@ public class CadastrarMedico extends javax.swing.JFrame {
             limparCampos();
             JOptionPane.showMessageDialog(null, "MEDICO CADASTRADO COM SUCESSO");
         } catch (Exception exception) {
-            System.out.println(Cor.AMARELO.getCor() + exception.getMessage());
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
     }
 
