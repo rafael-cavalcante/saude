@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class LoginPaciente extends javax.swing.JFrame {
 
+    private static MainPaciente mainPaciente;
     private final ControllerPaciente controllerPaciente;
-    private static final MainPaciente mainPaciente = new MainPaciente();
 
     /**
      * Creates new form CadastrarAdministrador
@@ -26,6 +26,7 @@ public class LoginPaciente extends javax.swing.JFrame {
     public LoginPaciente() {
         initComponents();
         this.controllerPaciente = new ControllerPaciente();
+        mainPaciente = new MainPaciente();
     }
 
     /**
@@ -201,10 +202,8 @@ public class LoginPaciente extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginPaciente().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginPaciente().setVisible(true);
         });
     }
 

@@ -14,7 +14,7 @@ import br.com.saude.tela.telefone.CadastrarTelefone;
  * @author tecin
  */
 public class MainPaciente extends javax.swing.JFrame {
-    
+
     private static SolicitarConsulta solicitarConsulta;
     private static AtualizarPaciente atualizarPaciente;
     private static CadastrarTelefone cadastrarTelefone;
@@ -113,13 +113,12 @@ public class MainPaciente extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,10 +127,10 @@ public class MainPaciente extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -180,20 +179,24 @@ public class MainPaciente extends javax.swing.JFrame {
             atualizarConsultaPaciente.setVisible(true);
         }
     }//GEN-LAST:event_bt_atualizarConsultaActionPerformed
-    
+
     public void inicializar(Paciente paciente) {
         this.paciente = paciente;
+        atualizar();
+    }
+
+    private void atualizar() {
         if (solicitarConsulta.isVisible()) {
-            solicitarConsulta.inicializar(paciente);
+            solicitarConsulta.inicializar(this.paciente);
         }
         if (atualizarPaciente.isVisible()) {
-            atualizarPaciente.inicializar(paciente);
+            atualizarPaciente.inicializar(this.paciente);
         }
         if (cadastrarTelefone.isVisible()) {
-            cadastrarTelefone.inicializar(paciente);
+            cadastrarTelefone.inicializar(this.paciente);
         }
         if (atualizarConsultaPaciente.isVisible()) {
-            atualizarConsultaPaciente.inicializar(paciente);
+            atualizarConsultaPaciente.inicializar(this.paciente);
         }
     }
 

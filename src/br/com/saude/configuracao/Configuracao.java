@@ -13,8 +13,8 @@ import java.util.ArrayList;
  * @author tecin
  */
 public class Configuracao {
-
-    public static void iniciar() {
+    
+    public static void inicializar() {
         ControllerAdministrador controllerAdministrador = new ControllerAdministrador();
 
         Administrador administrador = new Administrador(
@@ -26,9 +26,10 @@ public class Configuracao {
                 "Ufersa Saude",
                 new ArrayList<>()
         );
-
-        controllerAdministrador.cadastrar(administrador);
-
+        
+        if(controllerAdministrador.cadastrar(administrador)){
+            System.out.println("ADMINISTRADOR CADASTRADO COM SUCESSO!");
+        }
         System.out.println("CONFIGURAÇÕES INICIADAS!");
     }
 }

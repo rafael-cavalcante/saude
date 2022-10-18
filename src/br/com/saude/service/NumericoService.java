@@ -29,6 +29,15 @@ public class NumericoService {
         }
         return 0;
     }
+    
+    public static double converterDouble(String numero){
+        try {
+            return Double.parseDouble(numero);
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(Estilo.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
+        }
+        return 0.0;
+    }
 
     public static String formatar(long numero) {
         try {

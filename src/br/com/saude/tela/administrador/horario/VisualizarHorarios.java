@@ -4,12 +4,11 @@
  */
 package br.com.saude.tela.administrador.horario;
 
+import br.com.saude.configuracao.estilo.TextAreaCellRenderer;
 import br.com.saude.controller.ControllerHorario;
-import br.com.saude.model.HorarioTableModel;
-import br.com.saude.service.DataService;
+import br.com.saude.configuracao.estilo.HorarioTableModel;
 import java.time.LocalDate;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -138,8 +137,13 @@ public class VisualizarHorarios extends javax.swing.JFrame {
         this.horarioTableModel.setHorarios(this.controllerHorario.listar(LocalDate.now()));
 
         tb_horarios.setModel(horarioTableModel);
-
-        tb_horarios.getModel().removeTableModelListener(tb_horarios);
+        
+        TableColumn coluna;
+        
+        for (int i = 0; i < tb_horarios.getColumnCount(); i++) {  
+            coluna = tb_horarios.getColumnModel().getColumn(i);  
+            coluna.setCellRenderer(new TextAreaCellRenderer());  
+        }
     }
 
     /**

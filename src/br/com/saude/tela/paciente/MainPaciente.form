@@ -111,10 +111,10 @@
                       <Component id="bt_atualizarPaciente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="bt_solicitarConsulta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="bt_cadastrarTelefone" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="bt_atualizarConsulta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="bt_atualizarConsulta" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="bt_cadastrarTelefone" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>

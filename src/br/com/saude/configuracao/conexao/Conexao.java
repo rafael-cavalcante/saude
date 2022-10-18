@@ -19,7 +19,7 @@ public class Conexao {
     private final static String URL = "jdbc:postgresql://localhost/saude";
     private final static String USER = "postgres";
     private final static String PASSWORD = "postgres";
-    private static final String DRIVER = "org.postgresql.Driver";
+    private final static String DRIVER = "org.postgresql.Driver";
     private static Connection connection;
 
     public static Connection conectar() {

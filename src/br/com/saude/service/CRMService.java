@@ -11,7 +11,7 @@ package br.com.saude.service;
 public class CRMService {
 
     public static String validar(String crm) throws Exception {
-        if (!crm.contains(" ")) {
+        if (!crm.equals("CRM/        ")) {
             crm = crm.replace("CRM/", "");
 
             return crm;

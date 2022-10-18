@@ -18,19 +18,19 @@ import br.com.saude.tela.tecnico.LoginTecnico;
  */
 public class SaudeApplication extends javax.swing.JFrame {
 
-    private final LoginAdministrador loginAdministrador;
-    private final LoginTecnico loginTecnico;
-    private final LoginMedico loginMedico;
-    private final LoginPaciente loginPaciente;
-    private final CadastrarPaciente cadastrarPaciente;
-    private final VisualizarHorarios visualizarHorarios;
+    private static LoginAdministrador loginAdministrador;
+    private static LoginTecnico loginTecnico;
+    private static LoginMedico loginMedico;
+    private static LoginPaciente loginPaciente;
+    private static CadastrarPaciente cadastrarPaciente;
+    private static VisualizarHorarios visualizarHorarios;
 
     /**
      * Creates new form SaudeApplication
      */
     public SaudeApplication() {
         initComponents();
-        Configuracao.iniciar();
+        Configuracao.inicializar();
         loginAdministrador = new LoginAdministrador();
         loginTecnico = new LoginTecnico();
         loginMedico = new LoginMedico();
@@ -60,6 +60,7 @@ public class SaudeApplication extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Saude+");
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
@@ -217,7 +218,7 @@ public class SaudeApplication extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_cadastrarPacienteActionPerformed
 
     private void bt_visualizarHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_visualizarHorariosActionPerformed
-        if(!visualizarHorarios.isActive()){
+        if (!visualizarHorarios.isActive()) {
             visualizarHorarios.inicializar();
             visualizarHorarios.setVisible(true);
         }

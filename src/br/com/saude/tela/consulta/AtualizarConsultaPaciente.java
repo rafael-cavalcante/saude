@@ -11,7 +11,6 @@ import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.DataService;
 import br.com.saude.service.NumericoService;
-import java.awt.HeadlessException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -125,6 +124,7 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tf_dataRealizacao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel4.setText("DATA DE REALIZAÇÃO");
 
@@ -164,8 +164,7 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
-                                    .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(tf_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -241,16 +240,15 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
         try {
             Consulta consulta = this.consultas.get(cb_consultas.getSelectedIndex());
 
-            if (DataService.verificar(tf_dataRealizacao.getText()) != null) {
-                consulta.setDataRealizacao(DataService.verificar(tf_dataRealizacao.getText()));
-            }
+            consulta.setDataRealizacao(DataService.validar(tf_dataRealizacao.getText()));
             consulta.setStatus(cb_status.getItemAt(cb_status.getSelectedIndex()));
 
-            this.controllerConsulta.alterar(consulta);
-
-            JOptionPane.showMessageDialog(null, "CONSULTA ATUALIZADA COM SUCESSO");
-        } catch (HeadlessException headlessException) {
-            System.out.println(Estilo.AMARELO.getCor() + headlessException.getMessage());
+            if(this.controllerConsulta.alterar(consulta)){
+                listarConsultas();
+                JOptionPane.showMessageDialog(null, "CONSULTA ATUALIZADA COM SUCESSO");
+            }
+        } catch (Exception exception) {
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
     }
 

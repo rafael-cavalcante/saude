@@ -257,7 +257,9 @@ public class AtualizarPaciente extends javax.swing.JFrame {
 
     private void atualizarPaciente() {
         try {
-            Paciente pacienteAtualizado = new Paciente(
+            Paciente pacienteAtualizado = this.paciente;
+            
+            pacienteAtualizado = new Paciente(
                     CPFService.validar(tf_cpf.getText()),
                     SenhaService.validar(new String(tf_senha.getPassword())),
                     tf_nome.getText(),
@@ -270,9 +272,11 @@ public class AtualizarPaciente extends javax.swing.JFrame {
                     tf_email.getText()
             );
 
-            this.controllerPaciente.alterar(pacienteAtualizado);
-
-            JOptionPane.showMessageDialog(null, "PACIENTE ATUALIZADA COM SUCESSO");
+            if (this.controllerPaciente.alterar(pacienteAtualizado)) {
+                this.paciente = pacienteAtualizado;
+                carregarPaciente();
+                JOptionPane.showMessageDialog(null, "PACIENTE ATUALIZADA COM SUCESSO");
+            }
         } catch (Exception exception) {
             System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }

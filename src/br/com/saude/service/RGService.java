@@ -12,9 +12,9 @@ import br.com.saude.configuracao.estilo.Estilo;
  */
 public class RGService {
 
-    public static long validar(String rg) {
+    public static long verificar(String rg) {
         try {
-            if (!rg.contains(" ")) {
+            if (!rg.equals("   .   .   ")) {
                 rg = rg.replace(".", "");
 
                 return Long.parseLong(rg);

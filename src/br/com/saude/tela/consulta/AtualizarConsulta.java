@@ -10,7 +10,8 @@ import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Consulta;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
-import java.time.LocalDate;
+import br.com.saude.service.DataService;
+import br.com.saude.service.NumericoService;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,8 +22,8 @@ import javax.swing.JOptionPane;
  */
 public class AtualizarConsulta extends javax.swing.JFrame {
 
-    private ControllerPaciente controllerPaciente;
-    private ControllerConsulta controllerConsulta;
+    private final ControllerPaciente controllerPaciente;
+    private final ControllerConsulta controllerConsulta;
     private List<Paciente> pacientes;
     private List<Consulta> consultas;
 
@@ -31,8 +32,8 @@ public class AtualizarConsulta extends javax.swing.JFrame {
      */
     public AtualizarConsulta() {
         initComponents();
-        initControllers();
-        listarPacientes();
+        this.controllerPaciente = new ControllerPaciente();
+        this.controllerConsulta = new ControllerConsulta();
     }
 
     /**
@@ -270,32 +271,26 @@ public class AtualizarConsulta extends javax.swing.JFrame {
     private void cb_consultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_consultasActionPerformed
         selecionarConsulta();
     }//GEN-LAST:event_cb_consultasActionPerformed
-    
-    private void initControllers() {
-        this.controllerPaciente = new ControllerPaciente();
-        this.controllerConsulta = new ControllerConsulta();
+
+    private void inicializar() {
+        listarPacientes();
     }
-    
+
     private void atualizarConsulta() {
         try {
-            Consulta consulta = this.consultas.get(cb_consultas.getSelectedIndex());
+            Consulta consultaAtualizada = this.consultas.get(cb_consultas.getSelectedIndex());
 
-            Consulta consultaAtualizada = new Consulta(
-                    consulta.getPaciente(),
-                    consulta.getMedico(),
-                    consulta.getProntuario(),
-                    LocalDate.parse(tf_dataRealizacao.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                    tf_status.getText(),
-                    Integer.parseInt(tf_pressao.getText()),
-                    Double.parseDouble(tf_peso.getText()),
-                    Integer.parseInt(tf_prioridade.getText())
-            );
+            consultaAtualizada.setDataRealizacao(DataService.validar(tf_dataRealizacao.getText()));
+            consultaAtualizada.setStatus(tf_status.getText());
+            consultaAtualizada.setPressao(NumericoService.converterInt(tf_pressao.getText()));
+            consultaAtualizada.setPeso(NumericoService.converterDouble(tf_peso.getText()));
+            consultaAtualizada.setPrioridade(NumericoService.converterInt(tf_prioridade.getText()));
 
             this.controllerConsulta.alterar(consultaAtualizada);
 
             JOptionPane.showMessageDialog(null, "CONSULTA ATUALIZADA COM SUCESSO");
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.AMARELO.getCor() + numberFormatException.getMessage());
+        } catch (Exception exception) {
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
     }
 

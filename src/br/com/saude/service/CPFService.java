@@ -11,7 +11,7 @@ package br.com.saude.service;
 public class CPFService {
 
     public static long validar(String cpf) throws Exception {
-        if (!cpf.contains(" ")) {
+        if (!cpf.equals("   .   .   -  ")) {
             cpf = cpf.replace(".", "");
             cpf = cpf.replace("-", "");
 

@@ -21,24 +21,28 @@ public class DataService {
     private static final Date dateErro = null;
 
     public static LocalDate validar(String data) throws Exception {
-        if (data != null) {
+        if (!data.equals("  /  /    ") && existe(data)) {
             return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        } else {
-            throw new Exception("DATA INVÁLIDA!");
         }
+        throw new Exception("DATA VAZIA OU INVÁLIDA!");
+    }
+
+    public static boolean existe(String data) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            simpleDateFormat.setLenient(false);
+            simpleDateFormat.parse(data);
+
+            return true;
+        } catch (ParseException e) {
+            System.out.println(Estilo.AZUL.getCor() + "DATA INVÁLIDA!");
+        }
+        return false;
     }
 
     public static LocalDate verificar(String data) {
-        try {
-            if (data != null) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                simpleDateFormat.setLenient(false);
-                simpleDateFormat.parse(data);
-
-                return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            }
-        } catch (ParseException parseException) {
-            System.out.println(Estilo.AZUL.getCor() + "DATA VAZIA OU INVÁLIDA!");
+        if (!data.equals("  /  /    ") && existe(data)) {
+            return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         }
         return localDateErro;
     }

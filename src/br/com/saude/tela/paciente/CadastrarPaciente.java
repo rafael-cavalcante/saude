@@ -21,14 +21,14 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarPaciente extends javax.swing.JFrame {
 
-    private ControllerPaciente controllerPaciente;
+    private final ControllerPaciente controllerPaciente;
 
     /**
      * Creates new form CadastrarAdministrador
      */
     public CadastrarPaciente() {
         initComponents();
-        initControllers();
+        this.controllerPaciente = new ControllerPaciente();
     }
 
     /**
@@ -248,10 +248,6 @@ public class CadastrarPaciente extends javax.swing.JFrame {
         cadastrarPaciente();
     }//GEN-LAST:event_bt_cadastrarActionPerformed
 
-    private void initControllers() {
-        this.controllerPaciente = new ControllerPaciente();
-    }
-
     private void cadastrarPaciente() {
         try {
             Paciente paciente = new Paciente(
@@ -262,15 +258,15 @@ public class CadastrarPaciente extends javax.swing.JFrame {
                     NumericoService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
                     new ArrayList<>(),
-                    RGService.validar(tf_rg.getText()),
+                    RGService.verificar(tf_rg.getText()),
                     DataService.verificar(tf_dataNascimento.getText()),
                     tf_email.getText()
             );
 
-            this.controllerPaciente.cadastrar(paciente);
-
-            limparCampos();
-            JOptionPane.showMessageDialog(null, "PACIENTE CADASTRADO COM SUCESSO");
+            if (this.controllerPaciente.cadastrar(paciente)) {
+                limparCampos();
+                JOptionPane.showMessageDialog(null, "PACIENTE CADASTRADO COM SUCESSO");
+            }
         } catch (Exception exception) {
             System.out.println(Estilo.VERMELHO.getCor() + exception.getMessage());
         }
@@ -317,10 +313,8 @@ public class CadastrarPaciente extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastrarPaciente().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CadastrarPaciente().setVisible(true);
         });
     }
 
