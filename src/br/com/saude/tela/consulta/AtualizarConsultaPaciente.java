@@ -10,7 +10,7 @@ import br.com.saude.model.Consulta;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.DataService;
-import br.com.saude.service.NumericoService;
+import br.com.saude.service.NumeroService;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -262,7 +262,7 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
     private void carregarConsulta(Consulta consulta) {
         tf_cpf.setText(CPFService.formatar(consulta.getPaciente().getCpf()));
         tf_crm.setText("CRM/" + consulta.getMedico().getCrm());
-        tf_codigo.setText(NumericoService.formatar(consulta.getProntuario().getCodigo()));
+        tf_codigo.setText(NumeroService.formatar(consulta.getProntuario().getCodigo()));
         tf_dataRealizacao.setText(DataService.formatar(consulta.getDataRealizacao()));
         listarStatus(consulta.getStatus());
     }

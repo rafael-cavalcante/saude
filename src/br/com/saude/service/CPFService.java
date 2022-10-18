@@ -16,9 +16,8 @@ public class CPFService {
             cpf = cpf.replace("-", "");
 
             return Long.parseLong(cpf);
-        } else {
-            throw new Exception("CPF INVÁLIDA!");
         }
+        throw new Exception("CPF INVÁLIDA!");
     }
 
     public static String formatar(long cpf) {

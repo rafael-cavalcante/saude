@@ -40,11 +40,18 @@ public class DataService {
         return false;
     }
 
-    public static LocalDate verificar(String data) {
+    public static LocalDate converterLocalDate(String data) {
         if (!data.equals("  /  /    ") && existe(data)) {
             return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         }
         return localDateErro;
+    }
+
+    public static LocalDate converterLocalDate(String data, LocalDate dataAntiga) {
+        if (!data.equals("  /  /    ") && existe(data)) {
+            return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
+        return dataAntiga;
     }
 
     public static Date converter(LocalDate localDate) {

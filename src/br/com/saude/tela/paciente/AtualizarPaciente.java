@@ -9,10 +9,10 @@ import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.DataService;
-import br.com.saude.service.NumericoService;
+import br.com.saude.service.NumeroService;
 import br.com.saude.service.RGService;
 import br.com.saude.service.SenhaService;
-import java.util.ArrayList;
+import br.com.saude.service.ValorService;
 import javax.swing.JOptionPane;
 
 /**
@@ -257,23 +257,16 @@ public class AtualizarPaciente extends javax.swing.JFrame {
 
     private void atualizarPaciente() {
         try {
-            Paciente pacienteAtualizado = this.paciente;
-            
-            pacienteAtualizado = new Paciente(
-                    CPFService.validar(tf_cpf.getText()),
-                    SenhaService.validar(new String(tf_senha.getPassword())),
-                    tf_nome.getText(),
-                    tf_rua.getText(),
-                    NumericoService.converterLong(tf_numero.getText()),
-                    tf_bairro.getText(),
-                    new ArrayList<>(),
-                    RGService.verificar(tf_rg.getText()),
-                    DataService.verificar(tf_dataNascimento.getText()),
-                    tf_email.getText()
-            );
+            this.paciente.setSenha(SenhaService.validar(new String(tf_senha.getPassword())));
+            this.paciente.setNome(ValorService.verificarValor(tf_nome.getText(), this.paciente.getNome()));
+            this.paciente.setRua(ValorService.verificarValor(tf_rua.getText(), this.paciente.getRua()));
+            this.paciente.setNumero(NumeroService.converterLong(tf_numero.getText(), this.paciente.getNumero()));
+            this.paciente.setBairro(ValorService.verificarValor(tf_bairro.getText(), this.paciente.getBairro()));
+            this.paciente.setRg(RGService.converterLong(tf_rg.getText(), this.paciente.getRg()));
+            this.paciente.setDataNascimento(DataService.converterLocalDate(tf_dataNascimento.getText(), this.paciente.getDataNascimento()));
+            this.paciente.setEmail(ValorService.verificarValor(tf_email.getText(), this.paciente.getEmail()));
 
-            if (this.controllerPaciente.alterar(pacienteAtualizado)) {
-                this.paciente = pacienteAtualizado;
+            if (this.controllerPaciente.alterar(paciente)) {
                 carregarPaciente();
                 JOptionPane.showMessageDialog(null, "PACIENTE ATUALIZADA COM SUCESSO");
             }
@@ -283,11 +276,13 @@ public class AtualizarPaciente extends javax.swing.JFrame {
     }
 
     private void carregarPaciente() {
+        this.paciente = this.controllerPaciente.procurar(this.paciente);
+
         tf_cpf.setText(CPFService.formatar(this.paciente.getCpf()));
         tf_senha.setText(this.paciente.getSenha());
         tf_nome.setText(this.paciente.getNome());
         tf_rua.setText(this.paciente.getRua());
-        tf_numero.setText(NumericoService.formatar(this.paciente.getNumero()));
+        tf_numero.setText(String.valueOf(this.paciente.getNumero()));
         tf_bairro.setText(this.paciente.getBairro());
         tf_rg.setText(RGService.formatar(this.paciente.getRg()));
         tf_dataNascimento.setText(DataService.formatar(this.paciente.getDataNascimento()));

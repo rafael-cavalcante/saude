@@ -10,8 +10,8 @@ import br.com.saude.configuracao.estilo.Estilo;
  *
  * @author tecin
  */
-public class NumericoService {
-    
+public class NumeroService {
+
     public static long converterLong(String numero) {
         try {
             return Long.parseLong(numero);
@@ -19,6 +19,15 @@ public class NumericoService {
             System.out.println(Estilo.AZUL.getCor() + "NÚMERO VAZIA OU INVÁLIDA!");
         }
         return 0;
+    }
+
+    public static long converterLong(String numero, long numeroAntigo) {
+        try {
+            return Long.parseLong(numero);
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(Estilo.AZUL.getCor() + "NÚMERO INVÁLIDO!");
+        }
+        return numeroAntigo;
     }
 
     public static int converterInt(String numero) {
@@ -29,8 +38,8 @@ public class NumericoService {
         }
         return 0;
     }
-    
-    public static double converterDouble(String numero){
+
+    public static double converterDouble(String numero) {
         try {
             return Double.parseDouble(numero);
         } catch (NumberFormatException numberFormatException) {

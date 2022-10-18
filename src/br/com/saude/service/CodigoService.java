@@ -13,8 +13,7 @@ public class CodigoService {
     public static long validar(String codigo) throws Exception {
         if (!codigo.isEmpty()) {
             return Long.parseLong(codigo);
-        } else {
-            throw new Exception("CODIGO INVÁLIDA!");
         }
+        throw new Exception("CODIGO INVÁLIDA!");
     }
 }

@@ -8,7 +8,7 @@ import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.controller.ControllerAdministrador;
 import br.com.saude.model.Administrador;
 import br.com.saude.service.CPFService;
-import br.com.saude.service.NumericoService;
+import br.com.saude.service.NumeroService;
 import br.com.saude.service.SenhaService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -203,7 +203,7 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
                     SenhaService.validar(new String(tf_senha.getPassword())),
                     tf_nome.getText(),
                     tf_rua.getText(),
-                    NumericoService.converterLong(tf_numero.getText()),
+                    NumeroService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
                     new ArrayList<>()
             );

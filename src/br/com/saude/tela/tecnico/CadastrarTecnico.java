@@ -9,7 +9,7 @@ import br.com.saude.controller.ControllerTecnico;
 import br.com.saude.model.Administrador;
 import br.com.saude.model.Tecnico;
 import br.com.saude.service.CPFService;
-import br.com.saude.service.NumericoService;
+import br.com.saude.service.NumeroService;
 import br.com.saude.service.SenhaService;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -205,7 +205,7 @@ public class CadastrarTecnico extends javax.swing.JFrame {
                     SenhaService.validar(new String(tf_senha.getPassword())),
                     tf_nome.getText(),
                     tf_rua.getText(),
-                    NumericoService.converterLong(tf_numero.getText()),
+                    NumeroService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
                     new ArrayList<>()
             );

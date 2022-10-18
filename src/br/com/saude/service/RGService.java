@@ -12,7 +12,7 @@ import br.com.saude.configuracao.estilo.Estilo;
  */
 public class RGService {
 
-    public static long verificar(String rg) {
+    public static long converterLong(String rg) {
         try {
             if (!rg.equals("   .   .   ")) {
                 rg = rg.replace(".", "");
@@ -23,6 +23,19 @@ public class RGService {
             System.out.println(Estilo.AZUL.getCor() + "RG INVÁLIDA!");
         }
         return 0;
+    }
+
+    public static long converterLong(String rg, long rgAntigo) {
+        try {
+            if (!rg.equals("   .   .   ")) {
+                rg = rg.replace(".", "");
+
+                return Long.parseLong(rg);
+            }
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(Estilo.AZUL.getCor() + "RG INVÁLIDA!");
+        }
+        return rgAntigo;
     }
 
     public static String formatar(long rg) {

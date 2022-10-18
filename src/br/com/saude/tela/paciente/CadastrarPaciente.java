@@ -9,7 +9,7 @@ import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.DataService;
-import br.com.saude.service.NumericoService;
+import br.com.saude.service.NumeroService;
 import br.com.saude.service.RGService;
 import br.com.saude.service.SenhaService;
 import java.util.ArrayList;
@@ -255,11 +255,11 @@ public class CadastrarPaciente extends javax.swing.JFrame {
                     SenhaService.validar(new String(tf_senha.getPassword())),
                     tf_nome.getText(),
                     tf_rua.getText(),
-                    NumericoService.converterLong(tf_numero.getText()),
+                    NumeroService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
                     new ArrayList<>(),
-                    RGService.verificar(tf_rg.getText()),
-                    DataService.verificar(tf_dataNascimento.getText()),
+                    RGService.converterLong(tf_rg.getText()),
+                    DataService.converterLocalDate(tf_dataNascimento.getText()),
                     tf_email.getText()
             );
 

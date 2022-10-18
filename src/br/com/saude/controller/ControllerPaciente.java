@@ -33,6 +33,10 @@ public class ControllerPaciente {
         }
         return false;
     }
+    
+    public Paciente procurar(Paciente paciente){
+        return this.repositoryPaciente.buscar(paciente);
+    }
 
     public Paciente login(Paciente paciente) {
         paciente = this.repositoryPaciente.buscar(paciente);

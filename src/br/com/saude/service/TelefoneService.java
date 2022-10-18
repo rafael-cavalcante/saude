@@ -11,14 +11,17 @@ package br.com.saude.service;
 public class TelefoneService {
 
     public static long validar(String numero) throws Exception {
-        if (!numero.contains(" ")) {
+        if (!numero.equals("(  )     -    ")) {
             numero = numero.replace("(", "");
             numero = numero.replace(")", "");
-            numero = numero.replace(" ", "");
             numero = numero.replace("-", "");
 
             return Long.parseLong(numero);
         }
         throw  new Exception("NÚMERO DE TELEFONE INVÁLIDO");
+    }
+    
+    public static String formatar(long numero) {
+        return String.format("%011d", numero);
     }
 }

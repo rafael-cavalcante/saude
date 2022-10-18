@@ -19,7 +19,7 @@ public class CRMService {
             throw new Exception("CRM INVÁLIDA!");
         }
     }
-    
+
     public static String formatar(String crm) {
         return "CRM/" + crm;
     }

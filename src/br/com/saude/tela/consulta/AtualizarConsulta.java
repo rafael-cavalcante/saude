@@ -12,7 +12,7 @@ import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.CRMService;
 import br.com.saude.service.DataService;
-import br.com.saude.service.NumericoService;
+import br.com.saude.service.NumeroService;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -293,9 +293,9 @@ public class AtualizarConsulta extends javax.swing.JFrame {
 
             consultaAtualizada.setDataRealizacao(DataService.validar(tf_dataRealizacao.getText()));
             consultaAtualizada.setStatus(tf_status.getText());
-            consultaAtualizada.setPressao(NumericoService.converterInt(tf_pressao.getText()));
-            consultaAtualizada.setPeso(NumericoService.converterDouble(tf_peso.getText()));
-            consultaAtualizada.setPrioridade(NumericoService.converterInt(tf_prioridade.getText()));
+            consultaAtualizada.setPressao(NumeroService.converterInt(tf_pressao.getText()));
+            consultaAtualizada.setPeso(NumeroService.converterDouble(tf_peso.getText()));
+            consultaAtualizada.setPrioridade(NumeroService.converterInt(tf_prioridade.getText()));
 
             this.controllerConsulta.alterar(consultaAtualizada);
 
