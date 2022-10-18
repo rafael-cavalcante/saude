@@ -15,23 +15,19 @@ import br.com.saude.tela.medico.CadastrarMedico;
  */
 public class MainTecnico extends javax.swing.JFrame {
 
-    private CadastrarMedico cadastrarMedico;
-    private SolicitarConsultaEmergencia solicitarConsultaEmergencia;
-    private AtualizarConsulta atualizarConsulta;
+    private static CadastrarMedico cadastrarMedico;
+    private static SolicitarConsultaEmergencia solicitarConsultaEmergencia;
+    private static AtualizarConsulta atualizarConsulta;
     private Tecnico tecnico;
-    
+
     /**
      * Creates new form MainTecnico
      */
     public MainTecnico() {
         initComponents();
-    }
-    
-    public MainTecnico(Tecnico tecnico){
-        initComponents();
-        this.tecnico = tecnico;
-        initTelas();
-        
+        cadastrarMedico = new CadastrarMedico();
+        solicitarConsultaEmergencia = new SolicitarConsultaEmergencia();
+        atualizarConsulta = new AtualizarConsulta();
     }
 
     /**
@@ -144,27 +140,41 @@ public class MainTecnico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_atualizarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarConsultaActionPerformed
-        if(!this.atualizarConsulta.isActive()){
-            this.atualizarConsulta.setVisible(true);
+        if (!atualizarConsulta.isActive()) {
+            atualizarConsulta.inicializar();
+            atualizarConsulta.setVisible(true);
         }
     }//GEN-LAST:event_bt_atualizarConsultaActionPerformed
 
     private void bt_cadastrarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarMedicoActionPerformed
-        if(!this.cadastrarMedico.isActive()){
-            this.cadastrarMedico.setVisible(true);
+        if (!cadastrarMedico.isActive()) {
+            cadastrarMedico.inicializar(this.tecnico);
+            cadastrarMedico.setVisible(true);
         }
     }//GEN-LAST:event_bt_cadastrarMedicoActionPerformed
 
     private void bt_solicitarConsultaEmergenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_solicitarConsultaEmergenciaActionPerformed
-        if(!this.solicitarConsultaEmergencia.isActive()){
-            this.solicitarConsultaEmergencia.setVisible(true);
+        if (!solicitarConsultaEmergencia.isActive()) {
+            solicitarConsultaEmergencia.inicializar();
+            solicitarConsultaEmergencia.setVisible(true);
         }
     }//GEN-LAST:event_bt_solicitarConsultaEmergenciaActionPerformed
-    
-    private void initTelas(){
-        this.cadastrarMedico = new CadastrarMedico(this.tecnico);
-        this.solicitarConsultaEmergencia = new SolicitarConsultaEmergencia();
-        this.atualizarConsulta = new AtualizarConsulta();
+
+    public void inicializar(Tecnico tecnico) {
+        this.tecnico = tecnico;
+        atualizar();
+    }
+
+    private void atualizar() {
+        if (atualizarConsulta.isVisible()) {
+            atualizarConsulta.inicializar();
+        }
+        if (cadastrarMedico.isVisible()) {
+            cadastrarMedico.inicializar(this.tecnico);
+        }
+        if (solicitarConsultaEmergencia.isVisible()) {
+            solicitarConsultaEmergencia.inicializar();
+        }
     }
     
     /**
@@ -195,10 +205,8 @@ public class MainTecnico extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainTecnico().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainTecnico().setVisible(true);
         });
     }
 

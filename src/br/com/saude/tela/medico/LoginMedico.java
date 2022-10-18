@@ -17,14 +17,15 @@ import javax.swing.JOptionPane;
  */
 public class LoginMedico extends javax.swing.JFrame {
 
+    private static MainMedico mainMedico;
     private final ControllerMedico controllerMedico;
-    private static final MainMedico mainMedico = new MainMedico();
 
     /**
      * Creates new form CadastrarAdministrador
      */
     public LoginMedico() {
         initComponents();
+        mainMedico = new MainMedico();
         this.controllerMedico = new ControllerMedico();
     }
 
@@ -156,8 +157,8 @@ public class LoginMedico extends javax.swing.JFrame {
             medico = this.controllerMedico.login(medico);
 
             if (medico != null) {
-                LoginMedico.mainMedico.inicializar(medico);
-                LoginMedico.mainMedico.setVisible(true);
+                mainMedico.inicializar(medico);
+                mainMedico.setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "MEDICO NÃO ENCONTRADO");
@@ -202,10 +203,8 @@ public class LoginMedico extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginMedico().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginMedico().setVisible(true);
         });
     }
 

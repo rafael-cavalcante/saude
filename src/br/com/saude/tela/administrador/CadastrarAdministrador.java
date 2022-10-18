@@ -19,14 +19,14 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarAdministrador extends javax.swing.JFrame {
 
-    private ControllerAdministrador controllerAdministrador;
+    private final ControllerAdministrador controllerAdministrador;
 
     /**
      * Creates new form CadastrarAdministrador
      */
     public CadastrarAdministrador() {
         initComponents();
-        initControllers();
+        this.controllerAdministrador = new ControllerAdministrador();
     }
 
     /**
@@ -195,11 +195,7 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
     private void bt_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarActionPerformed
         cadastrarAdministrador();
     }//GEN-LAST:event_bt_cadastrarActionPerformed
-        
-    private void initControllers(){
-        this.controllerAdministrador = new ControllerAdministrador();
-    }
-    
+
     private void cadastrarAdministrador() {
         try {
             Administrador administrador = new Administrador(
@@ -212,10 +208,10 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
                     new ArrayList<>()
             );
 
-            this.controllerAdministrador.cadastrar(administrador);
-
-            limparCampos();
-            JOptionPane.showMessageDialog(null, "ADMINISTRADOR CADASTRADO COM SUCESSO");
+            if (this.controllerAdministrador.cadastrar(administrador)) {
+                limparCampos();
+                JOptionPane.showMessageDialog(null, "ADMINISTRADOR CADASTRADO COM SUCESSO");
+            }
         } catch (Exception exception) {
             System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
@@ -258,10 +254,8 @@ public class CadastrarAdministrador extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastrarAdministrador().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CadastrarAdministrador().setVisible(true);
         });
     }
 

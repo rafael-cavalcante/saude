@@ -21,10 +21,6 @@ public class MainMedico extends javax.swing.JFrame {
         initComponents();
     }
 
-    public MainMedico(Medico medico) {
-        initComponents();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -126,10 +122,8 @@ public class MainMedico extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainMedico().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainMedico().setVisible(true);
         });
     }
 

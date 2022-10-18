@@ -159,7 +159,8 @@ public class LoginTecnico extends javax.swing.JFrame {
             tecnico = this.controllerTecnico.login(tecnico);
 
             if (tecnico != null) {
-                MainTecnico mainTecnico = new MainTecnico(tecnico);
+                MainTecnico mainTecnico = new MainTecnico();
+                mainTecnico.inicializar(tecnico);
                 mainTecnico.setVisible(true);
                 dispose();
             } else {

@@ -267,7 +267,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
                     NumericoService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
                     new ArrayList<>(),
-                    RGService.validar(tf_rg.getText()),
+                    RGService.verificar(tf_rg.getText()),
                     DataService.verificar(tf_dataNascimento.getText()),
                     tf_email.getText()
             );

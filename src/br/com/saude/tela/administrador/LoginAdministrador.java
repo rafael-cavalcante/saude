@@ -17,14 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class LoginAdministrador extends javax.swing.JFrame {
 
-    private ControllerAdministrador controllerAdministrador;
+    private final ControllerAdministrador controllerAdministrador;
 
     /**
      * Creates new form CadastrarAdministrador
      */
     public LoginAdministrador() {
         initComponents();
-        initControllers();
+        this.controllerAdministrador = new ControllerAdministrador();
     }
 
     /**
@@ -147,10 +147,6 @@ public class LoginAdministrador extends javax.swing.JFrame {
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
         loginAdministrador();
     }//GEN-LAST:event_bt_loginActionPerformed
-
-    private void initControllers() {
-        this.controllerAdministrador = new ControllerAdministrador();
-    }
     
     private void loginAdministrador() {
         try {
@@ -162,7 +158,8 @@ public class LoginAdministrador extends javax.swing.JFrame {
             administrador = this.controllerAdministrador.login(administrador);
 
             if (administrador != null) {
-                MainAdministrador mainAdministrador = new MainAdministrador(administrador);
+                MainAdministrador mainAdministrador = new MainAdministrador();
+                mainAdministrador.inicializar(administrador);
                 mainAdministrador.setVisible(true);
                 dispose();
             } else {
@@ -207,10 +204,8 @@ public class LoginAdministrador extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginAdministrador().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginAdministrador().setVisible(true);
         });
     }
 

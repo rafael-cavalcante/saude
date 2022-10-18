@@ -13,8 +13,8 @@ import br.com.saude.tela.tecnico.CadastrarTecnico;
  */
 public class MainAdministrador extends javax.swing.JFrame {
 
-    private CadastrarAdministrador cadastrarAdministrador;
-    private CadastrarTecnico cadastrarTecnico;
+    private static CadastrarAdministrador cadastrarAdministrador;
+    private static CadastrarTecnico cadastrarTecnico;
     private Administrador administrador;
 
     /**
@@ -22,12 +22,8 @@ public class MainAdministrador extends javax.swing.JFrame {
      */
     public MainAdministrador() {
         initComponents();
-    }
-
-    public MainAdministrador(Administrador administrador) {
-        initComponents();
-        this.administrador = administrador;
-        initTelas();
+        cadastrarAdministrador = new CadastrarAdministrador();
+        cadastrarTecnico = new CadastrarTecnico();
     }
 
     /**
@@ -125,22 +121,29 @@ public class MainAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_cadastrarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarAdministradorActionPerformed
-         if(!this.cadastrarAdministrador.isActive()){
-             this.cadastrarAdministrador.setVisible(true);
-         }
+        if (!cadastrarAdministrador.isActive()) {
+            cadastrarAdministrador.setVisible(true);
+        }
     }//GEN-LAST:event_bt_cadastrarAdministradorActionPerformed
 
     private void bt_cadastrarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarTecnicoActionPerformed
-        if(!this.cadastrarTecnico.isActive()){
-            this.cadastrarTecnico.setVisible(true);
+        if (!cadastrarTecnico.isActive()) {
+            cadastrarTecnico.inicializar(this.administrador);
+            cadastrarTecnico.setVisible(true);
         }
     }//GEN-LAST:event_bt_cadastrarTecnicoActionPerformed
 
-    private void initTelas(){
-        this.cadastrarAdministrador = new CadastrarAdministrador();
-        this.cadastrarTecnico = new CadastrarTecnico(this.administrador);
+    public void inicializar(Administrador administrador) {
+        this.administrador = administrador;
+        atualizar();
     }
     
+    private void atualizar() {
+        if (cadastrarTecnico.isVisible()) {
+            cadastrarTecnico.inicializar(this.administrador);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -169,10 +172,8 @@ public class MainAdministrador extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainAdministrador().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainAdministrador().setVisible(true);
         });
     }
 

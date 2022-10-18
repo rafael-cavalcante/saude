@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class CadastrarMedico extends javax.swing.JFrame {
 
-    private ControllerMedico controllerMedico;
+    private final ControllerMedico controllerMedico;
     private Tecnico tecnico;
 
     /**
@@ -29,12 +29,7 @@ public class CadastrarMedico extends javax.swing.JFrame {
      */
     public CadastrarMedico() {
         initComponents();
-    }
-
-    public CadastrarMedico(Tecnico tecnico) {
-        initComponents();
-        initControllers();
-        this.tecnico = tecnico;
+        this.controllerMedico = new ControllerMedico();
     }
 
     /**
@@ -230,8 +225,8 @@ public class CadastrarMedico extends javax.swing.JFrame {
         cadastrarMedico();
     }//GEN-LAST:event_bt_cadastrarActionPerformed
 
-    private void initControllers() {
-        this.controllerMedico = new ControllerMedico();
+    public void inicializar(Tecnico tecnico) {
+        this.tecnico = tecnico;
     }
 
     private void cadastrarMedico() {
@@ -248,10 +243,10 @@ public class CadastrarMedico extends javax.swing.JFrame {
                     tf_especializacao.getText()
             );
 
-            this.controllerMedico.cadastrar(medico, this.tecnico);
-
-            limparCampos();
-            JOptionPane.showMessageDialog(null, "MEDICO CADASTRADO COM SUCESSO");
+            if (this.controllerMedico.cadastrar(medico, this.tecnico)) {
+                limparCampos();
+                JOptionPane.showMessageDialog(null, "MEDICO CADASTRADO COM SUCESSO");
+            }
         } catch (Exception exception) {
             System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
@@ -297,10 +292,8 @@ public class CadastrarMedico extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastrarMedico().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CadastrarMedico().setVisible(true);
         });
     }
 

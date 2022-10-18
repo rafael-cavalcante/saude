@@ -101,7 +101,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tf_laudo" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Component id="tf_prontuario" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -119,13 +119,13 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="0" min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cb_paciente" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cb_medico" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tf_laudo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_prontuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="30" max="-2" attributes="0"/>
@@ -156,6 +156,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cb_medicoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -165,11 +168,11 @@
             <Property name="text" type="java.lang.String" value="MEDICO"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tf_laudo">
+        <Component class="javax.swing.JTextField" name="tf_prontuario">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="LAUDO"/>
+            <Property name="text" type="java.lang.String" value="PRONTUARIO"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">

@@ -13,7 +13,8 @@ import br.com.saude.model.Medico;
 import br.com.saude.model.Paciente;
 import br.com.saude.model.Prontuario;
 import br.com.saude.service.CPFService;
-import br.com.saude.service.NumericoService;
+import br.com.saude.service.CRMService;
+import br.com.saude.service.CodigoService;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -24,9 +25,9 @@ import javax.swing.JOptionPane;
  */
 public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
 
-    private ControllerConsulta controllerConsulta;
-    private ControllerPaciente controllerPaciente;
-    private ControllerMedico controllerMedico;
+    private final ControllerConsulta controllerConsulta;
+    private final ControllerPaciente controllerPaciente;
+    private final ControllerMedico controllerMedico;
     private List<Paciente> pacientes;
     private List<Medico> medicos;
 
@@ -35,9 +36,9 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
      */
     public SolicitarConsultaEmergencia() {
         initComponents();
-        initControllers();
-        listarPacientes();
-        listarMedicos();
+        this.controllerConsulta = new ControllerConsulta();
+        this.controllerPaciente = new ControllerPaciente();
+        this.controllerMedico = new ControllerMedico();
     }
 
     /**
@@ -56,7 +57,7 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
         cb_paciente = new javax.swing.JComboBox<>();
         cb_medico = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        tf_laudo = new javax.swing.JTextField();
+        tf_prontuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -87,9 +88,15 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
 
         jLabel1.setText("PACIENTE");
 
+        cb_medico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_medicoActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("MEDICO");
 
-        jLabel3.setText("LAUDO");
+        jLabel3.setText("PRONTUARIO");
 
         jButton1.setText("CADASTRAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +121,7 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(tf_laudo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -128,12 +135,12 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cb_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_laudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -163,41 +170,45 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
         solicitarConsultaEmergencia();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void initControllers(){
-        this.controllerConsulta = new ControllerConsulta();
-        this.controllerPaciente = new ControllerPaciente();
-        this.controllerMedico = new ControllerMedico();
+    private void cb_medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_medicoActionPerformed
+        listarMedicos();
+    }//GEN-LAST:event_cb_medicoActionPerformed
+
+    public void inicializar() {
+        listarPacientes();
     }
-    
-    private void solicitarConsultaEmergencia(){
+
+    private void solicitarConsultaEmergencia() {
         try {
             Consulta consulta = new Consulta(
                     this.pacientes.get(cb_paciente.getSelectedIndex()),
                     this.medicos.get(cb_medico.getSelectedIndex()),
-                    new Prontuario(NumericoService.converterLong(tf_laudo.getText()), LocalDate.now()),
+                    new Prontuario(CodigoService.validar(tf_prontuario.getText()), LocalDate.now()),
                     LocalDate.now(),
                     "Emergencia",
                     10
             );
 
-            this.controllerConsulta.solicitar(consulta);
-            
-            JOptionPane.showMessageDialog(null, "CONSULTA DE EMERGENCIA SOLICITADA COM SUCESSO");
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(Estilo.AMARELO.getCor() + numberFormatException.getMessage());
+            if (this.controllerConsulta.solicitar(consulta)) {
+                JOptionPane.showMessageDialog(null, "CONSULTA DE EMERGENCIA SOLICITADA COM SUCESSO");
+            }
+        } catch (Exception exception) {
+            System.out.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
     }
-    
+
     private void listarPacientes() {
+        cb_paciente.removeAllItems();
         this.pacientes = this.controllerPaciente.listar();
         pacientes.stream()
                 .forEach(paciente -> cb_paciente.addItem(CPFService.formatar(paciente.getCpf())));
     }
 
     private void listarMedicos() {
+        cb_medico.removeAllItems();
         this.medicos = this.controllerMedico.listar();
         medicos.stream()
-                .forEach(medico -> cb_medico.addItem(medico.getCrm()));
+                .forEach(medico -> cb_medico.addItem(CRMService.formatar(medico.getCrm())));
     }
 
     /**
@@ -229,10 +240,8 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SolicitarConsultaEmergencia().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SolicitarConsultaEmergencia().setVisible(true);
         });
     }
 
@@ -246,6 +255,6 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField tf_laudo;
+    private javax.swing.JTextField tf_prontuario;
     // End of variables declaration//GEN-END:variables
 }
