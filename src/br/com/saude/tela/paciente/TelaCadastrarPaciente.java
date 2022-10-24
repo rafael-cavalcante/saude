@@ -12,21 +12,20 @@ import br.com.saude.service.DataService;
 import br.com.saude.service.NumeroService;
 import br.com.saude.service.RGService;
 import br.com.saude.service.SenhaService;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author tecin
  */
-public class CadastrarPaciente extends javax.swing.JFrame {
+public class TelaCadastrarPaciente extends javax.swing.JFrame {
 
     private final ControllerPaciente controllerPaciente;
 
     /**
      * Creates new form CadastrarAdministrador
      */
-    public CadastrarPaciente() {
+    public TelaCadastrarPaciente() {
         initComponents();
         this.controllerPaciente = new ControllerPaciente();
     }
@@ -257,7 +256,6 @@ public class CadastrarPaciente extends javax.swing.JFrame {
                     tf_rua.getText(),
                     NumeroService.converterLong(tf_numero.getText()),
                     tf_bairro.getText(),
-                    new ArrayList<>(),
                     RGService.converterLong(tf_rg.getText()),
                     DataService.converterLocalDate(tf_dataNascimento.getText()),
                     tf_email.getText()
@@ -273,15 +271,15 @@ public class CadastrarPaciente extends javax.swing.JFrame {
     }
 
     private void limparCampos() {
-        tf_rg.setText("");
-        tf_email.setText("");
-        tf_dataNascimento.setText("");
         tf_cpf.setText("");
         tf_senha.setText("");
         tf_nome.setText("");
         tf_rua.setText("");
         tf_numero.setText("");
         tf_bairro.setText("");
+        tf_rg.setText("");
+        tf_email.setText("");
+        tf_dataNascimento.setText("");
     }
 
     /**
@@ -301,20 +299,22 @@ public class CadastrarPaciente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrarPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrarPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrarPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrarPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new CadastrarPaciente().setVisible(true);
+            new TelaCadastrarPaciente().setVisible(true);
         });
     }
 

@@ -5,12 +5,29 @@
 package br.com.saude;
 
 import br.com.saude.configuracao.Configuracao;
+import br.com.saude.configuracao.estilo.Estilo;
+import br.com.saude.controller.ControllerAdministrador;
+import br.com.saude.controller.ControllerMedico;
+import br.com.saude.controller.ControllerPaciente;
+import br.com.saude.controller.ControllerTecnico;
+import br.com.saude.model.Administrador;
+import br.com.saude.model.Medico;
+import br.com.saude.model.Paciente;
+import br.com.saude.model.Tecnico;
+import br.com.saude.service.CPFService;
+import br.com.saude.service.CRMService;
+import br.com.saude.service.SenhaService;
 import br.com.saude.tela.administrador.LoginAdministrador;
-import br.com.saude.tela.administrador.horario.VisualizarHorarios;
+import br.com.saude.tela.administrador.MainAdministrador;
+import br.com.saude.tela.horario.TelaVisualizarHorarios;
 import br.com.saude.tela.medico.LoginMedico;
-import br.com.saude.tela.paciente.CadastrarPaciente;
+import br.com.saude.tela.medico.MainMedico;
+import br.com.saude.tela.paciente.TelaCadastrarPaciente;
 import br.com.saude.tela.paciente.LoginPaciente;
+import br.com.saude.tela.paciente.MainPaciente;
 import br.com.saude.tela.tecnico.LoginTecnico;
+import br.com.saude.tela.tecnico.MainTecnico;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,25 +35,26 @@ import br.com.saude.tela.tecnico.LoginTecnico;
  */
 public class SaudeApplication extends javax.swing.JFrame {
 
-    private static LoginAdministrador loginAdministrador;
-    private static LoginTecnico loginTecnico;
-    private static LoginMedico loginMedico;
-    private static LoginPaciente loginPaciente;
-    private static CadastrarPaciente cadastrarPaciente;
-    private static VisualizarHorarios visualizarHorarios;
+    private final TelaCadastrarPaciente telaCadastrarPaciente;
+    private final TelaVisualizarHorarios telavisualizarHorarios;
+    private final ControllerAdministrador controllerAdministrador;
+    private final ControllerTecnico controllerTecnico;
+    private final ControllerMedico controllerMedico;
+    private final ControllerPaciente controllerPaciente;
 
     /**
      * Creates new form SaudeApplication
      */
     public SaudeApplication() {
         initComponents();
+        initConfiguracoes();
         Configuracao.inicializar();
-        loginAdministrador = new LoginAdministrador();
-        loginTecnico = new LoginTecnico();
-        loginMedico = new LoginMedico();
-        loginPaciente = new LoginPaciente();
-        cadastrarPaciente = new CadastrarPaciente();
-        visualizarHorarios = new VisualizarHorarios();
+        this.telaCadastrarPaciente = new TelaCadastrarPaciente();
+        this.telavisualizarHorarios = new TelaVisualizarHorarios();
+        this.controllerAdministrador = new ControllerAdministrador();
+        this.controllerTecnico = new ControllerTecnico();
+        this.controllerMedico = new ControllerMedico();
+        this.controllerPaciente = new ControllerPaciente();
     }
 
     /**
@@ -48,14 +66,35 @@ public class SaudeApplication extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        bt_administrador = new javax.swing.JButton();
-        bt_tecnico = new javax.swing.JButton();
-        bt_medico = new javax.swing.JButton();
-        bt_loginPaciente = new javax.swing.JButton();
-        bt_cadastrarPaciente = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        bt_entrar_administrador = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        tf_cpf_administrador = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        tf_senha_administrador = new javax.swing.JPasswordField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        tf_cpf_tecnico = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tf_senha_tecnico = new javax.swing.JPasswordField();
+        bt_entrar_tecnico = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        tf_crm_medico = new javax.swing.JFormattedTextField();
+        jLabel6 = new javax.swing.JLabel();
+        br_entrar_medico = new javax.swing.JButton();
+        tf_senha_medico = new javax.swing.JPasswordField();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        tf_cpf_paciente = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        tf_senha_paciente = new javax.swing.JPasswordField();
+        bt_entrar_paciente = new javax.swing.JButton();
+        bt_cadastrar_paciente = new javax.swing.JButton();
         bt_visualizarHorarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,11 +102,14 @@ public class SaudeApplication extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("SISTEMA SAUDE+ v0.3.2");
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("SISTEMA SAUDE+");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,8 +117,8 @@ public class SaudeApplication extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,86 +128,260 @@ public class SaudeApplication extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        bt_administrador.setText("LOGIN ADMINISTRADOR");
-        bt_administrador.addActionListener(new java.awt.event.ActionListener() {
+        bt_entrar_administrador.setText("ENTRAR");
+        bt_entrar_administrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_administradorActionPerformed(evt);
+                bt_entrar_administradorActionPerformed(evt);
             }
         });
 
-        bt_tecnico.setText("LOGIN TECNICO");
-        bt_tecnico.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("CPF");
+
+        try {
+            tf_cpf_administrador.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel2.setText("SENHA");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_entrar_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tf_cpf_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_senha_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tf_cpf_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tf_senha_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(bt_entrar_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("ADMINISTRADOR", jPanel3);
+
+        jLabel3.setText("CPF");
+
+        try {
+            tf_cpf_tecnico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel4.setText("SENHA");
+
+        bt_entrar_tecnico.setText("ENTRAR");
+        bt_entrar_tecnico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_tecnicoActionPerformed(evt);
+                bt_entrar_tecnicoActionPerformed(evt);
             }
         });
 
-        bt_medico.setText("LOGIN MEDICO");
-        bt_medico.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(bt_entrar_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tf_senha_tecnico)
+                    .addComponent(tf_cpf_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tf_cpf_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tf_senha_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(bt_entrar_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("TECNICO", jPanel4);
+
+        jLabel5.setText("CRM");
+
+        try {
+            tf_crm_medico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("CRM/UU######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel6.setText("SENHA");
+
+        br_entrar_medico.setText("ENTRAR");
+        br_entrar_medico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_medicoActionPerformed(evt);
+                br_entrar_medicoActionPerformed(evt);
             }
         });
 
-        bt_loginPaciente.setText("LOGIN PACIENTE");
-        bt_loginPaciente.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(br_entrar_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tf_crm_medico)
+                    .addComponent(tf_senha_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(tf_crm_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(tf_senha_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(br_entrar_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("MEDICO", jPanel5);
+
+        jLabel8.setText("CPF");
+
+        try {
+            tf_cpf_paciente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel9.setText("SENHA");
+
+        bt_entrar_paciente.setText("ENTRAR");
+        bt_entrar_paciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_loginPacienteActionPerformed(evt);
+                bt_entrar_pacienteActionPerformed(evt);
             }
         });
 
-        bt_cadastrarPaciente.setText("CADASTRAR PACIENTE");
-        bt_cadastrarPaciente.addActionListener(new java.awt.event.ActionListener() {
+        bt_cadastrar_paciente.setText("Não estou cadastrado. Realizar Cadastro?");
+        bt_cadastrar_paciente.setContentAreaFilled(false);
+        bt_cadastrar_paciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_cadastrarPacienteActionPerformed(evt);
+                bt_cadastrar_pacienteActionPerformed(evt);
             }
         });
 
-        bt_visualizarHorarios.setText("HORARIOS DE CONSULTA");
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_cadastrar_paciente)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tf_cpf_paciente)
+                    .addComponent(tf_senha_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_entrar_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(tf_cpf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_senha_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addComponent(bt_entrar_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_cadastrar_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("PACIENTE", jPanel6);
+
+        bt_visualizarHorarios.setText("VISUALIZAR HORARIOS");
         bt_visualizarHorarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_visualizarHorariosActionPerformed(evt);
             }
         });
+        jTabbedPane1.addTab("HORARIOS", bt_visualizarHorarios);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(bt_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bt_tecnico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(6, 6, 6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(bt_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bt_loginPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(bt_visualizarHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bt_cadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_loginPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_cadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_visualizarHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -173,56 +389,124 @@ public class SaudeApplication extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_administradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_administradorActionPerformed
-        if (!loginAdministrador.isActive()) {
-            loginAdministrador.setVisible(true);
-        }
-    }//GEN-LAST:event_bt_administradorActionPerformed
+    private void bt_entrar_administradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_entrar_administradorActionPerformed
+        try {
+            Administrador administrador = new Administrador(
+                    CPFService.validar(tf_cpf_administrador.getText()),
+                    SenhaService.validar(new String(tf_senha_administrador.getPassword()))
+            );
 
-    private void bt_tecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_tecnicoActionPerformed
-        if (!loginTecnico.isActive()) {
-            loginTecnico.setVisible(true);
-        }
-    }//GEN-LAST:event_bt_tecnicoActionPerformed
+            administrador = this.controllerAdministrador.login(administrador);
 
-    private void bt_medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_medicoActionPerformed
-        if (!loginMedico.isActive()) {
-            loginMedico.setVisible(true);
+            if (administrador != null) {
+                MainAdministrador mainAdministrador = new MainAdministrador();
+                mainAdministrador.inicializar(administrador);
+                mainAdministrador.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "ADMINISTRADOR NÃO ENCONTRADO");
+            }
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+            System.err.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
-    }//GEN-LAST:event_bt_medicoActionPerformed
+    }//GEN-LAST:event_bt_entrar_administradorActionPerformed
 
-    private void bt_loginPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginPacienteActionPerformed
-        if (!loginPaciente.isActive()) {
-            loginPaciente.setVisible(true);
-        }
-    }//GEN-LAST:event_bt_loginPacienteActionPerformed
+    private void bt_entrar_tecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_entrar_tecnicoActionPerformed
+        try {
+            Tecnico tecnico = new Tecnico(
+                    CPFService.validar(tf_cpf_tecnico.getText()),
+                    SenhaService.validar(new String(tf_senha_tecnico.getPassword()))
+            );
 
-    private void bt_cadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarPacienteActionPerformed
-        if (!cadastrarPaciente.isActive()) {
-            cadastrarPaciente.setVisible(true);
+            tecnico = this.controllerTecnico.login(tecnico);
+
+            if (tecnico != null) {
+                MainTecnico mainTecnico = new MainTecnico();
+                mainTecnico.inicializar(tecnico);
+                mainTecnico.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "TECNICO NÃO ENCONTRADO");
+            }
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+            System.err.println(Estilo.AMARELO.getCor() + exception.getMessage());
         }
-    }//GEN-LAST:event_bt_cadastrarPacienteActionPerformed
+    }//GEN-LAST:event_bt_entrar_tecnicoActionPerformed
+
+    private void br_entrar_medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_br_entrar_medicoActionPerformed
+        try {
+            Medico medico = new Medico(
+                    CRMService.validar(tf_crm_medico.getText()),
+                    SenhaService.validar(new String(tf_senha_medico.getPassword()))
+            );
+
+            medico = this.controllerMedico.login(medico);
+
+            if (medico != null) {
+                MainMedico mainMedico = new MainMedico();
+                mainMedico.inicializar(medico);
+                mainMedico.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "MEDICO NÃO ENCONTRADO");
+            }
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+            System.err.println(Estilo.AMARELO.getCor() + exception.getMessage());
+        }
+    }//GEN-LAST:event_br_entrar_medicoActionPerformed
+
+    private void bt_entrar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_entrar_pacienteActionPerformed
+        try {
+            Paciente paciente = new Paciente(
+                    CPFService.validar(tf_cpf_paciente.getText()),
+                    SenhaService.validar(new String(tf_senha_paciente.getPassword()))
+            );
+
+            paciente = this.controllerPaciente.login(paciente);
+
+            if (paciente != null) {
+                MainPaciente mainPaciente = new MainPaciente();
+                mainPaciente.inicializar(paciente);
+                mainPaciente.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "PACIENTE NÃO ENCONTRADO");
+            }
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+            System.err.println(Estilo.AMARELO.getCor() + exception.getMessage());
+        }
+    }//GEN-LAST:event_bt_entrar_pacienteActionPerformed
+
+    private void bt_cadastrar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrar_pacienteActionPerformed
+        if (!this.telaCadastrarPaciente.isActive()) {
+            this.telaCadastrarPaciente.setVisible(true);
+        }
+    }//GEN-LAST:event_bt_cadastrar_pacienteActionPerformed
 
     private void bt_visualizarHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_visualizarHorariosActionPerformed
-        if (!visualizarHorarios.isActive()) {
-            visualizarHorarios.inicializar();
-            visualizarHorarios.setVisible(true);
+        if (!this.telavisualizarHorarios.isActive()) {
+            this.telavisualizarHorarios.inicializar();
+            this.telavisualizarHorarios.setVisible(true);
         }
     }//GEN-LAST:event_bt_visualizarHorariosActionPerformed
+
+    private void initConfiguracoes() {
+        this.setLocationRelativeTo(null);
+    }
 
     /**
      * @param args the command line arguments
@@ -241,13 +525,17 @@ public class SaudeApplication extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SaudeApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaudeApplication.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SaudeApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaudeApplication.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SaudeApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaudeApplication.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SaudeApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SaudeApplication.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -258,14 +546,35 @@ public class SaudeApplication extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_administrador;
-    private javax.swing.JButton bt_cadastrarPaciente;
-    private javax.swing.JButton bt_loginPaciente;
-    private javax.swing.JButton bt_medico;
-    private javax.swing.JButton bt_tecnico;
+    private javax.swing.JButton br_entrar_medico;
+    private javax.swing.JButton bt_cadastrar_paciente;
+    private javax.swing.JButton bt_entrar_administrador;
+    private javax.swing.JButton bt_entrar_paciente;
+    private javax.swing.JButton bt_entrar_tecnico;
     private javax.swing.JButton bt_visualizarHorarios;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JFormattedTextField tf_cpf_administrador;
+    private javax.swing.JFormattedTextField tf_cpf_paciente;
+    private javax.swing.JFormattedTextField tf_cpf_tecnico;
+    private javax.swing.JFormattedTextField tf_crm_medico;
+    private javax.swing.JPasswordField tf_senha_administrador;
+    private javax.swing.JPasswordField tf_senha_medico;
+    private javax.swing.JPasswordField tf_senha_paciente;
+    private javax.swing.JPasswordField tf_senha_tecnico;
     // End of variables declaration//GEN-END:variables
 }

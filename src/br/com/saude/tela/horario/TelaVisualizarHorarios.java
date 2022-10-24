@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.saude.tela.administrador.horario;
+package br.com.saude.tela.horario;
 
 import br.com.saude.configuracao.estilo.TextAreaCellRenderer;
 import br.com.saude.controller.ControllerHorario;
@@ -14,7 +14,7 @@ import javax.swing.table.TableColumn;
  *
  * @author tecin
  */
-public class VisualizarHorarios extends javax.swing.JFrame {
+public class TelaVisualizarHorarios extends javax.swing.JFrame {
 
     private final ControllerHorario controllerHorario;
     private final HorarioTableModel horarioTableModel;
@@ -22,7 +22,7 @@ public class VisualizarHorarios extends javax.swing.JFrame {
     /**
      * Creates new form Calendario
      */
-    public VisualizarHorarios() {
+    public TelaVisualizarHorarios() {
         initComponents();
         this.controllerHorario = new ControllerHorario();
         this.horarioTableModel = new HorarioTableModel();
@@ -163,20 +163,22 @@ public class VisualizarHorarios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new VisualizarHorarios().setVisible(true);
+            new TelaVisualizarHorarios().setVisible(true);
         });
     }
 

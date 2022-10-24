@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Pessoa {
 
-    private long cpf = -1;
+    private long cpf;
     private String senha;
     private String nome;
     private String rua;
@@ -35,6 +35,15 @@ public class Pessoa {
     public Pessoa(long cpf, String senha) {
         this.cpf = cpf;
         this.senha = senha;
+    }
+
+    public Pessoa(long cpf, String senha, String nome, String rua, long numero, String bairro) {
+        this.cpf = cpf;
+        this.senha = senha;
+        this.nome = nome;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
     }
 
     public Pessoa(long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones) {

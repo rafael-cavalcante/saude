@@ -16,7 +16,7 @@ public class CRMService {
 
             return crm;
         } else {
-            throw new Exception("CRM INVÁLIDA!");
+            throw new Exception("CRM INVÁLIDO!");
         }
     }
 

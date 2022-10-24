@@ -25,8 +25,8 @@ public class LoginPaciente extends javax.swing.JFrame {
      */
     public LoginPaciente() {
         initComponents();
-        this.controllerPaciente = new ControllerPaciente();
         mainPaciente = new MainPaciente();
+        this.controllerPaciente = new ControllerPaciente();
     }
 
     /**
@@ -146,7 +146,7 @@ public class LoginPaciente extends javax.swing.JFrame {
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
         loginPaciente();
     }//GEN-LAST:event_bt_loginActionPerformed
-    
+
     private void loginPaciente() {
         try {
             Paciente paciente = new Paciente(

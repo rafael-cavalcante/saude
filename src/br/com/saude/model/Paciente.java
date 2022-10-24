@@ -29,6 +29,13 @@ public class Paciente extends Pessoa {
         super(cpf, senha);
     }
 
+    public Paciente(long cpf, String senha, String nome, String rua, long numero, String bairro, long rg, LocalDate dataNascimento, String email) {
+        super(cpf, senha, nome, rua, numero, bairro);
+        this.rg = rg;
+        this.dataNascimento = dataNascimento;
+        this.email = email;
+    }
+    
     public Paciente(long cpf, String senha, String nome, String rua, long numero, String bairro, List<Telefone> telefones, long rg, LocalDate dataNascimento, String email) {
         super(cpf, senha, nome, rua, numero, bairro, telefones);
         this.rg = rg;

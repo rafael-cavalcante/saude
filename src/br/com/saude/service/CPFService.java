@@ -17,7 +17,7 @@ public class CPFService {
 
             return Long.parseLong(cpf);
         }
-        throw new Exception("CPF INVÁLIDA!");
+        throw new Exception("CPF INVÁLIDO!");
     }
 
     public static String formatar(long cpf) {

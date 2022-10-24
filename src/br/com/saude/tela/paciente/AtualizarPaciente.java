@@ -106,7 +106,6 @@ public class AtualizarPaciente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tf_dataNascimento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel2.setText("SENHA");
 
