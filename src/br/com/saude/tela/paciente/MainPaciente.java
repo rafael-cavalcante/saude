@@ -7,7 +7,7 @@ package br.com.saude.tela.paciente;
 import br.com.saude.model.Paciente;
 import br.com.saude.tela.consulta.AtualizarConsultaPaciente;
 import br.com.saude.tela.consulta.SolicitarConsulta;
-import br.com.saude.tela.telefone.CadastrarTelefone;
+import br.com.saude.tela.telefone.TelaCadastrarTelefone;
 
 /**
  *
@@ -16,9 +16,9 @@ import br.com.saude.tela.telefone.CadastrarTelefone;
 public class MainPaciente extends javax.swing.JFrame {
 
     private static SolicitarConsulta solicitarConsulta;
-    private static AtualizarPaciente atualizarPaciente;
-    private static CadastrarTelefone cadastrarTelefone;
     private static AtualizarConsultaPaciente atualizarConsultaPaciente;
+    private final TelaAtualizarPaciente telaAtualizarPaciente;
+    private final TelaCadastrarTelefone telaCadastrarTelefone;
     private Paciente paciente;
 
     /**
@@ -26,9 +26,10 @@ public class MainPaciente extends javax.swing.JFrame {
      */
     public MainPaciente() {
         initComponents();
+        initConfiguracoes();
+        this.telaAtualizarPaciente = new TelaAtualizarPaciente();
+        this.telaCadastrarTelefone = new TelaCadastrarTelefone();
         solicitarConsulta = new SolicitarConsulta();
-        atualizarPaciente = new AtualizarPaciente();
-        cadastrarTelefone = new CadastrarTelefone();
         atualizarConsultaPaciente = new AtualizarConsultaPaciente();
     }
 
@@ -41,16 +42,36 @@ public class MainPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        bt_solicitarConsulta = new javax.swing.JButton();
+        bt_atualizarConsulta = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        bt_atualizarPaciente = new javax.swing.JButton();
-        bt_solicitarConsulta = new javax.swing.JButton();
-        bt_cadastrarTelefone = new javax.swing.JButton();
-        bt_atualizarConsulta = new javax.swing.JButton();
+        dp_area = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        bt_solicitarConsulta.setText("SOLICITAR CONSULTA");
+        bt_solicitarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_solicitarConsultaActionPerformed(evt);
+            }
+        });
+
+        bt_atualizarConsulta.setText("ATUALIZAR CONSULTA");
+        bt_atualizarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_atualizarConsultaActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -65,7 +86,7 @@ public class MainPaciente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(205, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,78 +96,81 @@ public class MainPaciente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        bt_atualizarPaciente.setText("ATUALIZAR PACIENTE");
-        bt_atualizarPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_atualizarPacienteActionPerformed(evt);
-            }
-        });
+        dp_area.setBackground(new java.awt.Color(255, 255, 255));
 
-        bt_solicitarConsulta.setText("SOLICITAR CONSULTA");
-        bt_solicitarConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_solicitarConsultaActionPerformed(evt);
-            }
-        });
-
-        bt_cadastrarTelefone.setText("CADASTRAR TELEFONE");
-        bt_cadastrarTelefone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_cadastrarTelefoneActionPerformed(evt);
-            }
-        });
-
-        bt_atualizarConsulta.setText("ATUALIZAR CONSULTA");
-        bt_atualizarConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_atualizarConsultaActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout dp_areaLayout = new javax.swing.GroupLayout(dp_area);
+        dp_area.setLayout(dp_areaLayout);
+        dp_areaLayout.setHorizontalGroup(
+            dp_areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        dp_areaLayout.setVerticalGroup(
+            dp_areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 191, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(dp_area)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_atualizarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(bt_solicitarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dp_area))
         );
+
+        jMenu1.setText("PACIENTE");
+
+        jMenuItem1.setText("ATUALIZAR");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("ADICIONAR TELEFONE");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("CONSULTA");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -159,26 +183,30 @@ public class MainPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_solicitarConsultaActionPerformed
 
-    private void bt_atualizarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarPacienteActionPerformed
-        if (!atualizarPaciente.isActive()) {
-            atualizarPaciente.inicializar(this.paciente);
-            atualizarPaciente.setVisible(true);
-        }
-    }//GEN-LAST:event_bt_atualizarPacienteActionPerformed
-
-    private void bt_cadastrarTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarTelefoneActionPerformed
-        if (!cadastrarTelefone.isActive()) {
-            cadastrarTelefone.inicializar(this.paciente);
-            cadastrarTelefone.setVisible(true);
-        }
-    }//GEN-LAST:event_bt_cadastrarTelefoneActionPerformed
-
     private void bt_atualizarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarConsultaActionPerformed
         if (!atualizarConsultaPaciente.isActive()) {
             atualizarConsultaPaciente.inicializar(this.paciente);
             atualizarConsultaPaciente.setVisible(true);
         }
     }//GEN-LAST:event_bt_atualizarConsultaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        this.telaAtualizarPaciente.inicializar(this.paciente);
+        if (!this.telaAtualizarPaciente.isVisible()) {
+            dp_area.add(this.telaAtualizarPaciente);
+            this.telaAtualizarPaciente.setPosicao();
+            this.telaAtualizarPaciente.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        this.telaCadastrarTelefone.inicializar(this.paciente);
+        if (!this.telaCadastrarTelefone.isVisible()) {
+            dp_area.add(this.telaCadastrarTelefone);
+            this.telaCadastrarTelefone.setPosicao();
+            this.telaCadastrarTelefone.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public void inicializar(Paciente paciente) {
         this.paciente = paciente;
@@ -189,15 +217,13 @@ public class MainPaciente extends javax.swing.JFrame {
         if (solicitarConsulta.isVisible()) {
             solicitarConsulta.inicializar(this.paciente);
         }
-        if (atualizarPaciente.isVisible()) {
-            atualizarPaciente.inicializar(this.paciente);
-        }
-        if (cadastrarTelefone.isVisible()) {
-            cadastrarTelefone.inicializar(this.paciente);
-        }
         if (atualizarConsultaPaciente.isVisible()) {
             atualizarConsultaPaciente.inicializar(this.paciente);
         }
+    }
+
+    private void initConfiguracoes() {
+        this.setExtendedState(MainPaciente.MAXIMIZED_BOTH);
     }
 
     /**
@@ -217,13 +243,17 @@ public class MainPaciente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPaciente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPaciente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPaciente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPaciente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -235,10 +265,14 @@ public class MainPaciente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_atualizarConsulta;
-    private javax.swing.JButton bt_atualizarPaciente;
-    private javax.swing.JButton bt_cadastrarTelefone;
     private javax.swing.JButton bt_solicitarConsulta;
+    private javax.swing.JDesktopPane dp_area;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
