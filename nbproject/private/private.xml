@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/rafaelcavalcante/Documentos/GitHub/saude/src/br/com/saude/tela/telefone/CadastrarTelefone.java</file>
+            <file>file:/home/rafaelcavalcante/Documentos/GitHub/saude/src/br/com/saude/service/EmailService.java</file>
+            <file>file:/home/rafaelcavalcante/Documentos/GitHub/saude/src/br/com/saude/service/CPFService.java</file>
+            <file>file:/home/rafaelcavalcante/Documentos/GitHub/saude/src/br/com/saude/tela/telefone/TelaCadastrarTelefone.java</file>
+            <file>file:/home/rafaelcavalcante/Documentos/GitHub/saude/src/br/com/saude/validation/CPFValidation.java</file>
+        </group>
     </open-files>
 </project-private>
