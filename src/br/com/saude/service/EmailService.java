@@ -13,7 +13,7 @@ import java.util.Properties;
 public class EmailService {
 
     private final String username = "santos852.rafael@gmail.com";
-    private final String password = "hbkcwrdbabrhvhsx";
+    private final String password = "senhaApp";
 
     public void enviarEmail(String email) {
         Properties prop = new Properties();
