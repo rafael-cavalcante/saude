@@ -5,6 +5,7 @@
 package br.com.saude.controller;
 
 import br.com.saude.model.Consulta;
+import br.com.saude.model.Medico;
 import br.com.saude.model.Paciente;
 import br.com.saude.repository.RepositoryConsulta;
 import br.com.saude.repository.RepositoryProntuario;
@@ -41,5 +42,13 @@ public class ControllerConsulta {
             return this.repositoryConsulta.atualizar(consulta);
         }
         return false;
+    }
+    
+    public List<Consulta> buscar(Medico medico){
+        return this.repositoryConsulta.buscar(medico);
+    }
+    
+    public boolean atualizarStatus(Consulta consulta){
+        return this.repositoryConsulta.atualizarStatus(consulta);
     }
 }

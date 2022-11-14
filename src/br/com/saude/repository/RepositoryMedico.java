@@ -7,6 +7,8 @@ package br.com.saude.repository;
 import br.com.saude.configuracao.conexao.Conexao;
 import br.com.saude.configuracao.estilo.Estilo;
 import br.com.saude.model.Medico;
+import br.com.saude.model.Paciente;
+import br.com.saude.model.Prontuario;
 import br.com.saude.model.Tecnico;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,6 +69,29 @@ public class RepositoryMedico {
                         resultSet.getString("crm"),
                         resultSet.getString("especializacao")
                 );
+            }
+        } catch (SQLException sQLException) {
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return null;
+    }
+
+    public Medico buscar(Paciente paciente, Prontuario prontuario) {
+        try {
+            String query = "SELECT crm_medico FROM POSTINHO.CONSULTA "
+                    + "WHERE cpf_paciente = ? AND codigo_prontuario = ?;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            preparedStatement.setLong(1, paciente.getCpf());
+            preparedStatement.setLong(2, prontuario.getCodigo());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return new Medico(resultSet.getString("crm_medico"));
             }
         } catch (SQLException sQLException) {
             System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());

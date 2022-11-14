@@ -57,7 +57,7 @@ public class RepositoryConsulta {
                     + "WHERE cpf_paciente = ? AND status = 'Processamento';";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
-            
+
             preparedStatement.setLong(1, paciente.getCpf());
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -84,6 +84,62 @@ public class RepositoryConsulta {
             Conexao.desconectar();
         }
         return null;
+    }
+
+    public List<Consulta> buscar(Medico medico) {
+        try {
+            List<Consulta> consultas = new ArrayList<>();
+
+            String query = "SELECT cpf_paciente, crm_medico, codigo_prontuario, data_realizacao FROM POSTINHO.CONSULTA "
+                    + "WHERE crm_medico = ? AND status = 'Processamento' ORDER BY prioridade;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            preparedStatement.setString(1, medico.getCrm());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                consultas.add(
+                        new Consulta(
+                                new Paciente(resultSet.getLong("cpf_paciente")),
+                                new Medico(resultSet.getString("crm_medico")),
+                                new Prontuario(resultSet.getLong("codigo_prontuario")),
+                                resultSet.getDate("data_realizacao").toLocalDate()
+                        )
+                );
+            }
+
+            return consultas;
+        } catch (SQLException sQLException) {
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return null;
+    }
+
+    public boolean atualizarStatus(Consulta consulta) {
+        try {
+            String query = "UPDATE POSTINHO.CONSULTA SET status = ? "
+                    + "WHERE cpf_paciente = ? AND crm_medico = ? AND codigo_prontuario = ?;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            preparedStatement.setString(1, consulta.getStatus());
+            preparedStatement.setLong(2, consulta.getPaciente().getCpf());
+            preparedStatement.setString(3, consulta.getMedico().getCrm());
+            preparedStatement.setLong(4, consulta.getProntuario().getCodigo());
+
+            preparedStatement.executeUpdate();
+
+            return true;
+        } catch (SQLException sQLException) {
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return false;
     }
 
     public boolean atualizar(Consulta consulta) {

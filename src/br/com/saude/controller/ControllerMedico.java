@@ -5,6 +5,8 @@
 package br.com.saude.controller;
 
 import br.com.saude.model.Medico;
+import br.com.saude.model.Paciente;
+import br.com.saude.model.Prontuario;
 import br.com.saude.model.Tecnico;
 import br.com.saude.repository.RepositoryMedico;
 import br.com.saude.repository.RepositoryPessoa;
@@ -45,5 +47,9 @@ public class ControllerMedico {
 
     public List<Medico> listar() {
         return this.repositoryMedico.buscar();
+    }
+    
+    public Medico procurar(Paciente paciente, Prontuario prontuario){
+        return this.repositoryMedico.buscar(paciente, prontuario);
     }
 }
