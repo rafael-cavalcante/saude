@@ -23,4 +23,12 @@ public class CPFService {
     public static String formatar(long cpf) {
         return String.format("%011d", cpf);
     }
+
+    public static String formatarMascara(long cpf) {
+        String cpfMascara = String.format("%011d", cpf);
+        return cpfMascara.substring(0, 3) + "."
+                + cpfMascara.substring(3, 6) + "."
+                + cpfMascara.substring(6, 9) + "-"
+                + cpfMascara.substring(9, 11);
+    }
 }

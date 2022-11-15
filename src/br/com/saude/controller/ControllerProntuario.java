@@ -14,14 +14,18 @@ import java.util.List;
  * @author tecin
  */
 public class ControllerProntuario {
-    
+
     private final RepositoryProntuario repositoryProntuario;
-    
-    public ControllerProntuario(){
+
+    public ControllerProntuario() {
         this.repositoryProntuario = new RepositoryProntuario();
     }
-    
-    public List<Prontuario> listar(Paciente paciente){
+
+    public List<Prontuario> listar(Paciente paciente) {
         return this.repositoryProntuario.buscar(paciente);
+    }
+
+    public List<Prontuario> buscar(String crm) {
+        return this.repositoryProntuario.buscar(crm);
     }
 }

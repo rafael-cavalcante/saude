@@ -77,6 +77,28 @@ public class RepositoryPaciente {
         return null;
     }
     
+    public Paciente buscar(String crmMedico, long codigoProntuario) {
+        try {
+            String query = "SELECT cpf_paciente FROM POSTINHO.CONSULTA "
+                    + "WHERE crm_medico = ? AND codigo_prontuario = ?;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            preparedStatement.setString(1, crmMedico);
+            preparedStatement.setLong(2, codigoProntuario);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return new Paciente(resultSet.getLong("cpf_paciente"));
+            }
+        } catch (SQLException sQLException) {
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return null;
+    }
     
     public List<Paciente> buscar() {
         try {

@@ -48,11 +48,37 @@ public class RepositoryProntuario {
             List<Prontuario> prontuarios = new ArrayList<>();
 
             String query = "SELECT p.codigo, p.data_criacao, p.descricao FROM POSTINHO.PRONTUARIO p, POSTINHO.CONSULTA c "
-                    + "WHERE p.codigo = c.codigo_prontuario AND c.cpf_paciente = ?;";
+                    + "WHERE p.codigo = c.codigo_prontuario AND c.status = 'Realizada' AND c.cpf_paciente = ?;";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
             preparedStatement.setLong(1, paciente.getCpf());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                prontuarios.add(new Prontuario(resultSet.getLong("codigo"), DataService.converter(resultSet.getDate("data_criacao")), resultSet.getString("descricao")));
+            }
+
+            return prontuarios;
+        } catch (SQLException sQLException) {
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return null;
+    }
+
+    public List<Prontuario> buscar(String crm) {
+        try {
+            List<Prontuario> prontuarios = new ArrayList<>();
+
+            String query = "SELECT p.codigo, p.data_criacao, p.descricao FROM POSTINHO.PRONTUARIO p, POSTINHO.CONSULTA c "
+                    + "WHERE p.codigo = c.codigo_prontuario AND c.status = 'Realizada' AND c.crm_medico = ?;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            preparedStatement.setString(1, crm);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 

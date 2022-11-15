@@ -9,6 +9,7 @@ import br.com.saude.model.Medico;
 import br.com.saude.model.Paciente;
 import br.com.saude.repository.RepositoryConsulta;
 import br.com.saude.repository.RepositoryProntuario;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -48,7 +49,19 @@ public class ControllerConsulta {
         return this.repositoryConsulta.buscar(medico);
     }
     
+    public List<Consulta> buscar(LocalDate dataRealizacao){
+        return this.repositoryConsulta.buscar(dataRealizacao);
+    }
+    
+    public List<Consulta> buscar(String crmMedico, LocalDate dataRealizacao){
+        return this.repositoryConsulta.buscar(crmMedico, dataRealizacao);
+    }
+    
     public boolean atualizarStatus(Consulta consulta){
         return this.repositoryConsulta.atualizarStatus(consulta);
+    }
+    
+    public boolean atualizar(long cpfPaciente, String crmMedico, long codigoProcntuario, String statusConsulta){
+        return this.repositoryConsulta.atualizar(cpfPaciente, crmMedico, codigoProcntuario, statusConsulta);
     }
 }

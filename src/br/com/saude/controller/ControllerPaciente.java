@@ -33,8 +33,8 @@ public class ControllerPaciente {
         }
         return false;
     }
-    
-    public Paciente procurar(Paciente paciente){
+
+    public Paciente procurar(Paciente paciente) {
         return this.repositoryPaciente.buscar(paciente);
     }
 
@@ -56,5 +56,9 @@ public class ControllerPaciente {
             return this.repositoryPaciente.atualizar(paciente);
         }
         return false;
+    }
+
+    public Paciente buscar(String crmMedico, long codigoProntuario) {
+        return this.repositoryPaciente.buscar(crmMedico, codigoProntuario);
     }
 }

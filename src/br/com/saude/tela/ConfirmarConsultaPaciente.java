@@ -29,8 +29,6 @@ public class ConfirmarConsultaPaciente extends javax.swing.JFrame {
         initComponents();
         initConfiguracoes();
         this.controllerConsulta = new ControllerConsulta();
-        this.medico = new Medico("RN222222");
-        listarConsultas();
     }
 
     /**
@@ -181,7 +179,7 @@ public class ConfirmarConsultaPaciente extends javax.swing.JFrame {
         this.consultas = this.controllerConsulta.buscar(this.medico);
         this.consultas.stream()
                 .forEach((Consulta consulta) -> cb_consulta.addItem(
-                CPFService.formatar(consulta.getPaciente().getCpf()) + " - "
+                CPFService.formatarMascara(consulta.getPaciente().getCpf()) + " - "
                 + CRMService.formatar(consulta.getMedico().getCrm()) + " - "
                 + consulta.getProntuario().getCodigo()));
     }
