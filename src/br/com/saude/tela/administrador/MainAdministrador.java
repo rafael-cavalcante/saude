@@ -13,8 +13,8 @@ import br.com.saude.tela.tecnico.CadastrarTecnico;
  */
 public class MainAdministrador extends javax.swing.JFrame {
 
-    private static CadastrarAdministrador cadastrarAdministrador;
-    private static CadastrarTecnico cadastrarTecnico;
+    private final CadastrarAdministrador cadastrarAdministrador;
+    private final CadastrarTecnico cadastrarTecnico;
     private Administrador administrador;
 
     /**
@@ -22,8 +22,9 @@ public class MainAdministrador extends javax.swing.JFrame {
      */
     public MainAdministrador() {
         initComponents();
-        cadastrarAdministrador = new CadastrarAdministrador();
-        cadastrarTecnico = new CadastrarTecnico();
+        initConfiguracoes();
+        this.cadastrarAdministrador = new CadastrarAdministrador();
+        this.cadastrarTecnico = new CadastrarTecnico();
     }
 
     /**
@@ -41,7 +42,7 @@ public class MainAdministrador extends javax.swing.JFrame {
         bt_cadastrarAdministrador = new javax.swing.JButton();
         bt_cadastrarTecnico = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
@@ -121,27 +122,24 @@ public class MainAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_cadastrarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarAdministradorActionPerformed
-        if (!cadastrarAdministrador.isActive()) {
-            cadastrarAdministrador.setVisible(true);
+        if (!this.cadastrarAdministrador.isActive()) {
+            this.cadastrarAdministrador.setVisible(true);
         }
     }//GEN-LAST:event_bt_cadastrarAdministradorActionPerformed
 
     private void bt_cadastrarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarTecnicoActionPerformed
-        if (!cadastrarTecnico.isActive()) {
-            cadastrarTecnico.inicializar(this.administrador);
-            cadastrarTecnico.setVisible(true);
+        if (!this.cadastrarTecnico.isActive()) {
+            this.cadastrarTecnico.inicializar(this.administrador);
+            this.cadastrarTecnico.setVisible(true);
         }
     }//GEN-LAST:event_bt_cadastrarTecnicoActionPerformed
 
+    private void initConfiguracoes() {
+        this.setLocationRelativeTo(null);
+    }
+
     public void inicializar(Administrador administrador) {
         this.administrador = administrador;
-        atualizar();
-    }
-    
-    private void atualizar() {
-        if (cadastrarTecnico.isVisible()) {
-            cadastrarTecnico.inicializar(this.administrador);
-        }
     }
 
     /**
