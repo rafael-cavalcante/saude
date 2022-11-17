@@ -7,6 +7,7 @@ package br.com.saude.tela.medico;
 import br.com.saude.model.Medico;
 import br.com.saude.tela.consulta.ConfirmarConsulta;
 import br.com.saude.tela.consulta.FilaConsulta;
+import br.com.saude.tela.prontuario.VisualizarProntuario;
 import br.com.saude.tela.telefone.CadastrarTelefone;
 
 /**
@@ -18,6 +19,7 @@ public class MainMedico extends javax.swing.JFrame {
     private final CadastrarTelefone cadastrarTelefone;
     private final FilaConsulta filaConsulta;
     private final ConfirmarConsulta confirmarConsulta;
+    private final VisualizarProntuario visualizarProntuario; 
     private Medico medico;
 
     /**
@@ -29,6 +31,7 @@ public class MainMedico extends javax.swing.JFrame {
         this.cadastrarTelefone = new CadastrarTelefone();
         this.filaConsulta = new FilaConsulta();
         this.confirmarConsulta = new ConfirmarConsulta();
+        this.visualizarProntuario = new VisualizarProntuario();
     }
 
     /**
@@ -46,6 +49,7 @@ public class MainMedico extends javax.swing.JFrame {
         bt_cadastrarTelefone = new javax.swing.JButton();
         bt_filaConsulta = new javax.swing.JButton();
         bt_confirmarConsulta = new javax.swing.JButton();
+        bt_visualizarProntuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -94,6 +98,13 @@ public class MainMedico extends javax.swing.JFrame {
             }
         });
 
+        bt_visualizarProntuario.setText("VISUALIZAR PRONTUARIO");
+        bt_visualizarProntuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_visualizarProntuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -101,7 +112,9 @@ public class MainMedico extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                    .addComponent(bt_visualizarProntuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bt_confirmarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -117,7 +130,9 @@ public class MainMedico extends javax.swing.JFrame {
                     .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_filaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bt_confirmarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bt_confirmarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(bt_visualizarProntuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 17, Short.MAX_VALUE))
         );
 
@@ -155,6 +170,13 @@ public class MainMedico extends javax.swing.JFrame {
             this.confirmarConsulta.setVisible(true);
         }
     }//GEN-LAST:event_bt_confirmarConsultaActionPerformed
+
+    private void bt_visualizarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_visualizarProntuarioActionPerformed
+        if (!this.visualizarProntuario.isVisible()) {
+            this.visualizarProntuario.inicializar(this.medico);
+            this.visualizarProntuario.setVisible(true);
+        }
+    }//GEN-LAST:event_bt_visualizarProntuarioActionPerformed
 
     public void inicializar(Medico medico) {
         this.medico = medico;
@@ -195,6 +217,7 @@ public class MainMedico extends javax.swing.JFrame {
     private javax.swing.JButton bt_cadastrarTelefone;
     private javax.swing.JButton bt_confirmarConsulta;
     private javax.swing.JButton bt_filaConsulta;
+    private javax.swing.JButton bt_visualizarProntuario;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

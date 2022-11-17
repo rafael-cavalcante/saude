@@ -82,7 +82,7 @@ public class CadastrarHorario extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel1.setText("DATA");
+        jLabel1.setText("DATA*");
 
         ta_descricao.setColumns(20);
         ta_descricao.setRows(5);

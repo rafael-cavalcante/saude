@@ -167,7 +167,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CPF"/>
+            <Property name="text" type="java.lang.String" value="CPF*"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="tf_cpf">
@@ -203,7 +203,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SENHA"/>
+            <Property name="text" type="java.lang.String" value="SENHA*"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="tf_senha">

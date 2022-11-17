@@ -67,7 +67,7 @@ public class TelaCadastrarPaciente extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("CPF");
+        jLabel1.setText("CPF*");
 
         try {
             tf_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -91,7 +91,7 @@ public class TelaCadastrarPaciente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel2.setText("SENHA");
+        jLabel2.setText("SENHA*");
 
         jLabel10.setText("E-MAIL");
 

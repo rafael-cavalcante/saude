@@ -104,7 +104,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="TELEFONE"/>
+            <Property name="text" type="java.lang.String" value="TELEFONE*"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="bt_cadastrarTelefone">

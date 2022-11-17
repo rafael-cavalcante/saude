@@ -233,7 +233,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SENHA"/>
+            <Property name="text" type="java.lang.String" value="SENHA*"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="tf_senha">

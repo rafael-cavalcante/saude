@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.saude.tela;
+package br.com.saude.tela.prontuario;
 
 import br.com.saude.controller.ControllerMedicamento;
-import br.com.saude.controller.ControllerPaciente;
+import br.com.saude.controller.ControllerMedico;
 import br.com.saude.controller.ControllerProntuario;
 import br.com.saude.model.Medicamento;
-import br.com.saude.model.Medico;
+import br.com.saude.model.Paciente;
 import br.com.saude.model.Prontuario;
-import br.com.saude.service.CPFService;
+import br.com.saude.service.CRMService;
 import br.com.saude.service.DataService;
 import br.com.saude.service.NumeroService;
 import java.util.List;
@@ -19,24 +19,23 @@ import java.util.List;
  *
  * @author tecin
  */
-public class GerarProntuarioMedico extends javax.swing.JFrame {
+public class GerarProntuario extends javax.swing.JFrame {
 
     private final ControllerProntuario controllerProntuario;
     private final ControllerMedicamento controllerMedicamento;
-    private final ControllerPaciente controllerPaciente;
+    private final ControllerMedico controllerMedico;
     private List<Prontuario> prontuarios;
-    private Medico medico;
+    private Paciente paciente;
 
     /**
      * Creates new form GerarProntuarioPaciente
      */
-    public GerarProntuarioMedico() {
+    public GerarProntuario() {
         initComponents();
         initConfiguracoes();
         this.controllerProntuario = new ControllerProntuario();
         this.controllerMedicamento = new ControllerMedicamento();
-        this.controllerPaciente = new ControllerPaciente();
-        inicializar(new Medico("RN222222"));
+        this.controllerMedico = new ControllerMedico();
     }
 
     /**
@@ -55,7 +54,7 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
         cb_prontuario = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        tf_cpf = new javax.swing.JFormattedTextField();
+        tf_crm = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         tf_data = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -99,11 +98,11 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACOES"));
 
-        jLabel2.setText("CPF");
+        jLabel2.setText("CRM");
 
-        tf_cpf.setEditable(false);
+        tf_crm.setEditable(false);
         try {
-            tf_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            tf_crm.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("CRM/UU######")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -135,7 +134,7 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_crm, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +159,7 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_crm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -168,9 +167,11 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cb_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(cb_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 64, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -199,7 +200,7 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
                 .addComponent(cb_prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,7 +211,9 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,18 +222,13 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
     private void cb_prontuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_prontuarioActionPerformed
         tf_data.setText(DataService.formatar(this.prontuarios.get(cb_prontuario.getSelectedIndex()).getDataCriacao()));
         ta_descricao.setText(this.prontuarios.get(cb_prontuario.getSelectedIndex()).getDescricao());
-        carregarPaciente(this.prontuarios.get(cb_prontuario.getSelectedIndex()));
+        carregarMedico(this.prontuarios.get(cb_prontuario.getSelectedIndex()));
         listarMedicamentos(this.prontuarios.get(cb_prontuario.getSelectedIndex()));
     }//GEN-LAST:event_cb_prontuarioActionPerformed
 
-    public void inicializar(Medico medico) {
-        this.medico = medico;
-        listarProntuarios();
-    }
-
     private void listarProntuarios() {
         cb_prontuario.removeAllItems();
-        this.prontuarios = this.controllerProntuario.buscar(this.medico.getCrm());
+        this.prontuarios = this.controllerProntuario.listar(this.paciente);
         this.prontuarios.stream()
                 .forEach((Prontuario protuario) -> cb_prontuario.addItem(NumeroService.formatar(protuario.getCodigo())));
     }
@@ -241,14 +239,19 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
                 .forEach((Medicamento medicamento) -> cb_medicamento.addItem(medicamento.getNome()));
     }
 
-    private void carregarPaciente(Prontuario prontuario) {
-        tf_cpf.setText(CPFService.formatar(this.controllerPaciente.buscar(this.medico.getCrm(), prontuario.getCodigo()).getCpf()));
+    private void carregarMedico(Prontuario prontuario) {
+        tf_crm.setText(CRMService.formatar(this.controllerMedico.procurar(this.paciente, prontuario).getCrm()));
     }
-    
+
+    public void inicializar(Paciente paciente) {
+        this.paciente = paciente;
+        listarProntuarios();
+    }
+
     private void initConfiguracoes() {
         this.setLocationRelativeTo(null);
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -265,21 +268,15 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GerarProntuarioMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GerarProntuarioMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GerarProntuarioMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GerarProntuarioMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GerarProntuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new GerarProntuarioMedico().setVisible(true);
+            new GerarProntuario().setVisible(true);
         });
     }
 
@@ -297,7 +294,7 @@ public class GerarProntuarioMedico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea ta_descricao;
-    private javax.swing.JFormattedTextField tf_cpf;
+    private javax.swing.JFormattedTextField tf_crm;
     private javax.swing.JFormattedTextField tf_data;
     // End of variables declaration//GEN-END:variables
 }

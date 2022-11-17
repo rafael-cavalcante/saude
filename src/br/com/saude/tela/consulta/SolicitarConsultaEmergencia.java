@@ -68,7 +68,7 @@ public class SolicitarConsultaEmergencia extends javax.swing.JFrame {
 
         jLabel2.setText("MEDICO");
 
-        jLabel3.setText("PRONTUARIO");
+        jLabel3.setText("PRONTUARIO*");
 
         bt_solicitarConsulta.setText("SOLICITAR CONSULTA");
         bt_solicitarConsulta.addActionListener(new java.awt.event.ActionListener() {

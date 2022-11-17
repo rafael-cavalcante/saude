@@ -66,7 +66,7 @@ public class CadastrarTelefone extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel2.setText("TELEFONE");
+        jLabel2.setText("TELEFONE*");
 
         bt_cadastrarTelefone.setText("CADASTRAR");
         bt_cadastrarTelefone.addActionListener(new java.awt.event.ActionListener() {

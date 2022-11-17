@@ -243,7 +243,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DATA REALIZACAO"/>
+            <Property name="text" type="java.lang.String" value="DATA REALIZACAO*"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tf_pressao">

@@ -98,9 +98,9 @@ public class SolicitarConsulta extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tf_dataRealizacao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tf_dataRealizacao.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
-        jLabel4.setText("DATA REALIZACAO");
+        jLabel4.setText("DATA REALIZACAO*");
 
         jButton1.setText("CADASTRAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

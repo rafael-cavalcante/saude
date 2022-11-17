@@ -105,7 +105,7 @@ public class AtualizarConsulta extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel4.setText("DATA REALIZACAO");
+        jLabel4.setText("DATA REALIZACAO*");
 
         jLabel5.setText("PRESSÃO");
 

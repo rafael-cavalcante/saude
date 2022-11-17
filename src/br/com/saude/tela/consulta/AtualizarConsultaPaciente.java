@@ -124,9 +124,9 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        tf_dataRealizacao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        tf_dataRealizacao.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
-        jLabel4.setText("DATA DE REALIZAÇÃO");
+        jLabel4.setText("DATA DE REALIZAÇÃO*");
 
         jLabel5.setText("STATUS");
 

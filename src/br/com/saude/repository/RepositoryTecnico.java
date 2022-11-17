@@ -53,7 +53,6 @@ public class RepositoryTecnico {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                System.out.println("encontrou");
                 return new Tecnico(
                         resultSet.getLong("cpf"),
                         resultSet.getString("senha"),

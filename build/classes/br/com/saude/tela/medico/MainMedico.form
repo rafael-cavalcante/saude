@@ -42,7 +42,10 @@
               <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bt_cadastrarTelefone" min="-2" pref="220" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="bt_cadastrarTelefone" pref="220" max="32767" attributes="0"/>
+                      <Component id="bt_visualizarProntuario" max="32767" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="bt_confirmarConsulta" min="-2" pref="220" max="-2" attributes="0"/>
@@ -62,7 +65,10 @@
                       <Component id="bt_filaConsulta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="bt_confirmarConsulta" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="bt_confirmarConsulta" pref="30" max="32767" attributes="0"/>
+                      <Component id="bt_visualizarProntuario" max="32767" attributes="0"/>
+                  </Group>
                   <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -132,6 +138,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_confirmarConsultaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_visualizarProntuario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="VISUALIZAR PRONTUARIO"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_visualizarProntuarioActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

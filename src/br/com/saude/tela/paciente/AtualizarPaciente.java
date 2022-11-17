@@ -108,7 +108,7 @@ public class AtualizarPaciente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel2.setText("SENHA");
+        jLabel2.setText("SENHA*");
 
         jLabel10.setText("E-MAIL");
 
