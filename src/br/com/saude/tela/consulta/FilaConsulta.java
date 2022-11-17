@@ -5,9 +5,13 @@
 package br.com.saude.tela.consulta;
 
 import br.com.saude.controller.ControllerConsulta;
+import br.com.saude.controller.ControllerMedicamento;
 import br.com.saude.controller.ControllerPaciente;
+import br.com.saude.controller.ControllerProntuario;
 import br.com.saude.model.Consulta;
+import br.com.saude.model.Medicamento;
 import br.com.saude.model.Medico;
+import br.com.saude.model.Prontuario;
 import br.com.saude.service.CPFService;
 import br.com.saude.service.EmailService;
 import java.time.LocalDate;
@@ -21,6 +25,8 @@ public class FilaConsulta extends javax.swing.JFrame {
 
     private final ControllerConsulta controllerConsulta;
     private final ControllerPaciente controllerPaciente;
+    private final ControllerMedicamento controllerMedicamento;
+    private final ControllerProntuario controllerProntuario;
     private final EmailService emailService;
     private List<Consulta> consultas;
     private Medico medico;
@@ -34,7 +40,9 @@ public class FilaConsulta extends javax.swing.JFrame {
         initConfiguracoes();
         this.controllerConsulta = new ControllerConsulta();
         this.controllerPaciente = new ControllerPaciente();
+        this.controllerMedicamento = new ControllerMedicamento();
         this.emailService = new EmailService();
+        this.controllerProntuario = new ControllerProntuario();
     }
 
     /**
@@ -52,6 +60,13 @@ public class FilaConsulta extends javax.swing.JFrame {
         pg_lista = new javax.swing.JProgressBar();
         tf_paciente = new javax.swing.JFormattedTextField();
         tb_finalizarConsulta = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ta_descricao = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tf_medicamento = new javax.swing.JTextField();
+        bt_adicionarMedicamento = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -68,7 +83,7 @@ public class FilaConsulta extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(454, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,30 +110,81 @@ public class FilaConsulta extends javax.swing.JFrame {
             }
         });
 
+        ta_descricao.setColumns(20);
+        ta_descricao.setRows(5);
+        jScrollPane1.setViewportView(ta_descricao);
+
+        jLabel1.setText("DESCRIÇÃO");
+
+        jLabel2.setText("PACIENTE");
+
+        bt_adicionarMedicamento.setText("ADICIONAR");
+        bt_adicionarMedicamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_adicionarMedicamentoActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("MEDICAMENTO");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tb_finalizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(tb_finalizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(bt_adicionarMedicamento))
+                            .addComponent(jLabel3)
+                            .addComponent(tf_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tb_finalizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tb_finalizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tf_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bt_adicionarMedicamento)))))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,17 +195,23 @@ public class FilaConsulta extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tb_finalizarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_finalizarConsultaActionPerformed
-        if (!this.consultas.isEmpty()) {
+        if (!this.consultas.isEmpty() && this.consultas.size() > this.posicao) {
             finalizarConsulta(this.consultas.get(posicao));
         }
     }//GEN-LAST:event_tb_finalizarConsultaActionPerformed
+
+    private void bt_adicionarMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_adicionarMedicamentoActionPerformed
+        if (!this.consultas.isEmpty() && !tf_medicamento.getText().isEmpty() && this.consultas.size() > this.posicao) {
+            this.controllerMedicamento.adicionar(this.consultas.get(this.posicao).getProntuario(), new Medicamento(tf_medicamento.getText()));
+        }
+    }//GEN-LAST:event_bt_adicionarMedicamentoActionPerformed
 
     private void listarConsultas() {
         this.consultas = this.controllerConsulta.buscar(this.medico.getCrm(), LocalDate.now());
@@ -157,18 +229,21 @@ public class FilaConsulta extends javax.swing.JFrame {
                 consulta.getMedico().getCrm(),
                 consulta.getProntuario().getCodigo(),
                 "Realizada")) {
+            this.controllerProntuario.atualizar(new Prontuario(this.consultas.get(this.posicao).getProntuario().getCodigo(), ta_descricao.getText()));
+            ta_descricao.setText("");
             proximaConsulta();
         }
     }
 
     private void proximaConsulta() {
         posicao++;
-        if (this.consultas.size() < this.posicao) {
-            pg_lista.setValue(posicao);
+        pg_lista.setValue(posicao);
+        if (this.consultas.size() > this.posicao) {
             tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
             //enviarEmail();
+        } else {
+            tf_paciente.setText("");
         }
-
     }
 
     private void enviarEmail() {
@@ -219,11 +294,18 @@ public class FilaConsulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_adicionarMedicamento;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JProgressBar pg_lista;
+    private javax.swing.JTextArea ta_descricao;
     private javax.swing.JButton tb_finalizarConsulta;
+    private javax.swing.JTextField tf_medicamento;
     private javax.swing.JFormattedTextField tf_paciente;
     // End of variables declaration//GEN-END:variables
 }

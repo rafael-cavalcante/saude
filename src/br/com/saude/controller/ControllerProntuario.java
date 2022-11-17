@@ -28,4 +28,8 @@ public class ControllerProntuario {
     public List<Prontuario> buscar(String crm) {
         return this.repositoryProntuario.buscar(crm);
     }
+    
+    public boolean atualizar(Prontuario prontuario){
+        return this.repositoryProntuario.atualizar(prontuario);
+    }
 }

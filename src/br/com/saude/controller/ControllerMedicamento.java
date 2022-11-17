@@ -21,6 +21,10 @@ public class ControllerMedicamento {
         this.repositoryMedicamento = new RepositoryMedicamento();
     }
     
+    public boolean adicionar(Prontuario prontuario, Medicamento medicamento){
+        return this.repositoryMedicamento.adicionar(prontuario, medicamento);
+    }
+    
     public List<Medicamento> listar(Prontuario prontuario){
         return this.repositoryMedicamento.buscar(prontuario);
     }

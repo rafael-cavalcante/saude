@@ -94,6 +94,27 @@ public class RepositoryProntuario {
         }
         return null;
     }
+    
+    public boolean atualizar(Prontuario prontuario){
+        try {
+            String query = "UPDATE POSTINHO.PRONTUARIO SET descricao = ? "
+                    + "WHERE codigo = ?;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+            
+            preparedStatement.setString(1, prontuario.getDescricao());
+            preparedStatement.setLong(2, prontuario.getCodigo());
+
+            preparedStatement.executeUpdate();
+
+            return true;
+        } catch (SQLException sQLException) {
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return false;
+    }
 
     public boolean existe(Prontuario prontuario) {
         try {

@@ -20,6 +20,27 @@ import java.util.List;
  */
 public class RepositoryMedicamento {
     
+    public boolean adicionar(Prontuario prontuario, Medicamento medicamento) {
+        try {
+            String query = "INSERT INTO POSTINHO.MEDICAMENTO (codigo_prontuario, nome) "
+                    + "VALUES (?,?);";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            preparedStatement.setLong(1, prontuario.getCodigo());
+            preparedStatement.setString(2, medicamento.getNome());
+
+            preparedStatement.executeUpdate();
+            
+            return true;
+        } catch (SQLException sQLException) {
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return false;
+    }
+    
     public List<Medicamento> buscar(Prontuario prontuario){
         try {
             List<Medicamento> medicamentos = new ArrayList<>();
