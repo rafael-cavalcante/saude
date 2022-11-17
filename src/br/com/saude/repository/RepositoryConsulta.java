@@ -125,7 +125,7 @@ public class RepositoryConsulta {
             List<Consulta> consultas = new ArrayList<>();
 
             String query = "SELECT cpf_paciente, crm_medico, codigo_prontuario, data_realizacao FROM POSTINHO.CONSULTA "
-                    + "WHERE data_realizacao = ? AND status ILIKE 'Confirmada' ORDER BY prioridade;";
+                    + "WHERE data_realizacao = ? AND status ILIKE 'Confirmada' OR status ILIKE 'Emergencia' ORDER BY prioridade;";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 
@@ -158,7 +158,7 @@ public class RepositoryConsulta {
             List<Consulta> consultas = new ArrayList<>();
 
             String query = "SELECT cpf_paciente, crm_medico, codigo_prontuario, data_realizacao FROM POSTINHO.CONSULTA "
-                    + "WHERE crm_medico = ? AND data_realizacao = ? AND status ILIKE 'Confirmada' ORDER BY prioridade DESC;";
+                    + "WHERE crm_medico = ? AND data_realizacao = ? AND status ILIKE 'Confirmada' OR status ILIKE 'Emergencia' ORDER BY prioridade DESC;";
 
             PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
 

@@ -53,7 +53,7 @@ public class FilaConsulta extends javax.swing.JFrame {
         tf_paciente = new javax.swing.JFormattedTextField();
         tb_finalizarConsulta = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel4.setBackground(new java.awt.Color(102, 255, 102));
 
@@ -104,11 +104,8 @@ public class FilaConsulta extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tb_finalizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tb_finalizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -139,15 +136,19 @@ public class FilaConsulta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tb_finalizarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_finalizarConsultaActionPerformed
-        finalizarConsulta(this.consultas.get(posicao));
+        if (!this.consultas.isEmpty()) {
+            finalizarConsulta(this.consultas.get(posicao));
+        }
     }//GEN-LAST:event_tb_finalizarConsultaActionPerformed
 
     private void listarConsultas() {
         this.consultas = this.controllerConsulta.buscar(this.medico.getCrm(), LocalDate.now());
         pg_lista.setMinimum(0);
         pg_lista.setMaximum(this.consultas.size());
-        pg_lista.setValue(posicao + 1);
-        tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
+        if (!this.consultas.isEmpty()) {
+            pg_lista.setValue(posicao);
+            tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
+        }
     }
 
     private void finalizarConsulta(Consulta consulta) {
@@ -161,12 +162,13 @@ public class FilaConsulta extends javax.swing.JFrame {
     }
 
     private void proximaConsulta() {
+        posicao++;
         if (this.consultas.size() < this.posicao) {
-            posicao++;
-            pg_lista.setValue(posicao + 1);
+            pg_lista.setValue(posicao);
             tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
-            enviarEmail();
+            //enviarEmail();
         }
+
     }
 
     private void enviarEmail() {
@@ -181,7 +183,7 @@ public class FilaConsulta extends javax.swing.JFrame {
     public void inicializar(Medico medico) {
         this.medico = medico;
         listarConsultas();
-        enviarEmail();
+        //enviarEmail();
     }
 
     private void initConfiguracoes() {

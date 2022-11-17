@@ -44,7 +44,7 @@ public class PesquisarConsulta extends javax.swing.JFrame {
         bt_pesquisarConsulta = new javax.swing.JButton();
         cb_status = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel4.setBackground(new java.awt.Color(102, 255, 102));
 

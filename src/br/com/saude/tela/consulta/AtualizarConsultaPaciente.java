@@ -9,6 +9,7 @@ import br.com.saude.controller.ControllerConsulta;
 import br.com.saude.model.Consulta;
 import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
+import br.com.saude.service.CRMService;
 import br.com.saude.service.DataService;
 import br.com.saude.service.NumeroService;
 import java.util.List;
@@ -223,7 +224,9 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_cb_statusActionPerformed
 
     private void cb_consultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_consultasActionPerformed
-        carregarConsulta(this.consultas.get(cb_consultas.getSelectedIndex()));
+        if (cb_consultas.getSelectedIndex() != -1) {
+            carregarConsulta(this.consultas.get(cb_consultas.getSelectedIndex()));
+        }
     }//GEN-LAST:event_cb_consultasActionPerformed
 
     private void bt_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarActionPerformed
@@ -231,7 +234,7 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
         atualizarConsulta();
     }//GEN-LAST:event_bt_atualizarActionPerformed
 
-    public void inicializar(Paciente paciente){
+    public void inicializar(Paciente paciente) {
         this.paciente = paciente;
         listarConsultas();
     }
@@ -243,7 +246,7 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
             consulta.setDataRealizacao(DataService.validar(tf_dataRealizacao.getText()));
             consulta.setStatus(cb_status.getItemAt(cb_status.getSelectedIndex()));
 
-            if(this.controllerConsulta.alterar(consulta)){
+            if (this.controllerConsulta.alterar(consulta)) {
                 listarConsultas();
                 JOptionPane.showMessageDialog(null, "CONSULTA ATUALIZADA COM SUCESSO");
             }
@@ -256,7 +259,7 @@ public class AtualizarConsultaPaciente extends javax.swing.JFrame {
         cb_consultas.removeAllItems();
         this.consultas = this.controllerConsulta.listar(this.paciente);
         this.consultas.stream()
-                .forEach((Consulta consulta) -> cb_consultas.addItem(consulta.getMedico().getCrm() + " - " + consulta.getDataRealizacao()));
+                .forEach((Consulta consulta) -> cb_consultas.addItem(CRMService.formatar(consulta.getMedico().getCrm()) + " : " + consulta.getDataRealizacao()));
     }
 
     private void carregarConsulta(Consulta consulta) {

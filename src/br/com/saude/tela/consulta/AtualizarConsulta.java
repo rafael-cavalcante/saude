@@ -287,7 +287,6 @@ public class AtualizarConsulta extends javax.swing.JFrame {
 
             if (this.controllerConsulta.alterar(consultaAtualizada)) {
                 JOptionPane.showMessageDialog(null, "CONSULTA ATUALIZADA COM SUCESSO");
-                listarPacientes();
             }
 
         } catch (Exception exception) {
@@ -300,7 +299,9 @@ public class AtualizarConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_cb_pacientesActionPerformed
 
     private void cb_consultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_consultasActionPerformed
-        selecionarConsulta(this.consultas.get(cb_consultas.getSelectedIndex()));
+        if (cb_consultas.getSelectedIndex() != -1) {
+            selecionarConsulta(this.consultas.get(cb_consultas.getSelectedIndex()));
+        }
     }//GEN-LAST:event_cb_consultasActionPerformed
 
     private void listarPacientes() {

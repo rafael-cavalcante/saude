@@ -46,7 +46,7 @@ public class VisualizarConsulta extends javax.swing.JFrame {
         tf_medico = new javax.swing.JFormattedTextField();
         tf_data = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel4.setBackground(new java.awt.Color(102, 255, 102));
 
