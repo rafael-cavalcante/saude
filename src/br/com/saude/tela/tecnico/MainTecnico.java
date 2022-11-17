@@ -6,6 +6,7 @@ package br.com.saude.tela.tecnico;
 
 import br.com.saude.model.Tecnico;
 import br.com.saude.tela.consulta.AtualizarConsulta;
+import br.com.saude.tela.consulta.PesquisarConsulta;
 import br.com.saude.tela.consulta.SolicitarConsultaEmergencia;
 import br.com.saude.tela.consulta.VisualizarConsulta;
 import br.com.saude.tela.horario.CadastrarHorario;
@@ -24,6 +25,7 @@ public class MainTecnico extends javax.swing.JFrame {
     private final CadastrarTelefone cadastrarTelefone;
     private final VisualizarConsulta visualizarConsulta;
     private final CadastrarHorario cadastrarHorario;
+    private final PesquisarConsulta pesquisarConsulta;
     private Tecnico tecnico;
 
     /**
@@ -38,6 +40,7 @@ public class MainTecnico extends javax.swing.JFrame {
         this.cadastrarTelefone = new CadastrarTelefone();
         this.visualizarConsulta = new VisualizarConsulta();
         this.cadastrarHorario = new CadastrarHorario();
+        this.pesquisarConsulta = new PesquisarConsulta();
     }
 
     /**
@@ -58,6 +61,7 @@ public class MainTecnico extends javax.swing.JFrame {
         bt_cadastrarTelefone = new javax.swing.JButton();
         bt_visualizarConsulta = new javax.swing.JButton();
         bt_cadastrarHorario = new javax.swing.JButton();
+        bt_pesquisarConsulta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -128,6 +132,13 @@ public class MainTecnico extends javax.swing.JFrame {
             }
         });
 
+        bt_pesquisarConsulta.setText("PESQUISAR CONSULTA");
+        bt_pesquisarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_pesquisarConsultaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -140,10 +151,12 @@ public class MainTecnico extends javax.swing.JFrame {
                     .addComponent(bt_cadastrarTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bt_cadastrarHorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bt_visualizarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                    .addComponent(bt_solicitarConsultaEmergencia, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                    .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bt_pesquisarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(bt_visualizarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                        .addComponent(bt_solicitarConsultaEmergencia, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                        .addComponent(bt_atualizarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -162,6 +175,8 @@ public class MainTecnico extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_visualizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_cadastrarHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_pesquisarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -173,7 +188,9 @@ public class MainTecnico extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -221,6 +238,12 @@ public class MainTecnico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_cadastrarHorarioActionPerformed
 
+    private void bt_pesquisarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_pesquisarConsultaActionPerformed
+        if(!this.pesquisarConsulta.isVisible()){
+            this.pesquisarConsulta.setVisible(true);
+        }
+    }//GEN-LAST:event_bt_pesquisarConsultaActionPerformed
+
     public void inicializar(Tecnico tecnico) {
         this.tecnico = tecnico;
     }
@@ -261,6 +284,7 @@ public class MainTecnico extends javax.swing.JFrame {
     private javax.swing.JButton bt_cadastrarHorario;
     private javax.swing.JButton bt_cadastrarMedico;
     private javax.swing.JButton bt_cadastrarTelefone;
+    private javax.swing.JButton bt_pesquisarConsulta;
     private javax.swing.JButton bt_solicitarConsultaEmergencia;
     private javax.swing.JButton bt_visualizarConsulta;
     private javax.swing.JLabel jLabel7;

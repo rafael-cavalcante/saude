@@ -53,6 +53,10 @@ public class ControllerConsulta {
         return this.repositoryConsulta.buscar(dataRealizacao);
     }
     
+    public List<Consulta> buscar(LocalDate dataRealizacao, String status){
+        return this.repositoryConsulta.buscar(dataRealizacao, status);
+    }
+    
     public List<Consulta> buscar(String crmMedico, LocalDate dataRealizacao){
         return this.repositoryConsulta.buscar(crmMedico, dataRealizacao);
     }

@@ -119,9 +119,9 @@ public class RepositoryConsulta {
         }
         return null;
     }
-    
-    public List<Consulta> buscar(LocalDate dataRealizacao){
-         try {
+
+    public List<Consulta> buscar(LocalDate dataRealizacao) {
+        try {
             List<Consulta> consultas = new ArrayList<>();
 
             String query = "SELECT cpf_paciente, crm_medico, codigo_prontuario, data_realizacao FROM POSTINHO.CONSULTA "
@@ -152,9 +152,9 @@ public class RepositoryConsulta {
         }
         return null;
     }
-    
-    public List<Consulta> buscar(String crmMedico, LocalDate dataRealizacao){
-         try {
+
+    public List<Consulta> buscar(String crmMedico, LocalDate dataRealizacao) {
+        try {
             List<Consulta> consultas = new ArrayList<>();
 
             String query = "SELECT cpf_paciente, crm_medico, codigo_prontuario, data_realizacao FROM POSTINHO.CONSULTA "
@@ -164,6 +164,40 @@ public class RepositoryConsulta {
 
             preparedStatement.setString(1, crmMedico);
             preparedStatement.setDate(2, DataService.converter(dataRealizacao));
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                consultas.add(
+                        new Consulta(
+                                new Paciente(resultSet.getLong("cpf_paciente")),
+                                new Medico(resultSet.getString("crm_medico")),
+                                new Prontuario(resultSet.getLong("codigo_prontuario")),
+                                resultSet.getDate("data_realizacao").toLocalDate()
+                        )
+                );
+            }
+
+            return consultas;
+        } catch (SQLException sQLException) {
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return null;
+    }
+
+    public List<Consulta> buscar(LocalDate dataRealizacao, String status) {
+        try {
+            List<Consulta> consultas = new ArrayList<>();
+
+            String query = "SELECT cpf_paciente, crm_medico, codigo_prontuario, data_realizacao FROM POSTINHO.CONSULTA "
+                    + "WHERE data_realizacao = ? AND status ILIKE ? ORDER BY prioridade;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            preparedStatement.setDate(1, DataService.converter(dataRealizacao));
+            preparedStatement.setString(2, status);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -236,8 +270,8 @@ public class RepositoryConsulta {
         }
         return false;
     }
-    
-    public boolean atualizar(long cpfPaciente, String crmMedico, long codigoProntuario, String statusConsulta){
+
+    public boolean atualizar(long cpfPaciente, String crmMedico, long codigoProntuario, String statusConsulta) {
         try {
             String query = "UPDATE POSTINHO.CONSULTA SET status = ? "
                     + "WHERE cpf_paciente = ? AND crm_medico = ? AND codigo_prontuario = ?;";
