@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.saude.tela;
+package br.com.saude.tela.consulta;
 
 import br.com.saude.controller.ControllerConsulta;
 import br.com.saude.model.Consulta;
-import br.com.saude.model.Medico;
 import br.com.saude.service.CPFService;
+import br.com.saude.service.CRMService;
+import br.com.saude.service.DataService;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,21 +16,20 @@ import java.util.List;
  *
  * @author tecin
  */
-public class AndarFilaPaciente extends javax.swing.JFrame {
+public class VisualizarConsulta extends javax.swing.JFrame {
 
     private final ControllerConsulta controllerConsulta;
     private List<Consulta> consultas;
-    private Medico medico;
     private int posicao = 0;
 
     /**
      * Creates new form VisualizarFilaPaciente
      */
-    public AndarFilaPaciente() {
+    public VisualizarConsulta() {
         initComponents();
         initConfiguracoes();
         this.controllerConsulta = new ControllerConsulta();
-        inicializar(new Medico("RN222222"));
+        listarConsultas();
     }
 
     /**
@@ -46,7 +46,8 @@ public class AndarFilaPaciente extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         pg_lista = new javax.swing.JProgressBar();
         tf_paciente = new javax.swing.JFormattedTextField();
-        tb_finalizarConsulta = new javax.swing.JButton();
+        tf_medico = new javax.swing.JFormattedTextField();
+        tf_data = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,7 +64,7 @@ public class AndarFilaPaciente extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,42 +84,53 @@ public class AndarFilaPaciente extends javax.swing.JFrame {
         }
         tf_paciente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        tb_finalizarConsulta.setText("Finalizar Consulta");
-        tb_finalizarConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tb_finalizarConsultaActionPerformed(evt);
-            }
-        });
+        tf_medico.setEditable(false);
+        try {
+            tf_medico.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("CRM/UU######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tf_medico.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        tf_data.setEditable(false);
+        try {
+            tf_data.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        tf_data.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(143, 143, 143))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(tb_finalizarConsulta)
-                        .addGap(136, 136, 136))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
-                .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tb_finalizarConsulta)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,44 +141,24 @@ public class AndarFilaPaciente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tb_finalizarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_finalizarConsultaActionPerformed
-        finalizarConsulta(this.consultas.get(posicao));
-    }//GEN-LAST:event_tb_finalizarConsultaActionPerformed
-
-    public void inicializar(Medico medico) {
-        this.medico = medico;
+    public void inicializar() {
         listarConsultas();
     }
 
     private void listarConsultas() {
-        this.consultas = this.controllerConsulta.buscar(this.medico.getCrm(), LocalDate.now());
+        this.consultas = this.controllerConsulta.buscar(LocalDate.now());
+        tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
+        tf_medico.setText(CRMService.formatar(this.consultas.get(posicao).getMedico().getCrm()));
+        tf_data.setText(DataService.formatar(this.consultas.get(posicao).getDataRealizacao()));
         pg_lista.setMinimum(0);
         pg_lista.setMaximum(this.consultas.size());
         pg_lista.setValue(posicao + 1);
-        tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
-
-    }
-
-    private void finalizarConsulta(Consulta consulta) {
-        if (this.controllerConsulta.atualizar(
-                consulta.getPaciente().getCpf(),
-                consulta.getMedico().getCrm(),
-                consulta.getProntuario().getCodigo(),
-                "Realizada")) {
-            proximaConsulta();
-        }
-    }
-
-    private void proximaConsulta() {
-        posicao++;
-        pg_lista.setValue(posicao + 1);
-        tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
     }
 
     private void initConfiguracoes() {
@@ -189,21 +181,17 @@ public class AndarFilaPaciente extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AndarFilaPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AndarFilaPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AndarFilaPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AndarFilaPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(VisualizarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new AndarFilaPaciente().setVisible(true);
+            new VisualizarConsulta().setVisible(true);
         });
     }
 
@@ -212,7 +200,8 @@ public class AndarFilaPaciente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JProgressBar pg_lista;
-    private javax.swing.JButton tb_finalizarConsulta;
+    private javax.swing.JFormattedTextField tf_data;
+    private javax.swing.JFormattedTextField tf_medico;
     private javax.swing.JFormattedTextField tf_paciente;
     // End of variables declaration//GEN-END:variables
 }

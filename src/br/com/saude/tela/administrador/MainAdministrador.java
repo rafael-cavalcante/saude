@@ -122,13 +122,13 @@ public class MainAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_cadastrarAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarAdministradorActionPerformed
-        if (!this.cadastrarAdministrador.isActive()) {
+        if (!this.cadastrarAdministrador.isVisible()) {
             this.cadastrarAdministrador.setVisible(true);
         }
     }//GEN-LAST:event_bt_cadastrarAdministradorActionPerformed
 
     private void bt_cadastrarTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarTecnicoActionPerformed
-        if (!this.cadastrarTecnico.isActive()) {
+        if (!this.cadastrarTecnico.isVisible()) {
             this.cadastrarTecnico.inicializar(this.administrador);
             this.cadastrarTecnico.setVisible(true);
         }
@@ -158,17 +158,11 @@ public class MainAdministrador extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new MainAdministrador().setVisible(true);

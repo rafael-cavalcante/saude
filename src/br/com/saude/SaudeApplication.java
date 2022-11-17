@@ -484,14 +484,14 @@ public class SaudeApplication extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_entrar_pacienteActionPerformed
 
     private void bt_cadastrar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrar_pacienteActionPerformed
-        if (!this.telaCadastrarPaciente.isActive()) {
+        if (!this.telaCadastrarPaciente.isVisible()) {
             this.telaCadastrarPaciente.setVisible(true);
         }
     }//GEN-LAST:event_bt_cadastrar_pacienteActionPerformed
 
     private void bt_visualizarHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_visualizarHorariosActionPerformed
         this.telavisualizarHorarios.inicializar();
-        if (!this.telavisualizarHorarios.isActive()) {
+        if (!this.telavisualizarHorarios.isVisible()) {
             this.telavisualizarHorarios.setVisible(true);
         }
     }//GEN-LAST:event_bt_visualizarHorariosActionPerformed

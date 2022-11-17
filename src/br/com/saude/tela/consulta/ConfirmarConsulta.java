@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package br.com.saude.tela;
+package br.com.saude.tela.consulta;
 
 import br.com.saude.controller.ControllerConsulta;
 import br.com.saude.model.Consulta;
@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author tecin
  */
-public class ConfirmarConsultaPaciente extends javax.swing.JFrame {
+public class ConfirmarConsulta extends javax.swing.JFrame {
 
     private final ControllerConsulta controllerConsulta;
     private List<Consulta> consultas;
@@ -25,7 +25,7 @@ public class ConfirmarConsultaPaciente extends javax.swing.JFrame {
     /**
      * Creates new form ConfirmarConsultaPaciente
      */
-    public ConfirmarConsultaPaciente() {
+    public ConfirmarConsulta() {
         initComponents();
         initConfiguracoes();
         this.controllerConsulta = new ControllerConsulta();
@@ -205,19 +205,20 @@ public class ConfirmarConsultaPaciente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConfirmarConsultaPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfirmarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConfirmarConsultaPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfirmarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConfirmarConsultaPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfirmarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConfirmarConsultaPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfirmarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new ConfirmarConsultaPaciente().setVisible(true);
+            new ConfirmarConsulta().setVisible(true);
         });
     }
 
