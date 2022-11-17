@@ -30,7 +30,7 @@ public class RepositoryTecnico {
             preparedStatement.setLong(2, administrador.getCpf());
 
             preparedStatement.executeUpdate();
-            
+
             return true;
         } catch (SQLException sQLException) {
             System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
@@ -53,6 +53,7 @@ public class RepositoryTecnico {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+                System.out.println("encontrou");
                 return new Tecnico(
                         resultSet.getLong("cpf"),
                         resultSet.getString("senha"),

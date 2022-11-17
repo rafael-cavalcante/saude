@@ -9,6 +9,7 @@ import br.com.saude.controller.ControllerHorario;
 import br.com.saude.model.Horario;
 import br.com.saude.model.Tecnico;
 import br.com.saude.service.DataService;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,7 +48,7 @@ public class CadastrarHorario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         bt_cadastrarHorario = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -153,6 +154,7 @@ public class CadastrarHorario extends javax.swing.JFrame {
             );
             
             if (this.controllerHorario.adicionar(this.tecnico, horario)) {
+                limparCampos();
                 JOptionPane.showMessageDialog(null, "HORARIO CADASTRADO COM SUCESSO");
             }
         } catch (Exception exception) {
@@ -160,8 +162,18 @@ public class CadastrarHorario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_cadastrarHorarioActionPerformed
     
+    private void limparCampos(){
+        carregarHorario();
+        ta_descricao.setText("");
+    }
+    
+    private void carregarHorario(){
+        tf_data.setText(DataService.formatar(LocalDate.now()));
+    }
+    
     public void inicializar(Tecnico tecnico) {
         this.tecnico = tecnico;
+        carregarHorario();
     }
 
     /**

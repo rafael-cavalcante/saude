@@ -184,7 +184,7 @@ public class MainPaciente extends javax.swing.JFrame {
     }
 
     private void initConfiguracoes() {
-        this.setExtendedState(MainPaciente.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -208,7 +208,7 @@ public class MainPaciente extends javax.swing.JFrame {
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
- 
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new MainPaciente().setVisible(true);

@@ -25,6 +25,7 @@ public class MainMedico extends javax.swing.JFrame {
      */
     public MainMedico() {
         initComponents();
+        initConfiguracoes();
         this.cadastrarTelefone = new CadastrarTelefone();
         this.filaConsulta = new FilaConsulta();
         this.confirmarConsulta = new ConfirmarConsulta();
@@ -46,7 +47,7 @@ public class MainMedico extends javax.swing.JFrame {
         bt_filaConsulta = new javax.swing.JButton();
         bt_confirmarConsulta = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
@@ -135,21 +136,21 @@ public class MainMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_cadastrarTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cadastrarTelefoneActionPerformed
-        if(!this.cadastrarTelefone.isVisible()){
+        if (!this.cadastrarTelefone.isVisible()) {
             this.cadastrarTelefone.inicializar(this.medico);
             this.cadastrarTelefone.setVisible(true);
         }
     }//GEN-LAST:event_bt_cadastrarTelefoneActionPerformed
 
     private void bt_filaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_filaConsultaActionPerformed
-        if(!this.filaConsulta.isVisible()){
+        if (!this.filaConsulta.isVisible()) {
             this.filaConsulta.inicializar(this.medico);
             this.filaConsulta.setVisible(true);
         }
     }//GEN-LAST:event_bt_filaConsultaActionPerformed
 
     private void bt_confirmarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_confirmarConsultaActionPerformed
-        if(!this.confirmarConsulta.isVisible()){
+        if (!this.confirmarConsulta.isVisible()) {
             this.confirmarConsulta.inicializar(this.medico);
             this.confirmarConsulta.setVisible(true);
         }
@@ -157,6 +158,10 @@ public class MainMedico extends javax.swing.JFrame {
 
     public void inicializar(Medico medico) {
         this.medico = medico;
+    }
+
+    private void initConfiguracoes() {
+        this.setLocationRelativeTo(null);
     }
 
     /**

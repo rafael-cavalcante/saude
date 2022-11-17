@@ -20,7 +20,6 @@ public class VisualizarConsulta extends javax.swing.JFrame {
 
     private final ControllerConsulta controllerConsulta;
     private List<Consulta> consultas;
-    private int posicao = 0;
 
     /**
      * Creates new form VisualizarFilaPaciente
@@ -29,7 +28,6 @@ public class VisualizarConsulta extends javax.swing.JFrame {
         initComponents();
         initConfiguracoes();
         this.controllerConsulta = new ControllerConsulta();
-        listarConsultas();
     }
 
     /**
@@ -44,7 +42,6 @@ public class VisualizarConsulta extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        pg_lista = new javax.swing.JProgressBar();
         tf_paciente = new javax.swing.JFormattedTextField();
         tf_medico = new javax.swing.JFormattedTextField();
         tf_data = new javax.swing.JFormattedTextField();
@@ -55,7 +52,7 @@ public class VisualizarConsulta extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("FILA DE PACIENTES");
+        jLabel9.setText("VISUALIZAR CONSULTA");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -64,7 +61,7 @@ public class VisualizarConsulta extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -73,8 +70,6 @@ public class VisualizarConsulta extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addContainerGap())
         );
-
-        pg_lista.setName("rafael"); // NOI18N
 
         tf_paciente.setEditable(false);
         try {
@@ -107,16 +102,11 @@ public class VisualizarConsulta extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -128,9 +118,7 @@ public class VisualizarConsulta extends javax.swing.JFrame {
                     .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,18 +135,17 @@ public class VisualizarConsulta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void inicializar() {
-        listarConsultas();
-    }
-
     private void listarConsultas() {
         this.consultas = this.controllerConsulta.buscar(LocalDate.now());
-        tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
-        tf_medico.setText(CRMService.formatar(this.consultas.get(posicao).getMedico().getCrm()));
-        tf_data.setText(DataService.formatar(this.consultas.get(posicao).getDataRealizacao()));
-        pg_lista.setMinimum(0);
-        pg_lista.setMaximum(this.consultas.size());
-        pg_lista.setValue(posicao + 1);
+        if (!this.consultas.isEmpty()) {
+            tf_paciente.setText(CPFService.formatar(this.consultas.get(0).getPaciente().getCpf()));
+            tf_medico.setText(CRMService.formatar(this.consultas.get(0).getMedico().getCrm()));
+            tf_data.setText(DataService.formatar(this.consultas.get(0).getDataRealizacao()));
+        }
+    }
+
+    public void inicializar() {
+        listarConsultas();
     }
 
     private void initConfiguracoes() {
@@ -185,7 +172,7 @@ public class VisualizarConsulta extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VisualizarConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-  
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new VisualizarConsulta().setVisible(true);
@@ -196,7 +183,6 @@ public class VisualizarConsulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JProgressBar pg_lista;
     private javax.swing.JFormattedTextField tf_data;
     private javax.swing.JFormattedTextField tf_medico;
     private javax.swing.JFormattedTextField tf_paciente;
