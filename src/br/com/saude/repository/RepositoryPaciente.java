@@ -127,6 +127,26 @@ public class RepositoryPaciente {
         }
         return null;
     }
+    
+    public String buscarEmail(long cpf){
+        try {
+            String query = "SELECT email FROM POSTINHO.PACIENTE "
+                    + "WHERE cpf_pessoa = ?;";
+
+            PreparedStatement preparedStatement = Conexao.conectar().prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("email");
+            }
+        } catch (SQLException sQLException) {
+            System.out.println(Estilo.VERMELHO.getCor() + sQLException.getMessage());
+        } finally {
+            Conexao.desconectar();
+        }
+        return null;
+    }
 
     public boolean atualizar(Paciente paciente) {
         try {

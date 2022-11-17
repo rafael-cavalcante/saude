@@ -5,10 +5,11 @@
 package br.com.saude.tela.consulta;
 
 import br.com.saude.controller.ControllerConsulta;
+import br.com.saude.controller.ControllerPaciente;
 import br.com.saude.model.Consulta;
 import br.com.saude.model.Medico;
-import br.com.saude.model.Paciente;
 import br.com.saude.service.CPFService;
+import br.com.saude.service.EmailService;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import java.util.List;
 public class FilaConsulta extends javax.swing.JFrame {
 
     private final ControllerConsulta controllerConsulta;
+    private final ControllerPaciente controllerPaciente;
+    private final EmailService emailService;
     private List<Consulta> consultas;
     private Medico medico;
     private int posicao = 0;
@@ -30,6 +33,8 @@ public class FilaConsulta extends javax.swing.JFrame {
         initComponents();
         initConfiguracoes();
         this.controllerConsulta = new ControllerConsulta();
+        this.controllerPaciente = new ControllerPaciente();
+        this.emailService = new EmailService();
     }
 
     /**
@@ -98,12 +103,12 @@ public class FilaConsulta extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tb_finalizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -112,11 +117,11 @@ public class FilaConsulta extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_paciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
                 .addComponent(pg_lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tb_finalizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -139,18 +144,12 @@ public class FilaConsulta extends javax.swing.JFrame {
         finalizarConsulta(this.consultas.get(posicao));
     }//GEN-LAST:event_tb_finalizarConsultaActionPerformed
 
-    public void inicializar(Medico medico) {
-        this.medico = medico;
-        listarConsultas();
-    }
-
     private void listarConsultas() {
         this.consultas = this.controllerConsulta.buscar(this.medico.getCrm(), LocalDate.now());
         pg_lista.setMinimum(0);
         pg_lista.setMaximum(this.consultas.size());
         pg_lista.setValue(posicao + 1);
         tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
-
     }
 
     private void finalizarConsulta(Consulta consulta) {
@@ -164,13 +163,27 @@ public class FilaConsulta extends javax.swing.JFrame {
     }
 
     private void proximaConsulta() {
-        posicao++;
-        pg_lista.setValue(posicao + 1);
-        tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
+        if (this.consultas.size() < this.posicao) {
+            posicao++;
+            pg_lista.setValue(posicao + 1);
+            tf_paciente.setText(CPFService.formatar(this.consultas.get(posicao).getPaciente().getCpf()));
+            enviarEmail();
+        }
     }
-    
-    private void enviarEmail(Paciente paciente){
-        
+
+    private void enviarEmail() {
+        if (this.consultas.size() < this.posicao) {
+            String email = this.controllerPaciente.buscarEmail(this.consultas.get(posicao + 1).getPaciente().getCpf());
+            if (!email.isEmpty()) {
+                this.emailService.enviarEmail(email);
+            }
+        }
+    }
+
+    public void inicializar(Medico medico) {
+        this.medico = medico;
+        listarConsultas();
+        enviarEmail();
     }
 
     private void initConfiguracoes() {

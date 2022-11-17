@@ -61,4 +61,8 @@ public class ControllerPaciente {
     public Paciente buscar(String crmMedico, long codigoProntuario) {
         return this.repositoryPaciente.buscar(crmMedico, codigoProntuario);
     }
+    
+    public String buscarEmail(long cpf){
+        return this.repositoryPaciente.buscarEmail(cpf);
+    }
 }
