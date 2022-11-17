@@ -43,16 +43,15 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="bt_cadastrarMedico" min="-2" pref="220" max="-2" attributes="0"/>
+                      <Component id="bt_cadastrarMedico" pref="220" max="32767" attributes="0"/>
                       <Component id="bt_cadastrarTelefone" max="32767" attributes="0"/>
+                      <Component id="bt_cadastrarHorario" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="bt_visualizarConsulta" pref="220" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="bt_solicitarConsultaEmergencia" pref="220" max="32767" attributes="0"/>
-                          <Component id="bt_atualizarConsulta" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="bt_solicitarConsultaEmergencia" pref="220" max="32767" attributes="0"/>
+                      <Component id="bt_atualizarConsulta" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -73,7 +72,10 @@
                       <Component id="bt_atualizarConsulta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bt_visualizarConsulta" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="bt_visualizarConsulta" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="bt_cadastrarHorario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -162,6 +164,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_visualizarConsultaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="bt_cadastrarHorario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="CADASTRAR HORARIO"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_cadastrarHorarioActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

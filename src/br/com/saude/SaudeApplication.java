@@ -18,7 +18,7 @@ import br.com.saude.service.CPFService;
 import br.com.saude.service.CRMService;
 import br.com.saude.service.SenhaService;
 import br.com.saude.tela.administrador.MainAdministrador;
-import br.com.saude.tela.horario.TelaVisualizarHorarios;
+import br.com.saude.tela.horario.VisualizarHorarios;
 import br.com.saude.tela.medico.MainMedico;
 import br.com.saude.tela.paciente.TelaCadastrarPaciente;
 import br.com.saude.tela.paciente.MainPaciente;
@@ -32,7 +32,7 @@ import javax.swing.JOptionPane;
 public class SaudeApplication extends javax.swing.JFrame {
 
     private final TelaCadastrarPaciente telaCadastrarPaciente;
-    private final TelaVisualizarHorarios telavisualizarHorarios;
+    private final VisualizarHorarios telavisualizarHorarios;
     private final ControllerAdministrador controllerAdministrador;
     private final ControllerTecnico controllerTecnico;
     private final ControllerMedico controllerMedico;
@@ -46,7 +46,7 @@ public class SaudeApplication extends javax.swing.JFrame {
         initConfiguracoes();
         Configuracao.inicializar();
         this.telaCadastrarPaciente = new TelaCadastrarPaciente();
-        this.telavisualizarHorarios = new TelaVisualizarHorarios();
+        this.telavisualizarHorarios = new VisualizarHorarios();
         this.controllerAdministrador = new ControllerAdministrador();
         this.controllerTecnico = new ControllerTecnico();
         this.controllerMedico = new ControllerMedico();

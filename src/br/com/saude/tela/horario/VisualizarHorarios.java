@@ -14,7 +14,7 @@ import javax.swing.table.TableColumn;
  *
  * @author tecin
  */
-public class TelaVisualizarHorarios extends javax.swing.JFrame {
+public class VisualizarHorarios extends javax.swing.JFrame {
 
     private final ControllerHorario controllerHorario;
     private final HorarioTableModel horarioTableModel;
@@ -22,7 +22,7 @@ public class TelaVisualizarHorarios extends javax.swing.JFrame {
     /**
      * Creates new form Calendario
      */
-    public TelaVisualizarHorarios() {
+    public VisualizarHorarios() {
         initComponents();
         this.controllerHorario = new ControllerHorario();
         this.horarioTableModel = new HorarioTableModel();
@@ -165,20 +165,22 @@ public class TelaVisualizarHorarios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaVisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaVisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaVisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaVisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VisualizarHorarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new TelaVisualizarHorarios().setVisible(true);
+            new VisualizarHorarios().setVisible(true);
         });
     }
 
